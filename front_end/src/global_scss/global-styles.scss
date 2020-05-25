@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css?family=Jim+Nightshade|Open+Sans:400,600,700&display=swap');
+
+//colors
+
+$bg-color: #272727; // Background color */
+$bg-color-transparent: rgba(165, 161, 161, 0.12);
+$bg-color-light: #545454;
+$bg-color-dark: #1f0000;
+
+
+$base-color: #dc3545; // Primary color */
+$base-color-dark: #c53242;
+$base-color-dark2: #a03344;
+
+//text
+
+@mixin text() {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.text-default {
+  @include text();
+}
+
+@mixin text-emphasis() {
+  @include text();
+  font-weight: 700;
+}
+
+.text-highlight {
+  @include text-emphasis();
+}
+
+.text-header {
+  @include text-emphasis();
+  padding: 0.8rem 0 0.5rem;
+  font-size: 1.2rem;
+  @media (max-width: 415px) {
+    padding: 0
+  }
+}
+
+.text-header-important {
+  @include text();
+  font-family: 'Jim Nightshade', sans-serif;
+  padding: 0.8rem 0 0;
+  font-size: 1.8rem;
+  @media (min-width: 415px) {
+    font-size: 2.2rem;
+  }
+}
+
+//buttons
+
+@mixin button() {
+  border-radius: 8%;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.action-button {
+  @include button();
+  @include text();
+  font-weight: 600;
+  background-color: $base-color;
+  margin-bottom: 0.5rem;
+
+  &:hover {
+    background-color: $base-color-dark;
+  }
+}
+
+.neutral-button {
+  @include button();
+  @include text();
+  font-weight: 600;
+  background-color: $bg-color-light;
+  margin-bottom: 0.5rem;
+
+  &:hover {
+    background-color: $bg-color-dark;
+  }
+}
+
+.filter-tag-button {
+  @include button();
+  margin: 0 0.5rem;
+  background-color: $base-color;
+
+  &:hover {
+    background-color: $base-color-dark;
+  }
+}
+
+.material-frame {
+  background: white;
+  border: 0.2px solid lightgrey;
+  box-sizing: border-box;
+  box-shadow: 0 4px 4px lightgrey;
+}
