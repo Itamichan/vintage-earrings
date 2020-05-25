@@ -1,0 +1,21 @@
+matrix:
+  include:
+    - language: python
+      python: "3.7.5"
+      env: PYTHON_ENV_TEST=true
+      cache: pip
+#services:
+#  - postgresql
+#addons:
+#  postgresql: "9.5"
+#before_script:
+#  - psql -c "CREATE DATABASE unittest_backend;" -U postgres
+#  - psql -c "CREATE USER test_user WITH PASSWORD 'test_password';" -U postgres
+#  - sleep 10
+#before_install:
+#  - if [ "${PYTHON_ENV_TEST}" = "true" ]; then export PYTHONPATH="src"; fi
+#install:
+##  - if [ "${PYTHON_ENV_TEST}" = "true" ]; then
+#  pip install -r requirements.txt; fi
+#script:
+#  - if [ "${PYTHON_ENV_TEST}" = "true" ]; then python3 src/run_tests.py; fi
