@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 if development:
     DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://vintage-earrings.herokuapp.com/']
 
 # Application definition
 
