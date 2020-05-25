@@ -1,1 +1,1 @@
-web: gunicorn vintage_earrings.wsgi: application
+web: gunicorn user.wsgi:application
