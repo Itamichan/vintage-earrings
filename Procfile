@@ -1,1 +1,0 @@
-web: gunicorn user.wsgi:application
