@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Jim+Nightshade|Open+Sans:400,600,700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&family=Source+Sans+Pro:wght@400;600;700&display=swap');
 //colors
 
 $bg-color: #272727; // Background color */
@@ -15,7 +14,7 @@ $base-color-dark2: #a03344;
 //text
 
 @mixin text() {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 1rem;
   font-weight: 400;
 }
@@ -34,21 +33,22 @@ $base-color-dark2: #a03344;
 }
 
 .text-header {
-  @include text-emphasis();
+  @include text();
+  font-family: 'Lobster Two', sans-serif;
   padding: 0.8rem 0 0.5rem;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   @media (max-width: 415px) {
     padding: 0
   }
 }
 
 .text-header-important {
-  @include text();
-  font-family: 'Jim Nightshade', sans-serif;
+  @include text-emphasis();
+  font-family: 'Lobster Two', sans-serif;
   padding: 0.8rem 0 0;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   @media (min-width: 415px) {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 }
 

@@ -2,11 +2,14 @@ import React from 'react';
 import './App.scss';
 
 function App() {
-  return (
-    <div className="App">
-
-    </div>
-  );
+    return (
+        <div className="app, text-header-important">
+           hello, I am a vintage earrings shop!
+          <div className={"text-default"}>
+            I am simple text. i need more text to have a better understanding of style
+          </div>
+        </div>
+    );
 }
 
 export default App;
