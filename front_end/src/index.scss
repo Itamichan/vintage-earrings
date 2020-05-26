@@ -1,6 +1,9 @@
+@import "./global_scss/global_styles";
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  background-color: $bg-color;
 }
 
 body {
