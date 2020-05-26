@@ -1,15 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster+Two:wght@400;700&family=Source+Sans+Pro:wght@400;600;700&display=swap');
 //colors
 
-$bg-color: #272727; // Background color */
-$bg-color-transparent: rgba(165, 161, 161, 0.12);
-$bg-color-light: #545454;
-$bg-color-dark: #1f0000;
+$bg-color: #FAF6F5; // Background color */
 
+$primary-color: #CFB53B; // Primary color */
+$primary-dark-color: #AD941F;
+$primary-dark2-color: #856F06;
+$primary-light-color: #ECD360;
+$primary-light2-color: #FFEB8F;
 
-$base-color: #dc3545; // Primary color */
-$base-color-dark: #c53242;
-$base-color-dark2: #a03344;
+$secondary-color: #324E8A; // Secondary color */
+$secondary-dark-color: #1E3A74;
+$secondary-dark2-color: #0D2559;
+$secondary-light-color: #7189BB;
+$secondary-light2-color: #4A659E;
+
+$compliment-color: #682D8A; // Compliment color */
+$compliment-dark-color: #521A74;
+$compliment-dark2-color: #3B0959;
+$compliment-light-color: #9E6DBB;
+$compliment-light2-color: #9E6DBB;
 
 //text
 
@@ -55,7 +65,6 @@ $base-color-dark2: #a03344;
 //buttons
 
 @mixin button() {
-  border-radius: 8%;
   &:hover {
     cursor: pointer;
   }
@@ -63,37 +72,39 @@ $base-color-dark2: #a03344;
 
 .action-button {
   @include button();
-  @include text();
-  font-weight: 600;
-  background-color: $base-color;
-  margin-bottom: 0.5rem;
+  @include text-emphasis();
+  background-color: $secondary-color;
+  color: #FAF6F5;
 
   &:hover {
-    background-color: $base-color-dark;
+    background-color: $secondary-dark-color;
+  }
+  &:active {
+    background-color: $secondary-dark2-color;
   }
 }
 
-.neutral-button {
-  @include button();
-  @include text();
-  font-weight: 600;
-  background-color: $bg-color-light;
-  margin-bottom: 0.5rem;
+//.neutral-button {
+//  @include button();
+//  @include text();
+//  font-weight: 600;
+//  background-color: $bg-color-light;
+//  margin-bottom: 0.5rem;
+//
+//  &:hover {
+//    background-color: $bg-color-dark;
+//  }
+//}
 
-  &:hover {
-    background-color: $bg-color-dark;
-  }
-}
-
-.filter-tag-button {
-  @include button();
-  margin: 0 0.5rem;
-  background-color: $base-color;
-
-  &:hover {
-    background-color: $base-color-dark;
-  }
-}
+//.filter-tag-button {
+//  @include button();
+//  margin: 0 0.5rem;
+//  background-color: $base-color;
+//
+//  &:hover {
+//    background-color: $base-color-dark;
+//  }
+//}
 
 .material-frame {
   background: white;

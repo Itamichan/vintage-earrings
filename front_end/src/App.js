@@ -8,6 +8,7 @@ function App() {
           <div className={"text-default"}>
             I am simple text. i need more text to have a better understanding of style
           </div>
+          <button className={"action-button"}>text</button>
         </div>
     );
 }
