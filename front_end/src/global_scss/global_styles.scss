@@ -3,7 +3,7 @@
 
 $bg-color: #FAF6F5; // Background color */
 
-$primary-color: #CFB53B; // Primary color */
+$primary-color: #d8bd3c; // Primary color */
 $primary-dark-color: #AD941F;
 $primary-dark2-color: #856F06;
 $primary-light-color: #ECD360;
@@ -45,18 +45,17 @@ $compliment-light2-color: #9E6DBB;
 .text-header {
   @include text();
   font-family: 'Lobster Two', sans-serif;
-  padding: 0.8rem 0 0.5rem;
   font-size: 1.5rem;
   @media (max-width: 415px) {
-    padding: 0
+
   }
 }
 
 .text-header-important {
   @include text-emphasis();
   font-family: 'Lobster Two', sans-serif;
-  padding: 0.8rem 0 0;
   font-size: 1.5rem;
+  color: #fff;
   @media (min-width: 415px) {
     font-size: 2rem;
   }

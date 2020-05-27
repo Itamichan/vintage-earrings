@@ -13,7 +13,6 @@ function App() {
             <Provider store={store}>
                 <Layout/>
             </Provider>
-            hello, I am a vintage earrings shop!
         </div>
     );
 }

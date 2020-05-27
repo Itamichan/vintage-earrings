@@ -1,0 +1,22 @@
+@import "../../global_scss/global_styles";
+
+#navbar {
+  height: 4rem;
+  background-color: $primary-color;
+
+  #navbar-logo {
+    img{
+      height: 2rem;
+    }
+  }
+  .nav-button{
+    color: $compliment-color;
+    &:hover {
+      color: $compliment-dark-color;
+      cursor: pointer;
+    }
+    &:active {
+      color: $compliment-dark2-color;
+    }
+  }
+}
