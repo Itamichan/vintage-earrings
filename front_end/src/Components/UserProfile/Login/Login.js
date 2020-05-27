@@ -15,6 +15,7 @@ import {
     ModalHeader
 } from "reactstrap";
 import {notify} from 'react-notify-toast';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import "./Login.scss";
 
 const Login = ({loginUser, isModalOpen, closeModal}) => {
@@ -74,6 +75,26 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
         setEmail("");
     }, [registerUser, isModalOpen]);
 
+    //change the button text in the Login/Registration Modal
+    let toggleButtonName;
+
+    if (registerUser) {
+        toggleButtonName =
+            <div>
+                <FontAwesomeIcon
+                    icon="user-plus"
+                />
+                <span>Create account</span>
+            </div>
+    } else {
+        toggleButtonName =
+            <div>
+                <FontAwesomeIcon
+                    icon="sign-in-alt"
+                />
+                <span>Log in</span>
+            </div>
+    }
 
     return (
         <Modal isOpen={isModalOpen}>
@@ -102,39 +123,44 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                         <FormText>At least 8 characters.</FormText>
                     }
                 </FormGroup>
-                {
-                    !registerUser &&
-                    <div className={"text-highlight"}>
-                        <span>
-                            No account?
-                        </span>
-                        <button
-                            onClick={() => setRegisterUser(true)}
-                            disabled={sendingRequest}
-                            className={"link-button"}
-                        >
-                            Create a new account
-                        </button>
-                    </div>
-                }
-            </ModalBody>
-            <ModalFooter id={"login-footer"}>
-                {registerUser &&
                 <Button
                     disabled={sendingRequest}
-                    className={"neutral-button"}
-                    onClick={() => setRegisterUser(false)}
-                >
-                    Go back
-                </Button>}
-                <Button
-                    disabled={sendingRequest}
-                    className={"action-button"}
+                    className={"auth-button"}
                     onClick={registerUser ? register : login}
                 >
-                    Submit
+                    {toggleButtonName}
                 </Button>
-            </ModalFooter>
+                {
+                    registerUser ?
+                        (
+                            <div className={"text-highlight"}>
+                                <span>
+                                  Already have an account?
+                                </span>
+                                <button
+                                    onClick={() => setRegisterUser(false)}
+                                    disabled={sendingRequest}
+                                    className={"link-button"}
+                                >
+                                    Log in
+                                </button>
+                            </div>
+                        ) : (
+                            <div className={"text-highlight"}>
+                                <span>
+                                    No account?
+                                </span>
+                                <button
+                                    onClick={() => setRegisterUser(true)}
+                                    disabled={sendingRequest}
+                                    className={"link-button"}
+                                >
+                                    Create a new account
+                                </button>
+                            </div>
+                        )
+                }
+            </ModalBody>
         </Modal>
     )
 };

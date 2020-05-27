@@ -1,19 +1,19 @@
 @import "../../../global_scss/global_styles";
 
-#login-footer{
-  justify-content: center;
-}
 
 .link-button {
   background-color: transparent;
   border: none;
   display: inline-block;
-  color: $secondary-color!important;
+  padding-bottom: 1rem;
+  color: $secondary-color !important;
+
   &:hover {
-    color: $secondary-dark-color!important;
+    color: $secondary-dark-color !important;
     text-decoration: underline;
   }
+
   &:active {
-    color:  $secondary-dark2-color!important;
+    color: $secondary-dark2-color !important;
   }
 }
