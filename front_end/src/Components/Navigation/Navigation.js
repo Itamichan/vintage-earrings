@@ -21,7 +21,7 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history}) =>
     if (isUserLoggedIn) {
         toggleNavItem =
             <ButtonDropdown isOpen={isOpen} toggle={toggleUserMenu}>
-                <DropdownToggle nav caret className={"nav-button text-header"}>
+                <DropdownToggle nav caret className={"text-header"}>
                     {/*todo truncate the email only until @*/}
                     hello, {email}
                 </DropdownToggle>
@@ -32,7 +32,7 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history}) =>
             </ButtonDropdown>
     } else {
         toggleNavItem = <NavItem>
-            <NavLink onClick={openLoginModal} className={"nav-button text-header"}>Login</NavLink>
+            <NavLink onClick={openLoginModal} className={"text-header"}>Login</NavLink>
         </NavItem>
     }
 

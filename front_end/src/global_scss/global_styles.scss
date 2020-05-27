@@ -46,6 +46,17 @@ $compliment-light2-color: #9E6DBB;
   @include text();
   font-family: 'Lobster Two', sans-serif;
   font-size: 1.5rem;
+  color: $compliment-color!important;
+
+  &:hover {
+    color: $compliment-dark-color!important;
+    cursor: pointer;
+  }
+
+  &:active {
+    color: $compliment-dark2-color!important;
+  }
+
   @media (max-width: 415px) {
 
   }
@@ -78,6 +89,7 @@ $compliment-light2-color: #9E6DBB;
   &:hover {
     background-color: $secondary-dark-color;
   }
+
   &:active {
     background-color: $secondary-dark2-color;
   }
