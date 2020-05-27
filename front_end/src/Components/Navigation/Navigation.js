@@ -1,7 +1,14 @@
 import React, {useState} from 'react';
 import {
-    ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar,
-    NavbarBrand, NavItem, NavLink, Button
+    ButtonDropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownToggle,
+    Nav,
+    Navbar,
+    NavbarBrand,
+    NavItem,
+    NavLink
 } from 'reactstrap';
 import {logout, openModal} from "../UserProfile/Login/redux/actions";
 import {connect} from "react-redux";

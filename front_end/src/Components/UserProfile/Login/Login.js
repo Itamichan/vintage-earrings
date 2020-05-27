@@ -2,22 +2,31 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {closeModal, login} from "./redux/actions";
 import {connect} from "react-redux";
-import {Button, FormGroup, FormText, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
+import {
+    Button,
+    FormGroup,
+    FormText,
+    Input,
+    Label,
+    Modal,
+    ButtonGroup,
+    ModalBody,
+    ModalFooter,
+    ModalHeader
+} from "reactstrap";
 import {notify} from 'react-notify-toast';
 import "./Login.scss";
 
 const Login = ({loginUser, isModalOpen, closeModal}) => {
-    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [registerUser, setRegisterUser] = useState(false);
-    const [sendingPostRequest, setSendingPostRequest] = useState(false);
+    const [sendingRequest, setSendingRequest] = useState(false);
 
     const register = async () => {
         try {
-            setSendingPostRequest(true);
+            setSendingRequest(true);
             await axios.post('/api/v1/users', {
-                'username': username,
                 'password': password,
                 'email': email
             });
@@ -25,9 +34,6 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
             login();
         } catch (e) {
             switch (e.response.data.error) {
-                case "InvalidUsername":
-                    notify.show('Invalid Username!', "error", 1700);
-                    break;
                 case "InvalidPassword":
                     notify.show('Invalid Password!', "error", 1700);
                     break;
@@ -42,28 +48,28 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
             }
 
         } finally {
-            setSendingPostRequest(false);
+            setSendingRequest(false);
         }
     };
 
     const login = async () => {
         try {
-            setSendingPostRequest(true);
+            setSendingRequest(true);
             const {data} = await axios.post('/api/v1/token', {
-                'username': username,
+                'email': email,
                 'password': password
             });
             loginUser(data.token, data.user_info)
         } catch (e) {
             console.log(e)
         } finally {
-            setSendingPostRequest(false);
+            setSendingRequest(false);
         }
 
     };
 
+    //to clear the input fields if the user re-opens the modal or moves from login view to registration
     useEffect(() => {
-        setUsername("");
         setPassword("");
         setEmail("");
     }, [registerUser, isModalOpen]);
@@ -71,38 +77,40 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
 
     return (
         <Modal isOpen={isModalOpen}>
-            <ModalHeader>
+            <ModalHeader
+                toggle={() => {
+                    closeModal();
+                    setRegisterUser(false)
+                }}>
                 <div className={"text-header"}>
                     {registerUser ? "Register" : "Login"}
                 </div>
             </ModalHeader>
             <ModalBody>
                 <FormGroup>
-                    <Label for="username" className={"text-highlight"}>Username</Label>
-                    <Input disabled={sendingPostRequest} type="text" id={'username'} name={'username'} value={username}
-                           onChange={(e) => setUsername(e.target.value)}/>
-                    <FormText>At least 2 characters.</FormText>
+                    <Label for="email" className={"text-highlight"}>Email</Label>
+                    <Input disabled={sendingRequest} type="email" name="email" id="email" value={email}
+                           onChange={(e) => setEmail(e.target.value)}/>
                 </FormGroup>
                 <FormGroup>
                     <Label for="password" className={"text-highlight"}>Password</Label>
-                    <Input disabled={sendingPostRequest} type="password" id={'password'} name={'password'}
+                    <Input disabled={sendingRequest} type="password" id={'password'} name={'password'}
                            value={password}
                            onChange={(e) => setPassword(e.target.value)}/>
-                    <FormText>At least 8 characters.</FormText>
+                    {
+                        registerUser &&
+                        <FormText>At least 8 characters.</FormText>
+                    }
                 </FormGroup>
                 {
-                    registerUser ? (
+                    !registerUser && (
                         <FormGroup>
-                            <Label for="email" className={"text-highlight"}>Email</Label>
-                            <Input disabled={sendingPostRequest} type="email" name="email" id="email" value={email}
-                                   onChange={(e) => setEmail(e.target.value)}/>
-                        </FormGroup>
-                    ) : (
-                        <FormGroup>
-                            <h1 className={"text-highlight-important"}>Not registered?</h1>
-                            <Button disabled={sendingPostRequest} className={"action-button"}
-                                    onClick={() => setRegisterUser(true)}>Register now!
-                            </Button>
+                            <div className={"text-highlight"}>No account?</div>
+                            <ButtonGroup size="sm">
+                                <Button disabled={sendingRequest} className={"action-button"}
+                                        onClick={() => setRegisterUser(true)}>Create a new account
+                                </Button>
+                            </ButtonGroup>
                         </FormGroup>
                     )
                 }
@@ -110,24 +118,14 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
             <ModalFooter id={"login-footer"}>
                 {registerUser &&
                 <Button
-                    disabled={sendingPostRequest}
+                    disabled={sendingRequest}
                     className={"neutral-button"}
                     onClick={() => setRegisterUser(false)}
                 >
                     Go back
                 </Button>}
                 <Button
-                    disabled={sendingPostRequest}
-                    className={"neutral-button"}
-                    onClick={() => {
-                        closeModal();
-                        setRegisterUser(false)
-                    }}
-                >
-                    Cancel
-                </Button>
-                <Button
-                    disabled={sendingPostRequest}
+                    disabled={sendingRequest}
                     className={"action-button"}
                     onClick={registerUser ? register : login}
                 >
