@@ -103,16 +103,19 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                     }
                 </FormGroup>
                 {
-                    !registerUser && (
-                        <FormGroup>
-                            <div className={"text-highlight"}>No account?</div>
-                            <ButtonGroup size="sm">
-                                <Button disabled={sendingRequest} className={"action-button"}
-                                        onClick={() => setRegisterUser(true)}>Create a new account
-                                </Button>
-                            </ButtonGroup>
-                        </FormGroup>
-                    )
+                    !registerUser &&
+                    <div className={"text-highlight"}>
+                        <span>
+                            No account?
+                        </span>
+                        <button
+                            onClick={() => setRegisterUser(true)}
+                            disabled={sendingRequest}
+                            className={"link-button"}
+                        >
+                            Create a new account
+                        </button>
+                    </div>
                 }
             </ModalBody>
             <ModalFooter id={"login-footer"}>
