@@ -3,7 +3,6 @@
 const initialState = {
     loggedIn: false,
     modalOpen: false,
-    username: undefined,
     email: undefined
 };
 
@@ -19,7 +18,6 @@ const LoginReducer = (state, action) => {
                 //unwraps the state dict
                 ...state,
                 loggedIn: false,
-                username: undefined,
                 email: undefined,
             };
         case "LOGIN":
@@ -28,7 +26,6 @@ const LoginReducer = (state, action) => {
                 ...state,
                 loggedIn: true,
                 modalOpen: false,
-                username: action.userInfo.username,
                 email: action.userInfo.email,
             };
         case "OPEN_MODAL":

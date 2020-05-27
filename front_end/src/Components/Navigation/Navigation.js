@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {
     ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar,
-    NavbarBrand, NavItem, NavLink
+    NavbarBrand, NavItem, NavLink, Button
 } from 'reactstrap';
 import {logout, openModal} from "../UserProfile/Login/redux/actions";
 import {connect} from "react-redux";
@@ -9,20 +9,21 @@ import {withRouter} from "react-router";
 import logo from "../../static/images/logo_transerent.png";
 import "./Navigation.scss";
 
-const Navigation = ({isUserLoggedIn, openLoginModal, username, logout, history}) => {
+const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history}) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
-    const toggleButton = () => setIsOpen(!isOpen);
+    const toggleUserMenu = () => setIsOpen(!isOpen);
 
     let toggleNavItem;
 
     //if user is not logged in we see "Login" button otherwise "Profile".
     if (isUserLoggedIn) {
         toggleNavItem =
-            <ButtonDropdown isOpen={isOpen} toggle={toggleButton}>
-                <DropdownToggle nav caret className={"text-highlight"}>
-                    {username}
+            <ButtonDropdown isOpen={isOpen} toggle={toggleUserMenu}>
+                <DropdownToggle nav caret className={"nav-button text-header"}>
+                    {/*todo truncate the email only until @*/}
+                    hello, {email}
                 </DropdownToggle>
                 <DropdownMenu right>
                     <DropdownItem onClick={() => history.push("/trips")}>Show my trips</DropdownItem>
@@ -31,16 +32,16 @@ const Navigation = ({isUserLoggedIn, openLoginModal, username, logout, history})
             </ButtonDropdown>
     } else {
         toggleNavItem = <NavItem>
-            <NavLink onClick={openLoginModal} id={"login-button"} className={"text-highlight"}>Login</NavLink>
+            <NavLink onClick={openLoginModal} className={"nav-button text-header"}>Login</NavLink>
         </NavItem>
     }
 
     return (
         <div>
-            <Navbar fixed={"top"} color="light" id={"navbar"} light expand={false}>
+            <Navbar fixed={"top"} id={"navbar"} light expand={false}>
                 <NavbarBrand id={"navbar-logo"} href="/">
-                    <img src={logo} alt="JapanWanderlust logo"/>
-                    <span className={"text-header-important"}> JapanWanderlust</span>
+                    <img src={logo} alt="VintageEarrings logo"/>
+                    <span className={"text-header-important"}> VintageEarrings</span>
                 </NavbarBrand>
                 <Nav>
                     {toggleNavItem}
@@ -63,7 +64,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
     return {
         isUserLoggedIn: state.LoginReducer.loggedIn,
-        username: state.LoginReducer.username,
+        email: state.LoginReducer.email,
     }
 };
 
