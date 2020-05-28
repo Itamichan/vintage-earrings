@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import axios from 'axios';
 import {closeModal, login} from "./redux/actions";
 import {connect} from "react-redux";
@@ -14,18 +14,17 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
     const [email, setEmail] = useState('');
     const [registerUser, setRegisterUser] = useState(false);
     const [sendingRequest, setSendingRequest] = useState(false);
+    const formRef = useRef();
 
     const register = async () => {
         try {
-            if (password === confirmPassword) {
-                setSendingRequest(true);
-                await axios.post('/api/v1/users', {
-                    'password': password,
-                    'email': email
-                });
-                notify.show('yay!!', "success", 1700);
-                login();
-            }
+            setSendingRequest(true);
+            await axios.post('/api/v1/users', {
+                'password': password,
+                'email': email
+            });
+            notify.show('yay!!', "success", 1700);
+            login();
         } catch (e) {
             switch (e.response.data.error) {
                 case "InvalidPassword":
@@ -66,6 +65,7 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
     useEffect(() => {
         setPassword("");
         setEmail("");
+        setConfirmPassword("");
     }, [registerUser, isModalOpen]);
 
     //change the button text in the Login/Registration Modal
@@ -101,7 +101,9 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                 </div>
             </ModalHeader>
             <ModalBody>
-                <AvForm onValidSubmit={registerUser ? register : login}>
+                <AvForm onValidSubmit={registerUser ? register : login}
+                        ref={formRef}
+                >
                     <Label for="email" className={"text-highlight"}>Email</Label>
                     <AvField type="email" name="email" id="email" value={email}
                              errorMessage="Please provide an email."
@@ -158,7 +160,10 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                                   Already have an account?
                                 </span>
                                 <button
-                                    onClick={() => setRegisterUser(false)}
+                                    onClick={() => {
+                                        formRef.current.reset();
+                                        setRegisterUser(false)
+                                    }}
                                     disabled={sendingRequest}
                                     className={"link-button"}
                                 >
@@ -171,7 +176,11 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                                     No account?
                                 </span>
                                 <button
-                                    onClick={() => setRegisterUser(true)}
+                                    onClick={() => {
+                                        formRef.current.reset();
+                                        setRegisterUser(true)
+
+                                    }}
                                     disabled={sendingRequest}
                                     className={"link-button"}
                                 >
