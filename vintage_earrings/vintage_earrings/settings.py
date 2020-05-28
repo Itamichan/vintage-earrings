@@ -31,7 +31,10 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 if development:
     DEBUG = True
 
-ALLOWED_HOSTS = ['https://vintage-earrings.herokuapp.com/']
+ALLOWED_HOSTS = [
+    'https://vintage-earrings.herokuapp.com/',
+    "127.0.0.1",
+]
 
 # Application definition
 
@@ -43,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user',
+    'authentication',
 ]
 
 MIDDLEWARE = [
@@ -78,16 +82,14 @@ WSGI_APPLICATION = 'vintage_earrings.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if development:
+if "DATABASE_URL" in os.environ:
+    DATABASES = {'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))}
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
-    }
-else:
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
 
 # Password validation
