@@ -263,6 +263,7 @@ Link to wireframes for desktop can be found [here](https://www.figma.com/file/57
 * [AWS](https://aws.amazon.com/s3/?nc=sn&loc=0) - used to store and retrieve project's data.
 * [Heroku](https://id.heroku.com/) - for hosting of our project.
 * [Travis](https://travis-ci.org/) - used for testing of our back-end code.
+* [Paletton](https://paletton.com/ - used for application's color combinations.
 
 ### React in detail
 
