@@ -2,20 +2,10 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {closeModal, login} from "./redux/actions";
 import {connect} from "react-redux";
-import {
-    Button,
-    FormGroup,
-    FormText,
-    Input,
-    Label,
-    Modal,
-    ButtonGroup,
-    ModalBody,
-    ModalFooter,
-    ModalHeader
-} from "reactstrap";
+import {Button, FormGroup, FormText, Input, Label, Modal, ModalBody, ModalHeader, FormFeedback} from "reactstrap";
 import {notify} from 'react-notify-toast';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {AvForm, AvField} from 'availity-reactstrap-validation';
 import "./Login.scss";
 
 const Login = ({loginUser, isModalOpen, closeModal}) => {
@@ -96,6 +86,8 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
             </div>
     }
 
+    console.log(`email: ${email}`)
+
     return (
         <Modal isOpen={isModalOpen}>
             <ModalHeader
@@ -108,28 +100,43 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                 </div>
             </ModalHeader>
             <ModalBody>
-                <FormGroup>
+                <AvForm onSubmit={registerUser ? register : login}>
                     <Label for="email" className={"text-highlight"}>Email</Label>
-                    <Input disabled={sendingRequest} type="email" name="email" id="email" value={email}
-                           onChange={(e) => setEmail(e.target.value)}/>
-                </FormGroup>
-                <FormGroup>
+                    <AvField type="email" name="email" id="email" value={email}
+                             errorMessage="Please provide an email."
+                             disabled={sendingRequest}
+                             validate={{
+                                 required: {value: true},
+                                 pattern: {
+                                     value: '^([\\w\\.\\-]+)@([\\w]+)\\.([\\w]+){2,}$',
+                                     errorMessage: 'Please provide a valid email.'
+                                 }
+                             }}
+                             onChange={(e) => setEmail(e.target.value)}
+                    />
                     <Label for="password" className={"text-highlight"}>Password</Label>
-                    <Input disabled={sendingRequest} type="password" id={'password'} name={'password'}
-                           value={password}
-                           onChange={(e) => setPassword(e.target.value)}/>
+                    <AvField type="password" id={'password'} name={'password'} value={password}
+                             errorMessage="Please provide a password."
+                             disabled={sendingRequest}
+                             validate={{
+                                 required: {value: true},
+                                 minLength: {
+                                     value: 8,
+                                     errorMessage: 'Your password should be at least 8 characters long.'
+                                 },
+                             }}
+                             onChange={(e) => setPassword(e.target.value)}/>
                     {
                         registerUser &&
                         <FormText>At least 8 characters.</FormText>
                     }
-                </FormGroup>
-                <Button
-                    disabled={sendingRequest}
-                    className={"auth-button"}
-                    onClick={registerUser ? register : login}
-                >
-                    {toggleButtonName}
-                </Button>
+                    <Button
+                        disabled={sendingRequest}
+                        className={"auth-button"}
+                    >
+                        {toggleButtonName}
+                    </Button>
+                </AvForm>
                 {
                     registerUser ?
                         (
