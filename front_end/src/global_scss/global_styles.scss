@@ -114,7 +114,7 @@ $compliment-light2-color: #9E6DBB;
   @include text();
   background-color: $secondary-color;
   width: 100%;
-  margin-bottom: 0.5rem;
+  margin: 0.5rem 0;
 
   span {
     margin-left: 0.5rem;

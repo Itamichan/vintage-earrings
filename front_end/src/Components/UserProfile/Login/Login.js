@@ -117,6 +117,7 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                     <Label for="password" className={"text-highlight"}>Password</Label>
                     <AvField type="password" id={'password'} name={'password'} value={password}
                              errorMessage="Please provide a password."
+                             helpMessage={registerUser && "At least 8 characters."}
                              disabled={sendingRequest}
                              validate={{
                                  required: {value: true},
@@ -126,10 +127,6 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                                  },
                              }}
                              onChange={(e) => setPassword(e.target.value)}/>
-                    {
-                        registerUser &&
-                        <FormText>At least 8 characters.</FormText>
-                    }
                     <Button
                         disabled={sendingRequest}
                         className={"auth-button"}
