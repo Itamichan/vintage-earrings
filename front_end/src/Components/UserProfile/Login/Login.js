@@ -2,27 +2,30 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {closeModal, login} from "./redux/actions";
 import {connect} from "react-redux";
-import {Button, FormGroup, FormText, Input, Label, Modal, ModalBody, ModalHeader, FormFeedback} from "reactstrap";
+import {Button, Label, Modal, ModalBody, ModalHeader} from "reactstrap";
 import {notify} from 'react-notify-toast';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {AvForm, AvField} from 'availity-reactstrap-validation';
+import {AvField, AvForm} from 'availity-reactstrap-validation';
 import "./Login.scss";
 
 const Login = ({loginUser, isModalOpen, closeModal}) => {
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [email, setEmail] = useState('');
     const [registerUser, setRegisterUser] = useState(false);
     const [sendingRequest, setSendingRequest] = useState(false);
 
     const register = async () => {
         try {
-            setSendingRequest(true);
-            await axios.post('/api/v1/users', {
-                'password': password,
-                'email': email
-            });
-            notify.show('yay!!', "success", 1700);
-            login();
+            if (password === confirmPassword) {
+                setSendingRequest(true);
+                await axios.post('/api/v1/users', {
+                    'password': password,
+                    'email': email
+                });
+                notify.show('yay!!', "success", 1700);
+                login();
+            }
         } catch (e) {
             switch (e.response.data.error) {
                 case "InvalidPassword":
@@ -86,8 +89,6 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
             </div>
     }
 
-    console.log(`email: ${email}`)
-
     return (
         <Modal isOpen={isModalOpen}>
             <ModalHeader
@@ -100,7 +101,7 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                 </div>
             </ModalHeader>
             <ModalBody>
-                <AvForm onSubmit={registerUser ? register : login}>
+                <AvForm onValidSubmit={registerUser ? register : login}>
                     <Label for="email" className={"text-highlight"}>Email</Label>
                     <AvField type="email" name="email" id="email" value={email}
                              errorMessage="Please provide an email."
@@ -117,7 +118,7 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                     <Label for="password" className={"text-highlight"}>Password</Label>
                     <AvField type="password" id={'password'} name={'password'} value={password}
                              errorMessage="Please provide a password."
-                             helpMessage={registerUser && "At least 8 characters."}
+                             helpMessage={registerUser && "Your password must contain at least 8 characters."}
                              disabled={sendingRequest}
                              validate={{
                                  required: {value: true},
@@ -127,6 +128,21 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                                  },
                              }}
                              onChange={(e) => setPassword(e.target.value)}/>
+                    {registerUser &&
+                    <div>
+                        <Label for="confirmPassword" className={"text-highlight"}>Confirm Password</Label>
+                        <AvField type="password" id={'confirmPassword'} name={'confirmPassword'} value={confirmPassword}
+                                 errorMessage="Please provide a password."
+                                 disabled={sendingRequest}
+                                 validate={{
+                                     match: {
+                                         value: 'password',
+                                         errorMessage: 'Please provide a matching password'
+                                     }
+                                 }}
+                                 onChange={(e) => setConfirmPassword(e.target.value)}/>
+                    </div>
+                    }
                     <Button
                         disabled={sendingRequest}
                         className={"auth-button"}
