@@ -13,11 +13,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import dj_database_url
 
-if os.environ.get('DEVELOPMENT'):
-    development = True
-else:
-    development = False
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,11 +20,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'my_fancy_key')
+
+ENVIRONMENT = os.environ.get('ENVIRONMENT', 'dev')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if development:
-    DEBUG = True
+
+DEBUG = ENVIRONMENT == 'dev'
 
 ALLOWED_HOSTS = [
     'https://vintage-earrings.herokuapp.com/',
