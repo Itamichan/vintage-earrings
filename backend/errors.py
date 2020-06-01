@@ -24,6 +24,12 @@ class JsonResponse500(JsonResponseError):
         JsonResponseError.__init__(self, 500, "InternalServerError", error_text)
 
 
+class JsonResponse400(JsonResponseError):
+
+    def __init__(self, error, description):
+        JsonResponseError.__init__(self, 400, error, description)
+
+
 class JsonResponse403(JsonResponseError):
 
     def __init__(self, permission_text):
@@ -36,7 +42,7 @@ class JsonResponse401(JsonResponseError):
         JsonResponseError.__init__(self, 401, "Unauthorized", str(unauthorized_text))
 
 
-class JsonResponse400(JsonResponseError):
+class JsonResponse412(JsonResponseError):
 
     def __init__(self, error, description):
         JsonResponseError.__init__(self, 412, error, description)
