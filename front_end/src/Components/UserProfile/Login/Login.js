@@ -21,6 +21,7 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
             setSendingRequest(true);
             await axios.post('/api/v1/users', {
                 'password': password,
+                'confirmPassword': confirmPassword,
                 'email': email
             });
             notify.show('yay!!', "success", 1700);
@@ -29,9 +30,6 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
             switch (e.response.data.error) {
                 case "InvalidPassword":
                     notify.show('Invalid Password!', "error", 1700);
-                    break;
-                case "UnavailableUsername":
-                    notify.show('Unavailable Username!', "error", 1700);
                     break;
                 case "InvalidEmailFormat":
                     notify.show('Invalid Email Format!', "error", 1700);
