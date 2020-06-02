@@ -1,5 +1,8 @@
+import datetime
 import json
 import os
+import jwt
+from django.conf import settings
 
 from django.contrib.auth.password_validation import password_validators_help_texts
 from django.core.exceptions import ValidationError
@@ -9,12 +12,8 @@ from django.views.generic import View
 from django.contrib.auth import password_validation, authenticate
 from django.core.validators import validate_email
 from errors import JsonResponse400, JsonResponse500, JsonResponse412, JsonResponse401
-from jwt import jwt
 
 from user.models import User
-
-# gets the value for our secret key which we will use for jwt
-SECRET_KEY = os.environ.get('SECRET_KEY', 'dev')
 
 
 class RegistrationView(View):
@@ -74,10 +73,10 @@ class RegistrationView(View):
 
 class LoginView(View):
 
-    def post():
+    def post(self, request):
         """
 
-        @api {POST} /api/v1/token User login
+        @api {POST} /api/v1/login User login
         @apiVersion 1.0.0
 
         @apiName    UserLogin
@@ -90,18 +89,10 @@ class LoginView(View):
 
         @apiSuccess {String}    token                   User's jwt.
 
-        @apiSuccess {Object}    user_info               User's information.
-        @apiSuccess {String}    user_info.username      User's username.
-        @apiSuccess {String}    user_info.email         User's email.
-
         @apiSuccessExample {json} Success-Response:
         HTTP/1.1 200 OK
         {
             "token": "eyJ0eXA...",
-            "user_info": {
-                "username": "cristina23",
-                "email": "cristina23@gmail.com"
-            }
         }
 
         @apiError  (Unauthorized 401)           {Object} InvalidLogin           Username or password is incorrect.
@@ -121,18 +112,28 @@ class LoginView(View):
             if not user:
                 return JsonResponse401('email or password is incorrect').json_response()
 
-            token_payload = {
-                'id': user.id,
-                'iat': datetime.datetime.now().astimezone(),
-                'exp': datetime.datetime.now().astimezone() + datetime.timedelta(days=30)
-            }
-            token = jwt.encode(token_payload, SECRET_KEY, algorithm='HS256')
+            token = self.create_token(user)
 
             return JsonResponse({
-                'token': token.decode('ascii'),
-                'user_info': user.user_info()
+                'token': token
             })
 
         except Exception as e:
             print(e)
             return JsonResponse500().json_response()
+
+    def create_token(self, user: User):
+        """
+        token payload will contain the user's id and email and will have an expiration time of 30 days from the date
+        of creation
+        :param user: the existing user in the database
+        :return: token represents the encoded jwt token in ascii format
+        """
+        token_payload = {
+            'id': user.id,
+            'email': user.email,
+            'iat': datetime.datetime.now().astimezone(),
+            'exp': datetime.datetime.now().astimezone() + datetime.timedelta(days=30)
+        }
+        token = jwt.encode(token_payload, settings.SECRET_KEY).decode('ascii')
+        return token

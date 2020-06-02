@@ -1,13 +1,7 @@
-asgiref==3.2.7
-cffi==1.14.0
-cryptography==2.9.2
 dj-database-url==0.5.0
 Django==3.0.6
 django-extensions==2.2.9
 gunicorn==20.0.4
-jwt==1.0.0
+PyJWT==1.7.1
 psycopg2-binary==2.8.5
-pycparser==2.20
-pytz==2020.1
-six==1.15.0
-sqlparse==0.3.1
+
