@@ -19,7 +19,7 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
     const register = async () => {
         try {
             setSendingRequest(true);
-            await axios.post('/api/v1/registration', {
+            await axios.post('api/v1/registration', {
                 'password': password,
                 'email': email
             });
@@ -48,7 +48,7 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
     const login = async () => {
         try {
             setSendingRequest(true);
-            const {data} = await axios.post('/api/v1/login', {
+            const {data} = await axios.post('api/v1/login', {
                 'username': email,
                 'password': password
             });
