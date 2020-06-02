@@ -137,3 +137,53 @@ class LoginView(View):
         }
         token = jwt.encode(token_payload, settings.SECRET_KEY).decode('ascii')
         return token
+
+
+class VerifyTokenView(View):
+
+    def post(self, request):
+        """
+
+        @api {POST} api/v1/token/verify Token Verification
+        @apiVersion 1.0.0
+
+        @apiName VerifyToken
+        @apiGroup Authentication
+
+        @apiDescription  The endpoint is responsible for verification of the token provided by the user.
+
+        @apiParam   {String}    token   User's token.
+
+        @apiSuccess {String}    token   User's jwt token.
+
+        @apiSuccessExample {json} Success-Response:
+        HTTP/1.1 200 OK
+        {}
+
+       @apiError (Unauthorized 401 ) {Object} InvalidToken
+       @apiError (Unauthorized 401 ) {Object} ExpiredToken
+       @apiError (InternalServerError 500) {Object} InternalServerError
+
+        """
+
+        try:
+
+            # tries to get the value if none provided returns an emtpy string
+            token = json.loads(request.body.decode('UTF-8')).get('token', '')
+
+            token_payload = jwt.decode(token, settings.SECRET_KEY, verify=True)
+            user_id = token_payload["id"]
+
+            user = User.objects.get(pk=user_id)
+
+            if not user:
+                return JsonResponse401('Please provide a valid token').json_response()
+
+            return JsonResponse({}, status=200)
+
+        except jwt.ExpiredSignatureError:
+            return JsonResponse401('ExpiredToken').json_response()
+
+        except Exception as e:
+            print(e)
+            return JsonResponse500().json_response()

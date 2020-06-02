@@ -1,10 +1,7 @@
 import json
-
 import jwt
 from django.conf import settings
 from django.test import TestCase
-from django.urls import reverse
-from django.contrib.auth.hashers import make_password
 from user.models import User
 
 
@@ -131,7 +128,8 @@ class LoginTest(TestCase):
         tests that on user login a 200 status code is returned. As well checks that the response contains a token
         and that the user id from the token corresponds with the existing user id in the database.
         """
-        user = User.objects.create_user(username='cristinagarbuz@gmail.com', email='cristinagarbuz@gmail.com', password="private2487")
+        user = User.objects.create_user(username='cristinagarbuz@gmail.com', email='cristinagarbuz@gmail.com',
+                                        password="private2487")
 
         response = self.client.post(
             path='/api/v1/login',
