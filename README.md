@@ -233,6 +233,7 @@ Link to wireframes for desktop can be found [here](https://www.figma.com/file/57
     * [react-fontawesome](https://github.com/FortAwesome/react-fontawesome) - used for icons.
     * [Google Fonts](https://fonts.google.com/) - used for the Nightshade and Open Sans fonts.
     * [react-notify-toast](https://www.npmjs.com/package/react-notify-toast) - used to inform the user on success or failure of certain actions.
+    * [jwt-decode](https://www.npmjs.com/package/jwt-decode) - used to decode the jwt token on the client's side.
 
 * **Back-End**
      * [flask](https://flask.palletsprojects.com/en/1.1.x/) - used for creation of the web framework
