@@ -8,6 +8,8 @@ from django.contrib.auth.password_validation import password_validators_help_tex
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.http import JsonResponse
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from django.contrib.auth import password_validation, authenticate
 from django.core.validators import validate_email
@@ -17,6 +19,10 @@ from user.models import User
 
 
 class RegistrationView(View):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(RegistrationView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request):
         """
@@ -55,7 +61,7 @@ class RegistrationView(View):
             validate_email(email)
 
             # create new user in the databse
-            user = User.objects.create_user(username=email.lower(), email=email.lower(), password=password)
+            User.objects.create_user(username=email.lower(), email=email.lower(), password=password)
             return JsonResponse({}, status=200)
 
         # todo add a different exception for email error?
@@ -72,6 +78,10 @@ class RegistrationView(View):
 
 
 class LoginView(View):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(LoginView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request):
         """
@@ -141,6 +151,10 @@ class LoginView(View):
 
 class VerifyTokenView(View):
 
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(VerifyTokenView, self).dispatch(request, *args, **kwargs)
+
     def post(self, request):
         """
 
@@ -160,9 +174,9 @@ class VerifyTokenView(View):
         HTTP/1.1 200 OK
         {}
 
-       @apiError (Unauthorized 401 ) {Object} InvalidToken
-       @apiError (Unauthorized 401 ) {Object} ExpiredToken
-       @apiError (InternalServerError 500) {Object} InternalServerError
+       @apiError (Unauthorized 401 )            {Object}    InvalidToken
+       @apiError (Unauthorized 401 )            {Object}    ExpiredToken
+       @apiError (InternalServerError 500)      {Object}    InternalServerError
 
         """
 
