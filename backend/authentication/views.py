@@ -105,9 +105,9 @@ class LoginView(View):
 
             # tries to get the value if none provided returns an emtpy string
             password = payload.get('password', '')
-            email = payload.get('email', '')
+            username = payload.get('username', '')
 
-            user = authenticate(username=email, password=password)
+            user = authenticate(username=username.lower(), password=password)
 
             if not user:
                 return JsonResponse401('email or password is incorrect').json_response()

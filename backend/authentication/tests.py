@@ -131,13 +131,13 @@ class LoginTest(TestCase):
         tests that on user login a 200 status code is returned. As well checks that the response contains a token
         and that the user id from the token corresponds with the existing user id in the database.
         """
-        user = User.objects.create_user(username='cristinagarbuz@gmail.com', password="private2487")
+        user = User.objects.create_user(username='cristinagarbuz@gmail.com', email='cristinagarbuz@gmail.com', password="private2487")
 
         response = self.client.post(
             path='/api/v1/login',
             data=json.dumps({
                 "password": "private2487",
-                "email": "cristinagarbuz@gmail.com",
+                "username": "cristinagarbuz@gmail.com",
             }),
             content_type="application/json")
 
@@ -147,11 +147,15 @@ class LoginTest(TestCase):
         self.assertIn('token', response.json())
 
         token = response.json()['token']
+        print(token)
 
         jwt_payload = jwt.decode(token, settings.SECRET_KEY, verify=True)
         user_id_from_token = jwt_payload["id"]
+        user_email_from_token = jwt_payload["email"]
+        print(user_email_from_token)
 
         self.assertEqual(user_id_from_token, user.id)
+        self.assertEqual(user_email_from_token, 'cristinagarbuz@gmail.com')
 
     def test_invalid_credentials_on_login(self):
         """
