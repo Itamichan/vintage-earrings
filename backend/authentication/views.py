@@ -21,7 +21,7 @@ class RegistrationView(View):
     def post(self, request):
         """
 
-        @api {POST} /api/v1/registration User registration
+        @api {POST} api/v1/registration User registration
         @apiVersion 1.0.0
 
         @apiName    UserRegistration
@@ -64,7 +64,7 @@ class RegistrationView(View):
             return JsonResponse400('InvalidPassword', ','.join(ve.messages)).json_response()
 
         except IntegrityError:
-            return JsonResponse400('UsernameAlreadyTaken', 'Please provide a different email').json_response()
+            return JsonResponse400('UnavailableUsername', 'Please provide a different email').json_response()
 
         except Exception as e:
             print(e)
@@ -76,7 +76,7 @@ class LoginView(View):
     def post(self, request):
         """
 
-        @api {POST} /api/v1/login User login
+        @api {POST} api/v1/login User login
         @apiVersion 1.0.0
 
         @apiName    UserLogin
@@ -84,7 +84,7 @@ class LoginView(View):
 
         @apiDescription  The endpoint is responsible for the login of the user and creation of the jwt token.
 
-        @apiParam   {String}    email                   Email provided by the user.
+        @apiParam   {String}    username                Username provided by the user.
         @apiParam   {String}    password                Password provided by the user.
 
         @apiSuccess {String}    token                   User's jwt.
