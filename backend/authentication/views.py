@@ -1,20 +1,16 @@
 import datetime
 import json
-import os
 import jwt
 from django.conf import settings
-
-from django.contrib.auth.password_validation import password_validators_help_texts
+from django.contrib.auth import password_validation, authenticate
 from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from django.db import IntegrityError
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
-from django.contrib.auth import password_validation, authenticate
-from django.core.validators import validate_email
-from errors import JsonResponse400, JsonResponse500, JsonResponse412, JsonResponse401
-
+from errors import JsonResponse400, JsonResponse500, JsonResponse401
 from user.models import User
 
 

@@ -1,6 +1,8 @@
+import datetime
 import json
 import jwt
 from django.conf import settings
+from django.contrib.auth import authenticate
 from django.test import TestCase
 from user.models import User
 
@@ -145,12 +147,10 @@ class LoginTest(TestCase):
         self.assertIn('token', response.json())
 
         token = response.json()['token']
-        print(token)
 
         jwt_payload = jwt.decode(token, settings.SECRET_KEY, verify=True)
         user_id_from_token = jwt_payload["id"]
         user_email_from_token = jwt_payload["email"]
-        print(user_email_from_token)
 
         self.assertEqual(user_id_from_token, user.id)
         self.assertEqual(user_email_from_token, 'cristinagarbuz@gmail.com')
@@ -159,13 +159,14 @@ class LoginTest(TestCase):
         """
         tests that an error is raised if the user provided incorrect password or email.
         """
-        user = User.objects.create_user(username='cristinagarbuz@gmail.com', password="private2487")
+        User.objects.create_user(username='cristinagarbuz@gmail.com', email='cristinagarbuz@gmail.com',
+                                 password="private2487")
 
         response = self.client.post(
             path='/api/v1/login',
             data=json.dumps({
                 "password": "privat2487",
-                "email": "cristinagarbuz@gmail.com",
+                "username": "cristinagarbuz@gmail.com",
             }),
             content_type="application/json")
 
@@ -175,8 +176,40 @@ class LoginTest(TestCase):
             path='/api/v1/login',
             data=json.dumps({
                 "password": "private2487",
-                "email": "cristinagarb@gmail.com",
+                "username": "cristinagarb@gmail.com",
             }),
             content_type="application/json")
 
         self.assertEqual(response.status_code, 401)
+
+
+class TokenVerificationTest(TestCase):
+    def test_verify_token(self):
+        """
+        tests that the provided token is valid.
+        """
+
+        User.objects.create_user(username='cristinagarbuz@gmail.com', email='cristinagarbuz@gmail.com',
+                                 password="private2487")
+
+        login_response = self.client.post(
+            path='/api/v1/login',
+            data=json.dumps({
+                "password": "private2487",
+                "username": "cristinagarbuz@gmail.com",
+            }),
+            content_type="application/json")
+
+        token = login_response.json()['token']
+
+        verify_response = self.client.post(
+            path='/api/v1/token/verify',
+            data=json.dumps({
+                "token": token,
+            }),
+            content_type="application/json")
+
+        print('verify_response:', verify_response)
+
+        self.assertEqual(verify_response.status_code, 200)
+
