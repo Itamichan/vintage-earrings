@@ -19,9 +19,8 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
     const register = async () => {
         try {
             setSendingRequest(true);
-            await axios.post('/api/v1/users', {
+            await axios.post('/api/v1/registration', {
                 'password': password,
-                'confirmPassword': confirmPassword,
                 'email': email
             });
             notify.show('yay!!', "success", 1700);
@@ -33,6 +32,9 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                     break;
                 case "InvalidEmailFormat":
                     notify.show('Invalid Email Format!', "error", 1700);
+                    break;
+                case "UsernameAlreadyTaken":
+                    notify.show('Please provide a different email', "error", 1700);
                     break;
                 default:
                     break;
@@ -46,11 +48,11 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
     const login = async () => {
         try {
             setSendingRequest(true);
-            const {data} = await axios.post('/api/v1/token', {
-                'email': email,
+            const {data} = await axios.post('/api/v1/login', {
+                'username': email,
                 'password': password
             });
-            loginUser(data.token, data.user_info)
+            loginUser(data.token)
         } catch (e) {
             console.log(e)
         } finally {

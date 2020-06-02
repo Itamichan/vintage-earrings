@@ -1,5 +1,7 @@
 //a reducer takes a previous state, modifies it and return the new state
 
+import jwt_decode from "jwt-decode";
+
 const initialState = {
     loggedIn: false,
     modalOpen: false,
@@ -22,11 +24,13 @@ const LoginReducer = (state, action) => {
             };
         case "LOGIN":
             localStorage.setItem("token", action.token);
+            // extracting the user email from the jwt token
+            const email = jwt_decode(action.token)["email"];
             return {
                 ...state,
                 loggedIn: true,
                 modalOpen: false,
-                email: action.userInfo.email,
+                email: email,
             };
         case "OPEN_MODAL":
             return {
@@ -44,3 +48,4 @@ const LoginReducer = (state, action) => {
 };
 
 export default LoginReducer;
+
