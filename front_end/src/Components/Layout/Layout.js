@@ -80,6 +80,9 @@ const Layout = ({loginUser, logout}) => {
                             <Route path="/account">
                                 <UserAccount/>
                             </Route>
+                            <Route path="/">
+                                <StartPage/>
+                            </Route>
                         </Router>
                     </div>
                 )
