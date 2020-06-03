@@ -33,7 +33,8 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history}) =>
                     hello, {email}
                 </DropdownToggle>
                 <DropdownMenu right>
-                    <DropdownItem onClick={() => history.push("/trips")}>Show my trips</DropdownItem>
+                    <DropdownItem onClick={() => history.push("/account")}>My Account</DropdownItem>
+                    <DropdownItem divider />
                     <DropdownItem onClick={logout}>Log Out</DropdownItem>
                 </DropdownMenu>
             </ButtonDropdown>

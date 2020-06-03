@@ -8,6 +8,7 @@ import {login, logout} from "../UserProfile/Login/redux/actions";
 import {connect} from "react-redux";
 import Notifications from 'react-notify-toast';
 import Spinner from "reactstrap/es/Spinner";
+import UserAccount from "../UserProfile/UserAccount/UserAccount";
 
 const Layout = ({loginUser, logout}) => {
 
@@ -29,7 +30,6 @@ const Layout = ({loginUser, logout}) => {
         }
     };
 
-    //todo ask Robert how this works
     useEffect(() => {
         //the interceptor allows to pass the token information to all axios requests.
         axios.interceptors.request.use(
@@ -53,22 +53,17 @@ const Layout = ({loginUser, logout}) => {
             },
             function (error) {
                 // Logout if 401
-                if (error.response) {
-                    if (error.response.status === 401) {
-                        // Unauthorized, bad token
-                        logout();
-                        return Promise.reject(error);
-                    } else {
-                        return Promise.reject(error);
-                    }
-                } else {
-                    return Promise.reject(error);
+                if (error.response && error.response.status === 401) {
+                    // Unauthorized, bad token
+                    logout();
                 }
+                return Promise.reject(error);
             }
         );
         verifyUser();
     }, []);
 
+    //todo find out why react-notify is not working
     return (
         <div>
             {
@@ -82,6 +77,9 @@ const Layout = ({loginUser, logout}) => {
                         <Router>
                             <Navigation/>
                             <Login/>
+                            <Route path="/account">
+                                <UserAccount/>
+                            </Route>
                         </Router>
                     </div>
                 )

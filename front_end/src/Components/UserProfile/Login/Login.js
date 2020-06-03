@@ -17,8 +17,11 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
     const formRef = useRef();
 
     const register = async () => {
+
+
         try {
             setSendingRequest(true);
+
             await axios.post('api/v1/registration', {
                 'password': password,
                 'email': email
