@@ -4,6 +4,8 @@ import jwt
 from django.conf import settings
 from django.contrib.auth import authenticate
 from django.test import TestCase
+from django.urls import reverse
+
 from user.models import User
 
 
@@ -241,3 +243,31 @@ class TokenVerificationTest(TestCase):
 
         self.assertEqual(response.status_code, 401)
         self.assertDictEqual(response.json(), {'description': 'ExpiredToken', 'error': 'Unauthorized'})
+
+
+class ValidateTokenTest(TestCase):
+    def test_validate_token(self):
+        """
+        tests that the endpoint returns a 200 code when a valid token is passed to the decorator.
+        """
+
+        User.objects.create_user(
+            username='cristinagarbuz@gmail.com',
+            email='cristinagarbuz@gmail.com',
+            password="private2487")
+
+        login_response = self.client.post(
+            path='/api/v1/login',
+            data=json.dumps({
+                "password": "private2487",
+                "username": "cristinagarbuz@gmail.com",
+            }),
+            content_type="application/json")
+
+        token = login_response.json()['token']
+
+        response = self.client.get(
+            path=reverse('user:account'),
+            HTTP_AUTHORIZATION=f"JWT {token}")
+
+        self.assertEqual(response.status_code, 200)

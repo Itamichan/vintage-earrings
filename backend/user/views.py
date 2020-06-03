@@ -48,27 +48,7 @@ class UserAccountView(View):
 
         try:
 
-            payload = json.loads(request.body.decode('UTF-8'))
-
-            # tries to get the value. If no value is provided returns an emtpy string
-            password = payload.get('password', '')
-            email = payload.get('email', '')
-
-            # checks if the password and email passes the default django validations
-            password_validation.validate_password(password)
-            validate_email(email)
-
-            # create new user in the databse
-            User.objects.create_user(username=email.lower(), email=email.lower(), password=password)
             return JsonResponse({}, status=200)
-
-        # todo add a different exception for email error?
-        except ValidationError as ve:
-            print('error message:', ','.join(ve.messages))
-            return JsonResponse400('InvalidPassword', ','.join(ve.messages)).json_response()
-
-        except IntegrityError:
-            return JsonResponse400('UnavailableUsername', 'Please provide a different email').json_response()
 
         except Exception as e:
             print(e)

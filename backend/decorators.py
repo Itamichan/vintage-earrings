@@ -12,10 +12,14 @@ from errors import JsonResponse400, JsonResponse500, JsonResponse401
 
 def validate_token(f):
     def _wrapper(*args, **kwargs):
-
+        """
+        The function gets the HTTP_AUTHORIZATION from the headers and extracts the user id from the provided token.
+        It tries to get a user with the extracted user_id and sets it to the request object which is passed to the
+        function that is called by this wrapping function.
+        """
         try:
-            auth = json.loads(args[1].headers.decode('UTF-8')).get('Authorization')
-            auth_token = auth.split()[1]
+            auth_header = args[1].META.get('HTTP_AUTHORIZATION')
+            auth_token = auth_header.split()[1]
             auth_token_decoded = jwt.decode(auth_token, settings.SECRET_KEY, verify=True)
             user_id = auth_token_decoded['id']
 
