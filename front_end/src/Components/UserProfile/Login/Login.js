@@ -23,9 +23,7 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                 'password': password,
                 'email': email
             });
-            //todo figure out why notify is crashing the page
-
-            // notify.show('yay!!', "success", 1700);
+            notify.show('yay!!', "success", 1700);
             login();
         } catch (e) {
             switch (e.response.data.error) {
