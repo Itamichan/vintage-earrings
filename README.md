@@ -234,6 +234,7 @@ Link to wireframes for desktop can be found [here](https://www.figma.com/file/57
     * [Google Fonts](https://fonts.google.com/) - used for the Nightshade and Open Sans fonts.
     * [react-notify-toast](https://www.npmjs.com/package/react-notify-toast) - used to inform the user on success or failure of certain actions.
     * [jwt-decode](https://www.npmjs.com/package/jwt-decode) - used to decode the jwt token on the client's side.
+    * [Availity reactstrap Validation](https://availity.github.io/availity-reactstrap-validation/) - used for form validation.
 
 * **Back-End**
      * [flask](https://flask.palletsprojects.com/en/1.1.x/) - used for creation of the web framework
@@ -264,7 +265,7 @@ Link to wireframes for desktop can be found [here](https://www.figma.com/file/57
 * [AWS](https://aws.amazon.com/s3/?nc=sn&loc=0) - used to store and retrieve project's data.
 * [Heroku](https://id.heroku.com/) - for hosting of our project.
 * [Travis](https://travis-ci.org/) - used for testing of our back-end code.
-* [Paletton](https://paletton.com/ - used for application's color combinations.
+* [Paletton](https://paletton.com/) - used for application's color combinations.
 
 ### React in detail
 
