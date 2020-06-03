@@ -1,8 +1,11 @@
 import React from 'react';
+import "./StartPage.scss";
 
 const StartPage = (props) => {
     return (
-        <div>start page</div>
+        <div id={"start-container"} className={"start-point"}>
+            start page
+        </div>
     )
 };
 
