@@ -145,3 +145,8 @@ $compliment-light2-color: #9E6DBB;
   box-sizing: border-box;
   box-shadow: 0 4px 4px lightgrey;
 }
+
+//ensures that all components leave space on top for the navigation bar
+.start-point{
+  margin-top:  4rem;
+}
