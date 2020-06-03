@@ -213,3 +213,31 @@ class TokenVerificationTest(TestCase):
 
         self.assertEqual(verify_response.status_code, 200)
 
+    def test_expired_token(self):
+        """
+        tests that an error is raised if the token is expired.
+        """
+
+        user = User.objects.create_user(
+            username='cristinagarbuz@gmail.com',
+            email='cristinagarbuz@gmail.com',
+            password="private2487")
+
+        token_payload = {
+            'id': user.id,
+            'email': user.email,
+            'iat': datetime.datetime.now().astimezone(),
+            'exp': datetime.datetime.now().astimezone() - datetime.timedelta(days=1)
+        }
+
+        token = jwt.encode(token_payload, settings.SECRET_KEY).decode('ascii')
+
+        response = self.client.post(
+            path='/api/v1/token/verify',
+            data=json.dumps({
+                "token": token,
+            }),
+            content_type="application/json")
+
+        self.assertEqual(response.status_code, 401)
+        self.assertDictEqual(response.json(), {'description': 'ExpiredToken', 'error': 'Unauthorized'})
