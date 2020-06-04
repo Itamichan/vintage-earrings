@@ -2,7 +2,7 @@ import React from 'react';
 
 const ProductsContainer = (props) => {
     return (
-        <div>
+        <div className={"start-point"}>
             product's container
         </div>
     )

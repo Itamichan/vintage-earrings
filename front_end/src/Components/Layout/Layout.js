@@ -10,6 +10,7 @@ import Notifications from 'react-notify-toast';
 import Spinner from "reactstrap/es/Spinner";
 import UserAccount from "../UserProfile/UserAccount/UserAccount";
 import StartPage from "../StartPage/StartPage";
+import ProductsContainer from "../Product/ProductsContainer";
 
 const Layout = ({loginUser, logout}) => {
 
@@ -64,7 +65,6 @@ const Layout = ({loginUser, logout}) => {
         verifyUser();
     }, []);
 
-    //todo find out why react-notify is not working
     return (
         <div>
             {
@@ -81,6 +81,9 @@ const Layout = ({loginUser, logout}) => {
                             <Switch>
                                 <Route path="/account">
                                     <UserAccount/>
+                                </Route>
+                                <Route path="/products">
+                                    <ProductsContainer/>
                                 </Route>
                                 <Route path="/">
                                     <StartPage/>
