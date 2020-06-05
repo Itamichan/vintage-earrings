@@ -1,0 +1,19 @@
+[
+  {
+    "model": "product.productPhoto",
+    "pk": 1,
+    "fields": {
+      "photo_url": "photo a",
+      "product_id": 1
+    }
+  },
+  {
+    "model": "product.productPhoto",
+    "pk": 2,
+     "fields": {
+      "photo_url": "photo a",
+      "product_id": 2
+    }
+  }
+]
+
