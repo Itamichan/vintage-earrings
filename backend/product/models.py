@@ -3,19 +3,22 @@ from django.db import models
 
 class Product(models.Model):
     # Models the products' information.
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=64, unique=True)
     description = models.TextField()
     price = models.IntegerField()
-    qty = models.IntegerField("quantity")
+    quantity = models.IntegerField()
 
     class Meta:
-        db_table = 'product'
+        db_table = 'products'
+
+    def __str__(self):
+        return self.name
 
 
-class Photo(models.Model):
+class ProductPhoto(models.Model):
     # Models the photos used for the product's representation.
     photo_url = models.CharField(max_length=64)
-    user_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     class Meta:
-        db_table = 'photo'
+        db_table = 'product_photos'
