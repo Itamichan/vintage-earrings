@@ -17,7 +17,7 @@ class Product(models.Model):
 
 class ProductPhoto(models.Model):
     # Models the photos used for the product's representation.
-    photo_url = models.CharField(max_length=64)
+    photo_url = models.URLField()
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     class Meta:

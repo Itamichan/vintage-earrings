@@ -80,7 +80,7 @@ class ProductsView(View):
 
             product_list = []
 
-            # adding to the product_list the dictionaries with the relevant roduct information.
+            # adding to the product_list the dictionaries with the relevant product information.
             for product in product_qs:
                 product_list.append({
                     'id': product.id,

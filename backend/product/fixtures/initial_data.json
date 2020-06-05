@@ -1,0 +1,23 @@
+[
+  {
+    "model": "product.product",
+    "pk": 1,
+    "fields": {
+      "name": "earings1",
+      "description": "very beautiful",
+      "price": 200,
+      "quantity": 20
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 2,
+    "fields": {
+      "name": "earings2",
+      "description": "very beautiful",
+      "price": 130,
+      "quantity": 20
+    }
+  }
+]
+
