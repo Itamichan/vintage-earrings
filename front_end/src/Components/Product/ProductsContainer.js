@@ -15,14 +15,14 @@ const ProductsContainer = (props) => {
 
     const loadProducts = async () => {
         try {
-            const {data} = await axios.get('api/v1/products');
+            const {data} = await axios.get('api/v1/products/');
             setProducts(data.products)
         } catch (e) {
             console.log(e)
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     //load Products one time after the first rendering
     useEffect(() => {
@@ -34,8 +34,8 @@ const ProductsContainer = (props) => {
             <Col xs={"6"} md={"4"} xl={"3"} className={"attraction-card"} key={product.id}>
                 <ProductCard
                     cardId={product.id}
-                    cardTitle={product.product_name}
-                    cardImg={product.picture_url}
+                    cardTitle={product.name}
+                    cardImg={product["photos"][0]["photo_url"]}
                     productPrice={product.price}
                 />
             </Col>
