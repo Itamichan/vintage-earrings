@@ -1,0 +1,40 @@
+[
+  {
+    "model": "product.product",
+    "pk": 1,
+    "fields": {
+      "name": "earings1",
+      "description": "very beautiful",
+      "price": 200,
+      "quantity": 20
+    }
+  },
+  {
+    "model": "product.product",
+    "pk": 2,
+    "fields": {
+      "name": "earings2",
+      "description": "very beautiful",
+      "price": 130,
+      "quantity": 20
+    }
+  },
+    {
+    "model": "product.productPhoto",
+    "pk": 1,
+    "fields": {
+      "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT2lS_uRmpLtYHtc4mIdHcysDiulBedZW5gnK9Sf1LLK2YyzVM0&usqp=CAU",
+      "product_id": 1
+    }
+  },
+  {
+    "model": "product.productPhoto",
+    "pk": 2,
+     "fields": {
+      "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT2lS_uRmpLtYHtc4mIdHcysDiulBedZW5gnK9Sf1LLK2YyzVM0&usqp=CAU",
+      "product_id": 2
+    }
+  }
+  
+]
+
