@@ -202,7 +202,7 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
 // to the global state and will run the reducer with the provided action
 const mapDispatchToProps = (dispatch) => {
     return {
-        loginUser: (token, userInfo) => dispatch(login(token, userInfo)),
+        loginUser: (token) => dispatch(login(token)),
         closeModal: () => dispatch(closeModal())
     }
 };
