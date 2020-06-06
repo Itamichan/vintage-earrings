@@ -56,7 +56,7 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history}) =>
                     {toggleNavItem}
                     <NavItem>
                         <NavLink className={"text-header"}>
-                            <FontAwesomeIcon icon="cart-plus"/>
+                            <FontAwesomeIcon icon="shopping-cart"/>
                         </NavLink>
                     </NavItem>
                 </Nav>
