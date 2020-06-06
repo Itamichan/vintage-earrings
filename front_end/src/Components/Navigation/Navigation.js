@@ -15,6 +15,7 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import logo from "../../static/images/logo_transerent.png";
 import "./Navigation.scss";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history}) => {
 
@@ -53,6 +54,11 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history}) =>
                 </NavbarBrand>
                 <Nav>
                     {toggleNavItem}
+                    <NavItem>
+                        <NavLink className={"text-header"}>
+                            <FontAwesomeIcon icon="cart-plus"/>
+                        </NavLink>
+                    </NavItem>
                 </Nav>
             </Navbar>
         </div>
