@@ -35,7 +35,7 @@ const ProductsContainer = (props) => {
                 <ProductCard
                     cardId={product.id}
                     cardTitle={product.name}
-                    cardImg={product["photos"][0]["photo_url"]}
+                    productImgList={product["photos"]}
                     productPrice={product.price}
                 />
             </Col>

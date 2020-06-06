@@ -2,7 +2,7 @@ import React from 'react';
 import {Card, CardBody, CardImg, CardText, CardTitle} from "reactstrap";
 
 const ProductCard = ({
-                         cardTitle, cardImg, productPrice, cardId
+                         cardTitle, productImgList, productPrice, cardId
                      }) => {
 
 
@@ -12,7 +12,7 @@ const ProductCard = ({
                 <CardImg
                     className={"card-img"}
                     top width="100%"
-                    src={cardImg}
+                    src={productImgList[0]["photo_url"]}
                     alt="img of the attraction"
                 />
                 <CardBody>
