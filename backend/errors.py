@@ -1,7 +1,6 @@
 from django.http import JsonResponse
 
 
-# todo ask Robert to explain
 class JsonResponseError(Exception):
 
     def __init__(self, status, error, description):
@@ -14,7 +13,6 @@ class JsonResponseError(Exception):
         response = {'error': self.error, 'description': self.description}
 
         return JsonResponse(response, status=self.status)
-
 
 class JsonResponse500(JsonResponseError):
 
@@ -52,3 +50,7 @@ class JsonResponse404(JsonResponseError):
 
     def __init__(self, error, description):
         JsonResponseError.__init__(self, 404, error, description)
+
+
+
+
