@@ -36,7 +36,7 @@ const ProductsContainer = (props) => {
                     cardId={product.id}
                     cardTitle={product.name}
                     productImgList={product["photos"]}
-                    productPrice={product.price}
+                    productPrice={`${product.price} €`}
                 />
             </Col>
         )
