@@ -8,10 +8,10 @@ const BasketReducer = (state, action) => {
         return initialState
     }
     if (action.type === "ADD_TO_BASKET") {
-        let basketItemsList = state.basketItems.push(action.product);
+
         return {
             ...state,
-            basketItems: basketItemsList
+            basketItems: [...state.basketItems, action.product]
         };
     } else {
         return state
@@ -19,4 +19,3 @@ const BasketReducer = (state, action) => {
 };
 
 export default BasketReducer;
-
