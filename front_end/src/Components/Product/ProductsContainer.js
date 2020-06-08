@@ -3,6 +3,7 @@ import axios from "axios";
 import {Col, Container, Row, Spinner} from "reactstrap";
 import ProductCard from "./ProductCard";
 import ProductsPagination from "./ProductsPagination";
+import {addProduct} from "../Checkout/basketOperations";
 
 const ProductsContainer = (props) => {
 
@@ -37,6 +38,7 @@ const ProductsContainer = (props) => {
                     cardTitle={product.name}
                     productImgList={product["photos"]}
                     productPrice={`${product.price} €`}
+                    addProduct={addProduct}
                 />
             </Col>
         )

@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import "./ProductCard.scss"
 
 const ProductCard = ({
-                         cardTitle, productImgList, productPrice, cardId
+                         cardTitle, productImgList, productPrice, cardId, addProduct
                      }) => {
 
 
@@ -21,9 +21,8 @@ const ProductCard = ({
                     <CardTitle className={"text-header"}>{cardTitle}</CardTitle>
                     <CardText className={"text-highlight card-text"}>
                         {productPrice}
-                        <FontAwesomeIcon icon="cart-plus"/>
+                        <FontAwesomeIcon icon="cart-plus" onClick={() => addProduct(cardId)}/>
                     </CardText>
-
                 </CardBody>
             </Card>
         </div>
