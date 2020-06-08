@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'authentication',
     'django_extensions',
     'product',
+    'basket',
+
 ]
 
 MIDDLEWARE = [
