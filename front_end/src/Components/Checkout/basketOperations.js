@@ -11,7 +11,7 @@ export const addProduct = async ({product_id}) => {
     let createBasket = async () => {
         try {
 
-            let {data} = await axios.post(`api/v1/baskets/`);
+            let {data} = await axios.get(`api/v1/baskets/`);
             //saving the basket it to the local storage
             localStorage.setItem("basket_id", data.basket_id)
         } catch (e) {
@@ -26,7 +26,7 @@ export const addProduct = async ({product_id}) => {
             let {data} = await axios.post(`api/v1/baskets/${basket_id}/items`, {
                 'product_id': product_id
             });
-            store.dispatch(addToBasket(data.product))
+            store.dispatch(addToBasket(data.item_info))
         } catch (e) {
 
         } finally {
