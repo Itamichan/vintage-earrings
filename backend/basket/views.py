@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 
-from basket.models import Basket, BasketWithItems
+from basket.models import Basket, BasketItem
 from errors import JsonResponse500, JsonResponse400
 from product.models import Product
 
@@ -16,10 +16,10 @@ class BasketsView(View):
     def dispatch(self, request, *args, **kwargs):
         return super(BasketsView, self).dispatch(request, *args, **kwargs)
 
-    def get(self, request):
+    def post(self, request):
         """
 
-        @api {GET} /api/v1/baskets Create a Basket
+        @api {POST} /api/v1/baskets Create a Basket
         @apiVersion 1.0.0
 
         @apiName CreateBasket
@@ -56,10 +56,10 @@ class BasketItemsView(View):
     def dispatch(self, request, *args, **kwargs):
         return super(BasketItemsView, self).dispatch(request, *args, **kwargs)
 
-    def post(self, request):
+    def post(self, request, basket_id):
         """
 
-        @api {POST} /api/v1/baskets/items Manage items in the Basket
+        @api {POST} /api/v1/baskets/<basket_id>/items Manage items in the Basket
         @apiVersion 1.0.0
 
         @apiName BasketManagement
@@ -67,23 +67,25 @@ class BasketItemsView(View):
 
         @apiDescription  The endpoint is responsible for adding or removing items to/from the basket.
 
-        @apiSuccess {String}   basket.id       Basket's id.
+        @apiParam   {Integer}   product_id              The product_id passed by the client side.
 
+        @apiSuccess {Object}    item                    Represents the information about the item in the basket and the subsequent information about the product.
+        @apiSuccess {Integer}   id                      Id of added item to the basket.
+        @apiSuccess {String}    items_quantity          Represents the quantity of added item to the basket.
         @apiSuccess {Object[]}  products                List with products.
         @apiSuccess {Integer}   products.id             Product's id.
         @apiSuccess {String}    products.name           Product's name.
         @apiSuccess {String}    products.description    Product's description.
         @apiSuccess {Integer}   products.price          Product's price per item.
         @apiSuccess {Integer}   products.quantity       Total available products.
-        @apiSuccess {Object}    products.photo          Product's photo dictionary.
+        @apiSuccess {Object[]}  products.photo          Product's photo dictionary.
         @apiSuccess {Integer}   photo.id                Photo's id.
         @apiSuccess {String}    photo.photo_url         Photo's url.
 
          @apiSuccessExample {json} Success-Response:
         # todo add proper url examples
         HTTP/1.1 200 OK
-        {
-            'item_info':
+
             {
                 'id': 1,
                 'items_quantity': 1,
@@ -104,27 +106,33 @@ class BasketItemsView(View):
                     ]
                  }
             }
-        }
 
-
-        @apiError (InternalServerError 500) {Object} InternalServerError
+        @apiError (Bad Request 400)         {Object}    InvalidProductId        Please provide a valid product id.
+        @apiError (Bad Request 400)         {Object}    InvalidBasketId         Please provide a valid basket id.
+        @apiError (InternalServerError 500) {Object}    InternalServerError
 
         """
         try:
             payload = json.loads(request.body.decode('UTF-8'))
 
             product_id = payload.get('product_id', '')
-            basket_id = payload.get('basket_id', '')
 
-            new_item = BasketWithItems.objects.create(basket=Basket.objects.get(pk=basket_id),
-                                                      product=Product.objects.get(pk=product_id), items_quantity=1)
-            if not new_item:
-                return JsonResponse400('InvalidId', 'Provided product id or basket id does not exist').json_response()
+            # raises an error if the provided basket it or product id is invalid.
+            if not product_id:
+                return JsonResponse400('InvalidProductId', 'Please provide a valid product id.').json_response()
+
+            if not basket_id:
+                return JsonResponse400('InvalidBasketId', 'Please provide a valid basket id.').json_response()
+
+            basket = Basket.objects.get(pk=basket_id)
+            product = Product.objects.get(pk=product_id)
+
+            new_item = BasketItem.objects.create(basket=basket, product=product, items_quantity=1)
 
             # query set returns the item from the BasketWithItems joined with the Product table on product Foreign Key.
-            item = BasketWithItems.objects.select_related('product').get(pk=new_item.id)
+            item = BasketItem.objects.select_related('product').get(pk=new_item.id)
 
-            item_info = {
+            return JsonResponse({
                 'id': item.id,
                 'items_quantity': item.items_quantity,
                 'product': {
@@ -135,10 +143,6 @@ class BasketItemsView(View):
                     'quantity': item.product.quantity,
                     'photos': list(item.product.productphoto_set.all().values())
                 }
-            }
-
-            return JsonResponse({
-                "item_info": item_info
             })
         except Exception as e:
             print(e)

@@ -29,7 +29,7 @@ class ProductsView(View):
         @apiSuccess {String}    products.description    Product's description.
         @apiSuccess {Integer}   products.price          Product's price per item.
         @apiSuccess {Integer}   products.quantity       Total available products.
-        @apiSuccess {Object}    products.photo          Product's photo dictionary.
+        @apiSuccess {Object[]}  products.photo          Product's photo dictionary.
         @apiSuccess {Integer}   photo.id                Photo's id.
         @apiSuccess {String}    photo.photo_url         Photo's url.
 

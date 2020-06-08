@@ -13,7 +13,7 @@ class Basket(models.Model):
         db_table = 'baskets'
 
 
-class BasketWithItems(models.Model):
+class BasketItem(models.Model):
     # Models the pivot table between the Basket and Product tables.
 
     basket = models.ForeignKey(Basket, on_delete=models.CASCADE)
@@ -22,4 +22,4 @@ class BasketWithItems(models.Model):
     items_quantity = models.IntegerField()
 
     class Meta:
-        db_table = 'baskets_with_items'
+        db_table = 'basket_items'

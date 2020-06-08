@@ -33,6 +33,7 @@ class RegistrationView(View):
 
         @apiParam   {String{8..}}                password       The password provided by the user. Must be at least 8 characters long.
         @apiParam   {String}                     email          The provided email by the user. Used as username.
+
         @apiSuccessExample {json} Success-Response:
         HTTP/1.1 200 OK
         {}

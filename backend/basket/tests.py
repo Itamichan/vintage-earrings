@@ -2,7 +2,7 @@ import json
 
 from django.test import TestCase
 
-from basket.models import Basket, BasketWithItems
+from basket.models import Basket, BasketItem
 from product.models import Product, ProductPhoto
 
 
@@ -32,7 +32,7 @@ class BasketItemsTest(TestCase):
         basket_id = Basket.objects.create().id
 
         response = self.client.post(
-            path='/api/v1/baskets/items/',
+            path=f'/api/v1/baskets/{basket_id}/items/',
             data=json.dumps({
                 "product_id": product_id,
                 "basket_id": str(basket_id)
@@ -41,15 +41,21 @@ class BasketItemsTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertDictEqual(response.json(), {
-            'item_info': {
-                'id': 1,
-                'items_quantity': 1,
-                'product': {'description': product.description,
-                            'id': product.id,
-                            'name': product.name,
-                            'photos': [{'id': photo.id,
-                                        'photo_url': photo.photo_url,
-                                        'product_id': product.id}],
-                            'price': product.price,
-                            'quantity': product.quantity}}
-        })
+            'id': 1,
+            'items_quantity': 1,
+            'product': {
+                'description': product.description,
+                'id': product.id,
+                'name': product.name,
+                'photos': [
+                    {
+                        'id': photo.id,
+                        'photo_url': photo.photo_url,
+                        'product_id': product.id
+                    }
+                ],
+                'price': product.price,
+                'quantity': product.quantity
+            }
+        }
+                             )
