@@ -127,7 +127,7 @@ class BasketItemsView(View):
             basket = Basket.objects.get(pk=basket_id)
             product = Product.objects.get(pk=product_id)
 
-            basket_item = BasketItem.objects.filter(basket=basket, product=product)
+            basket_item = BasketItem.objects.filter(basket=basket, product=product).exists()
 
             if basket_item:
                 return JsonResponse400('DuplicateItem', 'This item already exists in the basket.').json_response()
@@ -150,6 +150,90 @@ class BasketItemsView(View):
                     'photos': list(item.product.productphoto_set.all().values())
                 }
             })
+        except Exception as e:
+            print(e)
+            return JsonResponse500().json_response()
+
+    def patch(self, request, basket_id):
+        """
+
+        @api {PATCH} /api/v1/baskets/<basket_id>/items Update the items_quantity
+        @apiVersion 1.0.0
+
+        @apiName UpdateItemNumber
+        @apiGroup Baskets
+
+        @apiDescription  The endpoint is responsible for updating the number of items in the basket..
+
+        @apiParam   {Integer}   product_id              The product_id passed by the client side.
+
+        @apiSuccess {Object}    item                    Represents the information about the item in the basket and the subsequent information about the product.
+        @apiSuccess {Integer}   id                      Id of added item to the basket.
+        @apiSuccess {String}    items_quantity          Represents the quantity of added item to the basket.
+        @apiSuccess {Object[]}  products                List with products.
+        @apiSuccess {Integer}   products.id             Product's id.
+        @apiSuccess {String}    products.name           Product's name.
+        @apiSuccess {Text}      products.description    Product's description.
+        @apiSuccess {Integer}   products.price          Product's price per item.
+        @apiSuccess {Integer}   products.quantity       Total available products.
+        @apiSuccess {Object[]}  products.photo          Product's photo dictionary.
+        @apiSuccess {Integer}   photo.id                Photo's id.
+        @apiSuccess {URL}       photo.photo_url         Photo's url.
+
+         @apiSuccessExample {json} Success-Response:
+        # todo add proper url examples
+        HTTP/1.1 200 OK
+
+            {
+
+            }
+
+        @apiError (Bad Request 400)         {Object}    InvalidProductId        Please provide a valid product id.
+        @apiError (Bad Request 400)         {Object}    InvalidBasketId         Please provide a valid basket id.
+        @apiError (InternalServerError 500) {Object}    InternalServerError
+
+        """
+        try:
+            payload = json.loads(request.body.decode('UTF-8'))
+
+            product_id = payload.get('product_id', '')
+
+            # raises an error if the basket id or product id is not provided.
+            if not product_id:
+                return JsonResponse400('InvalidProductId', 'Please provide a valid product id.').json_response()
+
+            if not basket_id:
+                return JsonResponse400('InvalidBasketId', 'Please provide a valid basket id.').json_response()
+
+            basket = Basket.objects.get(pk=basket_id)
+            product = Product.objects.get(pk=product_id)
+
+            basket_item = BasketItem.objects.get(basket=basket, product=product)
+
+            if not basket_item:
+                return JsonResponse400('BasketItemNotFound', 'This basked does not contain such an item').json_response()
+
+            basket_item.items_quantity += 1
+            basket_item.save()
+
+
+
+            # # query set returns the item from the BasketWithItems joined with the Product table on product Foreign Key.
+            # item = BasketItem.objects.select_related('product').get(pk=new_item.id)
+            #
+            # return JsonResponse({
+            #     'id': item.id,
+            #     'items_quantity': item.items_quantity,
+            #     'product': {
+            #         'id': item.product.id,
+            #         'name': item.product.name,
+            #         'description': item.product.description,
+            #         'price': item.product.price,
+            #         'quantity': item.product.quantity,
+            #         'photos': list(item.product.productphoto_set.all().values())
+            #     }
+            # })
+            return JsonResponse({})
         except Exception as e:
             print(e)
             return JsonResponse500().json_response()
