@@ -11,7 +11,7 @@ import Spinner from "reactstrap/es/Spinner";
 import UserAccount from "../UserProfile/UserAccount/UserAccount";
 import StartPage from "../StartPage/StartPage";
 import ProductsContainer from "../Product/ProductsContainer";
-import {loadBasket} from "../Checkout/redux/actions";
+import {loadBasket} from "../Basket/redux/actions";
 
 const Layout = ({loginUser, logout, loadBasket}) => {
 

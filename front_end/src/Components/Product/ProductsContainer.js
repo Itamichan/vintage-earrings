@@ -3,7 +3,7 @@ import axios from "axios";
 import {Col, Container, Row, Spinner} from "reactstrap";
 import ProductCard from "./ProductCard";
 import ProductsPagination from "./ProductsPagination";
-import {addItem, increaseItem} from "../Checkout/basketOperations";
+import {addItem, increaseItem} from "../Basket/basketOperations";
 import {connect} from "react-redux";
 
 const ProductsContainer = ({basketItems}) => {
