@@ -17,7 +17,7 @@ import logo from "../../static/images/logo_transerent.png";
 import "./Navigation.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history}) => {
+const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, basketItems}) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -35,7 +35,7 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history}) =>
                 </DropdownToggle>
                 <DropdownMenu right>
                     <DropdownItem onClick={() => history.push("/account")}>My Account</DropdownItem>
-                    <DropdownItem divider />
+                    <DropdownItem divider/>
                     <DropdownItem onClick={logout}>Log Out</DropdownItem>
                 </DropdownMenu>
             </ButtonDropdown>
@@ -56,7 +56,10 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history}) =>
                     {toggleNavItem}
                     <NavItem>
                         <NavLink className={"text-header"}>
-                            <FontAwesomeIcon icon="shopping-cart"/>
+                            <div>
+                                <FontAwesomeIcon icon="shopping-cart"/>
+                                {basketItems.length !== 0 && <span> {basketItems.length}</span>}
+                            </div>
                         </NavLink>
                     </NavItem>
                 </Nav>
@@ -79,6 +82,7 @@ const mapStateToProps = (state) => {
     return {
         isUserLoggedIn: state.LoginReducer.loggedIn,
         email: state.LoginReducer.email,
+        basketItems: state.BasketReducer.basketItems,
     }
 };
 
