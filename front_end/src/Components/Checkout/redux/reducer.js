@@ -11,10 +11,15 @@ const BasketReducer = (state, action) => {
 
         return {
             ...state,
-            basketItems: [...state.basketItems, action.product]
+            basketItems: [...state.basketItems, action.item]
         };
-    } else {
-        return state
+    }
+    if (action.type === "LOAD_BASKET") {
+
+        return {
+            ...state,
+            basketItems: [...action.items]
+        };
     }
 };
 

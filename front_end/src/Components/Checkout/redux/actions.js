@@ -1,7 +1,14 @@
 
-export const addToBasket = (product) => {
+export const addToBasket = (item) => {
     return {
         type: "ADD_TO_BASKET",
-        product: product,
+        item: item,
+    }
+};
+
+export const loadBasket = (items) => {
+    return {
+        type: "LOAD_BASKET",
+        items: items,
     }
 };

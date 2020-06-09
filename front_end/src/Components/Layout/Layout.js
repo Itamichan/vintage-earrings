@@ -11,14 +11,16 @@ import Spinner from "reactstrap/es/Spinner";
 import UserAccount from "../UserProfile/UserAccount/UserAccount";
 import StartPage from "../StartPage/StartPage";
 import ProductsContainer from "../Product/ProductsContainer";
+import {loadBasket} from "../Checkout/redux/actions";
 
-const Layout = ({loginUser, logout}) => {
+const Layout = ({loginUser, logout, loadBasket}) => {
 
     const [loading, setLoading] = useState(true);
 
     const verifyUser = async () => {
-        const token = localStorage.getItem("token");
         try {
+            const token = localStorage.getItem("token");
+
             if (token) {
                 await axios.post('/api/v1/token/verify', {
                     'token': token
@@ -29,6 +31,20 @@ const Layout = ({loginUser, logout}) => {
 
         } finally {
             setLoading(false)
+        }
+    };
+
+    const getBasketItems = async () => {
+        try {
+            const basketId = localStorage.getItem("basket_id");
+
+            if (basketId) {
+                const {data} = await axios.get(`/api/v1/baskets/${basketId}/items`);
+                loadBasket(data.items)
+            }
+        } catch (e) {
+
+        } finally {
         }
     };
 
@@ -63,6 +79,7 @@ const Layout = ({loginUser, logout}) => {
             }
         );
         verifyUser();
+        getBasketItems()
     }, []);
 
     return (
@@ -102,7 +119,8 @@ const Layout = ({loginUser, logout}) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         loginUser: (token) => dispatch(login(token)),
-        logout: () => dispatch(logout())
+        logout: () => dispatch(logout()),
+        loadBasket: (items) => dispatch(loadBasket(items))
     }
 };
 
