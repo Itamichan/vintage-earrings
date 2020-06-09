@@ -3,9 +3,10 @@ import axios from "axios";
 import {Col, Container, Row, Spinner} from "reactstrap";
 import ProductCard from "./ProductCard";
 import ProductsPagination from "./ProductsPagination";
-import {addProduct} from "../Checkout/basketOperations";
+import {addItem, increaseItem} from "../Checkout/basketOperations";
+import {connect} from "react-redux";
 
-const ProductsContainer = (props) => {
+const ProductsContainer = ({basketItems}) => {
 
     const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState([]);
@@ -25,12 +26,22 @@ const ProductsContainer = (props) => {
         }
     };
 
+    let itemsIdList = basketItems.map(item => {
+        return item.product['id']
+    });
+
     //load Products one time after the first rendering
     useEffect(() => {
         loadProducts()
     }, []);
 
     let productsList = products.map(product => {
+        let updateItem;
+        if (itemsIdList.includes(product.id)) {
+            updateItem = increaseItem
+        } else {
+            updateItem = addItem
+        }
         return (
             <Col xs={"6"} md={"4"} xl={"3"} className={"attraction-card"} key={product.id}>
                 <ProductCard
@@ -38,7 +49,7 @@ const ProductsContainer = (props) => {
                     cardTitle={product.name}
                     productImgList={product["photos"]}
                     productPrice={`${product.price} €`}
-                    addProduct={addProduct}
+                    onShoppingCartClick={updateItem}
                 />
             </Col>
         )
@@ -85,4 +96,19 @@ const ProductsContainer = (props) => {
     )
 };
 
-export default ProductsContainer;
+//dispatch will move the provided action dict (result of login(token))
+// to the global state and will run the reducer with the provided action
+const mapDispatchToProps = (dispatch) => {
+    return {}
+};
+
+//map the global state to properties that are passed into the comp
+const mapStateToProps = (state) => {
+    return {
+        basketItems: state.BasketReducer.basketItems,
+    }
+};
+
+//next line ensures that the properties from the 2 passed functions are passed to Login comp
+const DefaultApp = connect(mapStateToProps, mapDispatchToProps)(ProductsContainer);
+export default DefaultApp;
