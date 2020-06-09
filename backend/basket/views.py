@@ -59,13 +59,13 @@ class BasketItemsView(View):
     def post(self, request, basket_id):
         """
 
-        @api {POST} /api/v1/baskets/<basket_id>/items Manage items in the Basket
+        @api {POST} /api/v1/baskets/<basket_id>/items Add Item to the Basket
         @apiVersion 1.0.0
 
-        @apiName BasketManagement
+        @apiName AddItemToBasket
         @apiGroup Baskets
 
-        @apiDescription  The endpoint is responsible for adding or removing items to/from the basket.
+        @apiDescription  The endpoint is responsible for adding an item to the Basket.
 
         @apiParam   {Integer}   product_id              The product_id passed by the client side.
 
@@ -75,12 +75,12 @@ class BasketItemsView(View):
         @apiSuccess {Object[]}  products                List with products.
         @apiSuccess {Integer}   products.id             Product's id.
         @apiSuccess {String}    products.name           Product's name.
-        @apiSuccess {String}    products.description    Product's description.
+        @apiSuccess {Text}      products.description    Product's description.
         @apiSuccess {Integer}   products.price          Product's price per item.
         @apiSuccess {Integer}   products.quantity       Total available products.
         @apiSuccess {Object[]}  products.photo          Product's photo dictionary.
         @apiSuccess {Integer}   photo.id                Photo's id.
-        @apiSuccess {String}    photo.photo_url         Photo's url.
+        @apiSuccess {URL}       photo.photo_url         Photo's url.
 
          @apiSuccessExample {json} Success-Response:
         # todo add proper url examples
@@ -117,7 +117,7 @@ class BasketItemsView(View):
 
             product_id = payload.get('product_id', '')
 
-            # raises an error if the provided basket it or product id is invalid.
+            # raises an error if the basket id or product id is not provided.
             if not product_id:
                 return JsonResponse400('InvalidProductId', 'Please provide a valid product id.').json_response()
 
@@ -127,6 +127,7 @@ class BasketItemsView(View):
             basket = Basket.objects.get(pk=basket_id)
             product = Product.objects.get(pk=product_id)
 
+            # Adding the new item to the Basket.
             new_item = BasketItem.objects.create(basket=basket, product=product, items_quantity=1)
 
             # query set returns the item from the BasketWithItems joined with the Product table on product Foreign Key.
@@ -143,6 +144,80 @@ class BasketItemsView(View):
                     'quantity': item.product.quantity,
                     'photos': list(item.product.productphoto_set.all().values())
                 }
+            })
+        except Exception as e:
+            print(e)
+            return JsonResponse500().json_response()
+
+    def get(self, request, basket_id):
+        """
+
+        @api {GET} /api/v1/baskets/<basket_id>/items Get Items from the Basket
+        @apiVersion 1.0.0
+
+        @apiName GetItemsFromBasket
+        @apiGroup Baskets
+
+        @apiDescription  The endpoint is responsible for getting the Items from the Basket.
+
+        @apiSuccess {Object[]}  items                   Represents all the existing items in the Basket.
+        @apiSuccess {Integer}   id                      Id of added item to the basket.
+        @apiSuccess {Integer}   items_quantity          Represents the quantity of added item to the basket.
+        @apiSuccess {Object[]}  products                List with products.
+        @apiSuccess {Integer}   products.id             Product's id.
+        @apiSuccess {String}    products.name           Product's name.
+        @apiSuccess {Text}      products.description    Product's description.
+        @apiSuccess {Integer}   products.price          Product's price per item.
+        @apiSuccess {Integer}   products.quantity       Total available products.
+        @apiSuccess {Object[]}  products.photo          Product's photo dictionary.
+        @apiSuccess {Integer}   photo.id                Photo's id.
+        @apiSuccess {URL}       photo.photo_url         Photo's url.
+
+         @apiSuccessExample {json} Success-Response:
+        # todo add proper url examples
+        HTTP/1.1 200 OK
+
+            {
+             items: []
+            }
+
+        @apiError (Bad Request 400)         {Object}    InvalidBasketId         Please provide a valid basket id.
+        @apiError (InternalServerError 500) {Object}    InternalServerError
+
+        """
+        try:
+
+            # raises an error if no basked id is provided.
+            if not basket_id:
+                return JsonResponse400('InvalidBasketId', 'Please provide a valid basket id.').json_response()
+
+            # get a query set that returns all the items from a specific basket joined with the Product table on
+            # product's Foreign Key.
+
+            basket = Basket.objects.get(pk=basket_id)
+            items_qs = BasketItem.objects.select_related('product').filter(basket=basket)
+
+            items_list = []
+
+            # adding to the product_list the dictionaries with the relevant product information.
+            for item in items_qs:
+                items_list.append(
+                    {
+                        'id': item.id,
+                        'items_quantity': item.items_quantity,
+                        'product': {
+                            'id': item.product.id,
+                            'name': item.product.name,
+                            'description': item.product.description,
+                            'price': item.product.price,
+                            'quantity': item.product.quantity,
+                            'photos': list(item.product.productphoto_set.all().values())
+                        }
+                    }
+                )
+
+            return JsonResponse({
+                "items": items_list
             })
         except Exception as e:
             print(e)
