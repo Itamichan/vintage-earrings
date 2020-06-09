@@ -127,6 +127,11 @@ class BasketItemsView(View):
             basket = Basket.objects.get(pk=basket_id)
             product = Product.objects.get(pk=product_id)
 
+            basket_item = BasketItem.objects.filter(basket=basket, product=product)
+
+            if basket_item:
+                return JsonResponse400('DuplicateItem', 'This item already exists in the basket.').json_response()
+
             # Adding the new item to the Basket.
             new_item = BasketItem.objects.create(basket=basket, product=product, items_quantity=1)
 

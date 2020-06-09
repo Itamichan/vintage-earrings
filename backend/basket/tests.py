@@ -60,6 +60,38 @@ class BasketItemsTest(TestCase):
         }
                              )
 
+    def test_item_can_be_added_only_once(self):
+        """
+        tests that the endpoint adds the item to the basket only one time.
+        """
+
+        self.maxDiff = None
+
+        product = Product.objects.create(name='earings', description='very beautiful', price=200, quantity=20)
+        ProductPhoto.objects.create(photo_url='photo a', product=product)
+
+        product_id = product.id
+        basket_id = Basket.objects.create().id
+
+        self.client.post(
+            path=f'/api/v1/baskets/{basket_id}/items/',
+            data=json.dumps({
+                "product_id": product_id,
+                "basket_id": str(basket_id)
+            }),
+            content_type="application/json")
+
+        response = self.client.post(
+            path=f'/api/v1/baskets/{basket_id}/items/',
+            data=json.dumps({
+                "product_id": product_id,
+                "basket_id": str(basket_id)
+            }),
+            content_type="application/json")
+
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.json()['error'], 'DuplicateItem')
+
     def test_get_items_info(self):
         """
         tests that the endpoint returns a list with all the items and their relevant information.
