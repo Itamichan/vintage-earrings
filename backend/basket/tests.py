@@ -22,7 +22,7 @@ class BasketCreationTest(TestCase):
 class BasketItemsTest(TestCase):
     def test_return_item_info(self):
         """
-        tests that a
+        tests that the endpoint returns a dictionary with all the relevant information for the item.
         """
 
         product = Product.objects.create(name='earings', description='very beautiful', price=200, quantity=20)
@@ -57,5 +57,70 @@ class BasketItemsTest(TestCase):
                 'price': product.price,
                 'quantity': product.quantity
             }
+        }
+                             )
+
+    def test_get_items_info(self):
+        """
+        tests that the endpoint returns a list with all the items and their relevant information.
+        """
+
+        self.maxDiff = None
+
+        product1 = Product.objects.create(name='earings1', description='very beautiful', price=200, quantity=20)
+        photo1 = ProductPhoto.objects.create(photo_url='photo a', product=product1)
+
+        product2 = Product.objects.create(name='earings2', description='very beautiful', price=200, quantity=20)
+        photo2 = ProductPhoto.objects.create(photo_url='photo a', product=product2)
+
+        basket = Basket.objects.create()
+        basket_id = basket.id
+
+        BasketItem.objects.create(basket=basket, product=product1, items_quantity=1)
+        BasketItem.objects.create(basket=basket, product=product2, items_quantity=1)
+
+        response = self.client.get(
+            path=f'/api/v1/baskets/{basket_id}/items/')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertDictEqual(response.json(), {
+            'items': [
+                {
+                    'id': 1,
+                    'items_quantity': 1,
+                    'product': {
+                        'description': product1.description,
+                        'id': product1.id,
+                        'name': product1.name,
+                        'photos': [
+                            {
+                                'id': photo1.id,
+                                'photo_url': photo1.photo_url,
+                                'product_id': product1.id
+                            }
+                        ],
+                        'price': product1.price,
+                        'quantity': product1.quantity
+                    }
+                },
+                {
+                    'id': 2,
+                    'items_quantity': 1,
+                    'product': {
+                        'description': product2.description,
+                        'id': product2.id,
+                        'name': product2.name,
+                        'photos': [
+                            {
+                                'id': photo2.id,
+                                'photo_url': photo2.photo_url,
+                                'product_id': product2.id
+                            }
+                        ],
+                        'price': product2.price,
+                        'quantity': product2.quantity
+                    }
+                }
+            ]
         }
                              )
