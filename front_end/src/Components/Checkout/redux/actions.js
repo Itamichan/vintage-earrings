@@ -12,3 +12,10 @@ export const loadBasket = (items) => {
         items: items,
     }
 };
+
+export const updateBasket = (productId) => {
+    return {
+        type: "UPDATE_BASKET",
+        productId: productId,
+    }
+};
