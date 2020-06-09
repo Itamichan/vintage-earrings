@@ -12,8 +12,9 @@ import UserAccount from "../UserProfile/UserAccount/UserAccount";
 import StartPage from "../StartPage/StartPage";
 import ProductsContainer from "../Product/ProductsContainer";
 import {loadBasket} from "../Basket/redux/actions";
+import Basket from "../Basket/Basket";
 
-const Layout = ({loginUser, logout, loadBasket}) => {
+const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
 
     const [loading, setLoading] = useState(true);
 
@@ -82,6 +83,11 @@ const Layout = ({loginUser, logout, loadBasket}) => {
         getBasketItems()
     }, []);
 
+    //calculating the total amount of items in the basket
+    let itemsQuantity = basketItems.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue.items_quantity
+    }, 0);
+
     return (
         <div>
             {
@@ -93,7 +99,7 @@ const Layout = ({loginUser, logout, loadBasket}) => {
                     <div>
                         <Notifications options={{zIndex: 10000, width: "100%"}}/>
                         <Router>
-                            <Navigation/>
+                            <Navigation ShowItemsCount = {itemsQuantity}/>
                             <Login/>
                             <Switch>
                                 <Route path="/account">
@@ -101,6 +107,9 @@ const Layout = ({loginUser, logout, loadBasket}) => {
                                 </Route>
                                 <Route path="/products">
                                     <ProductsContainer/>
+                                </Route>
+                                <Route path="/basket">
+                                    <Basket/>
                                 </Route>
                                 <Route path="/">
                                     <StartPage/>
@@ -126,7 +135,9 @@ const mapDispatchToProps = (dispatch) => {
 
 //map the global state to properties that are passed into the comp
 const mapStateToProps = (state) => {
-    return {}
+    return {
+        basketItems: state.BasketReducer.basketItems,
+    }
 };
 
 //next line ensures that the properties from the 2 passed functions are passed to Login comp

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Basket = (props) => {
     return (
-        <div>
+        <div className={'start-point'}>
             basket
         </div>
     )

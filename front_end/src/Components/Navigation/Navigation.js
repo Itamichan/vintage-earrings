@@ -17,7 +17,7 @@ import logo from "../../static/images/logo_transerent.png";
 import "./Navigation.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, basketItems}) => {
+const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, ShowItemsCount}) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -45,10 +45,7 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, bas
         </NavItem>
     }
 
-    //calculating the total amount of items in the basket
-    let itemsQuantity = basketItems.reduce((accumulator, currentValue) => {
-        return accumulator + currentValue.items_quantity
-    }, 0);
+
 
     return (
         <div>
@@ -61,9 +58,9 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, bas
                     {toggleNavItem}
                     <NavItem>
                         <NavLink className={"text-header"}>
-                            <div>
+                            <div onClick={() => history.push("/basket")}>
                                 <FontAwesomeIcon icon="shopping-cart"/>
-                                {basketItems.length !== 0 && <span> {itemsQuantity}</span>}
+                                {ShowItemsCount !== 0 && <span> {ShowItemsCount}</span>}
                             </div>
                         </NavLink>
                     </NavItem>
@@ -87,7 +84,6 @@ const mapStateToProps = (state) => {
     return {
         isUserLoggedIn: state.LoginReducer.loggedIn,
         email: state.LoginReducer.email,
-        basketItems: state.BasketReducer.basketItems,
     }
 };
 
