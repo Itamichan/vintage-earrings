@@ -92,6 +92,46 @@ class BasketItemsTest(TestCase):
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json()['error'], 'DuplicateItem')
 
+    def test_update_item_quantity(self):
+        """
+        tests that the endpoint updates the quantity of the Item in the Basket.
+        """
+
+        self.maxDiff = None
+
+        product = Product.objects.create(name='earings', description='very beautiful', price=200, quantity=20)
+        ProductPhoto.objects.create(photo_url='photo a', product=product)
+        product_id = product.id
+
+        basket = Basket.objects.create()
+        basket_id = basket.id
+
+        BasketItem.objects.create(basket=basket, product=product, items_quantity=1)
+
+        response = self.client.patch(
+            path=f'/api/v1/baskets/{basket_id}/items/',
+            data=json.dumps({
+                "product_id": product_id,
+                "basket_id": str(basket_id)
+            }),
+            content_type="application/json")
+
+        updated_basket_item = BasketItem.objects.get(basket=basket, product=product)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(updated_basket_item.items_quantity, 2)
+
+        self.client.patch(
+            path=f'/api/v1/baskets/{basket_id}/items/',
+            data=json.dumps({
+                "product_id": product_id,
+                "basket_id": str(basket_id)
+            }),
+            content_type="application/json")
+
+        updated_again_basket_item = BasketItem.objects.get(basket=basket, product=product)
+        self.assertEqual(updated_again_basket_item.items_quantity, 3)
+
     def test_get_items_info(self):
         """
         tests that the endpoint returns a list with all the items and their relevant information.
