@@ -109,23 +109,21 @@ class BasketItemsTest(TestCase):
         BasketItem.objects.create(basket=basket, product=product, items_quantity=1)
 
         response = self.client.patch(
-            path=f'/api/v1/baskets/{basket_id}/items/',
+            path=f'/api/v1/baskets/{basket_id}/items/{product_id}',
             data=json.dumps({
-                "product_id": product_id,
-                "basket_id": str(basket_id)
+                'quantity': 7
             }),
             content_type="application/json")
 
         updated_basket_item = BasketItem.objects.get(basket=basket, product=product)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(updated_basket_item.items_quantity, 2)
+        self.assertEqual(updated_basket_item.items_quantity, 7)
 
         self.client.patch(
-            path=f'/api/v1/baskets/{basket_id}/items/',
+            path=f'/api/v1/baskets/{basket_id}/items/{product_id}',
             data=json.dumps({
-                "product_id": product_id,
-                "basket_id": str(basket_id)
+                'quantity': 3
             }),
             content_type="application/json")
 
