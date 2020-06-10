@@ -154,7 +154,7 @@ class BasketItemsView(View):
             print(e)
             return JsonResponse500().json_response()
 
-    def patch(self, request, basket_id, product_id):
+    def patch(self, request, basket_id, item_id):
         """
 
         @api {PATCH} /api/v1/baskets/<basket_id>/items/<product_id> Update the items_quantity
@@ -188,7 +188,7 @@ class BasketItemsView(View):
 
             }
 
-        @apiError (Bad Request 400)         {Object}    InvalidProductId        Please provide a valid product id.
+        @apiError (Bad Request 400)         {Object}    InvalidItemId        Please provide a valid item id.
         @apiError (Bad Request 400)         {Object}    InvalidBasketId         Please provide a valid basket id.
         @apiError (Bad Request 400)         {Object}    InvalidQuantity         Please provide a valid quantity value.
         @apiError (InternalServerError 500) {Object}    InternalServerError
@@ -200,8 +200,8 @@ class BasketItemsView(View):
             item_quantity = payload.get('quantity', '')
 
             # raises an error if a value is not provided.
-            if not product_id:
-                return JsonResponse400('InvalidProductId', 'Please provide a valid product id.').json_response()
+            if not item_id:
+                return JsonResponse400('InvalidItemId', 'Please provide a valid item id.').json_response()
 
             if not basket_id:
                 return JsonResponse400('InvalidBasketId', 'Please provide a valid basket id.').json_response()
@@ -210,9 +210,8 @@ class BasketItemsView(View):
                 return JsonResponse400('InvalidQuantity', 'Please provide a valid quantity value.').json_response()
 
             basket = Basket.objects.get(pk=basket_id)
-            product = Product.objects.get(pk=product_id)
 
-            basket_item = BasketItem.objects.get(basket=basket, product=product)
+            basket_item = BasketItem.objects.get(basket=basket, pk=item_id)
 
             if not basket_item:
                 return JsonResponse400('BasketItemNotFound', 'This basked does not contain such an item').json_response()
