@@ -88,6 +88,10 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
         return accumulator + currentValue.items_quantity
     }, 0);
 
+    let itemsTotalPrice = basketItems.reduce((accumulator, currentValue) => {
+        return accumulator + currentValue.items_quantity * currentValue.product.price
+    }, 0);
+
     return (
         <div>
             {
@@ -109,7 +113,10 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
                                     <ProductsContainer/>
                                 </Route>
                                 <Route path="/basket">
-                                    <Basket showItemsCount = {itemsQuantity}/>
+                                    <Basket
+                                        showItemsCount = {itemsQuantity}
+                                        showItemsTotal = {itemsTotalPrice}
+                                    />
                                 </Route>
                                 <Route path="/">
                                     <StartPage/>

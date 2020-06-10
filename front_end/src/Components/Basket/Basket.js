@@ -2,6 +2,7 @@ import React from 'react';
 import {Col, Container, Row} from 'reactstrap';
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
+import BasketItem from "./BasketItem";
 
 const Basket = ({showItemsCount, showItemsTotal, basketItems}) => {
 
@@ -9,9 +10,9 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems}) => {
         return (
             <Col xs={"12"} key={item.id}>
                 <BasketItem
-                    cardTitle={item.name}
-                    itemImgList={item["photos"]}
-                    itemPrice={`${item.price} €`}
+                    cardTitle={item.product.name}
+                    itemImgList={item.product.photos}
+                    itemPrice={`${item.product.price} €`}
                     itemQuantity={item.items_quantity}
                 />
             </Col>

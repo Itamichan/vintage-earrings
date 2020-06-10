@@ -10,12 +10,12 @@ const ProductCard = ({
 
 
     return (
-        <div className={"attraction-container material-frame"}>
+        <div className={"material-frame"}>
             <Card className={"card"}>
                 <CardImg
                     className={"card-img"}
                     top width="100%"
-                    src={productImgList[0]["photo_url"]}
+                    src={productImgList[0].photo_url}
                     alt="img of the attraction"
                 />
                 <CardBody>

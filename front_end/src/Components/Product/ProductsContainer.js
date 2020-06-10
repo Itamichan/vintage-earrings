@@ -48,7 +48,7 @@ const ProductsContainer = ({basketItems}) => {
 
     let productsList = products.map(product => {
         return (
-            <Col xs={"6"} md={"4"} xl={"3"} className={"attraction-card"} key={product.id}>
+            <Col xs={"6"} md={"4"} xl={"3"} key={product.id}>
                 <ProductCard
                     cardTitle={product.name}
                     productImgList={product["photos"]}
