@@ -101,15 +101,15 @@ class BasketItemsTest(TestCase):
 
         product = Product.objects.create(name='earings', description='very beautiful', price=200, quantity=20)
         ProductPhoto.objects.create(photo_url='photo a', product=product)
-        product_id = product.id
 
         basket = Basket.objects.create()
         basket_id = basket.id
 
-        BasketItem.objects.create(basket=basket, product=product, items_quantity=1)
+        basket_item = BasketItem.objects.create(basket=basket, product=product, items_quantity=1)
+        item_id = basket_item.id
 
         response = self.client.patch(
-            path=f'/api/v1/baskets/{basket_id}/items/{product_id}',
+            path=f'/api/v1/baskets/{basket_id}/items/{item_id}',
             data=json.dumps({
                 'quantity': 7
             }),
@@ -121,7 +121,7 @@ class BasketItemsTest(TestCase):
         self.assertEqual(updated_basket_item.items_quantity, 7)
 
         self.client.patch(
-            path=f'/api/v1/baskets/{basket_id}/items/{product_id}',
+            path=f'/api/v1/baskets/{basket_id}/items/{item_id}',
             data=json.dumps({
                 'quantity': 3
             }),
