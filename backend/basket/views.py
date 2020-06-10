@@ -154,18 +154,18 @@ class BasketItemsView(View):
             print(e)
             return JsonResponse500().json_response()
 
-    def patch(self, request, basket_id):
+    def patch(self, request, basket_id, product_id):
         """
 
-        @api {PATCH} /api/v1/baskets/<basket_id>/items Update the items_quantity
+        @api {PATCH} /api/v1/baskets/<basket_id>/items/<product_id> Update the items_quantity
         @apiVersion 1.0.0
 
         @apiName UpdateItemNumber
         @apiGroup Baskets
 
-        @apiDescription  The endpoint is responsible for updating the number of items in the basket..
+        @apiDescription  The endpoint is responsible for updating the number of items in the basket.
 
-        @apiParam   {Integer}   product_id              The product_id passed by the client side.
+        @apiParam   {Integer}   quantity              The product_id passed by the client side.
 
         @apiSuccess {Object}    item                    Represents the information about the item in the basket and the subsequent information about the product.
         @apiSuccess {Integer}   id                      Id of added item to the basket.
@@ -190,20 +190,24 @@ class BasketItemsView(View):
 
         @apiError (Bad Request 400)         {Object}    InvalidProductId        Please provide a valid product id.
         @apiError (Bad Request 400)         {Object}    InvalidBasketId         Please provide a valid basket id.
+        @apiError (Bad Request 400)         {Object}    InvalidQuantity         Please provide a valid quantity value.
         @apiError (InternalServerError 500) {Object}    InternalServerError
 
         """
         try:
             payload = json.loads(request.body.decode('UTF-8'))
 
-            product_id = payload.get('product_id', '')
+            item_quantity = payload.get('quantity', '')
 
-            # raises an error if the basket id or product id is not provided.
+            # raises an error if a value is not provided.
             if not product_id:
                 return JsonResponse400('InvalidProductId', 'Please provide a valid product id.').json_response()
 
             if not basket_id:
                 return JsonResponse400('InvalidBasketId', 'Please provide a valid basket id.').json_response()
+
+            if not item_quantity:
+                return JsonResponse400('InvalidQuantity', 'Please provide a valid quantity value.').json_response()
 
             basket = Basket.objects.get(pk=basket_id)
             product = Product.objects.get(pk=product_id)
@@ -213,7 +217,7 @@ class BasketItemsView(View):
             if not basket_item:
                 return JsonResponse400('BasketItemNotFound', 'This basked does not contain such an item').json_response()
 
-            basket_item.items_quantity += 1
+            basket_item.items_quantity = item_quantity
             basket_item.save()
 
 
