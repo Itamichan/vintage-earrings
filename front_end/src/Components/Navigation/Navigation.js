@@ -17,7 +17,7 @@ import logo from "../../static/images/logo_transerent.png";
 import "./Navigation.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
-const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, ShowItemsCount}) => {
+const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, showItemsCount}) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -60,7 +60,7 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, Sho
                         <NavLink className={"text-header"}>
                             <div onClick={() => history.push("/basket")}>
                                 <FontAwesomeIcon icon="shopping-cart"/>
-                                {ShowItemsCount !== 0 && <span> {ShowItemsCount}</span>}
+                                {showItemsCount !== 0 && <span> {showItemsCount}</span>}
                             </div>
                         </NavLink>
                     </NavItem>

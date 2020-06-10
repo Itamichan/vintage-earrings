@@ -99,7 +99,7 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
                     <div>
                         <Notifications options={{zIndex: 10000, width: "100%"}}/>
                         <Router>
-                            <Navigation ShowItemsCount = {itemsQuantity}/>
+                            <Navigation showItemsCount = {itemsQuantity}/>
                             <Login/>
                             <Switch>
                                 <Route path="/account">
@@ -109,7 +109,7 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
                                     <ProductsContainer/>
                                 </Route>
                                 <Route path="/basket">
-                                    <Basket/>
+                                    <Basket showItemsCount = {itemsQuantity}/>
                                 </Route>
                                 <Route path="/">
                                     <StartPage/>

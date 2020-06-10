@@ -22,12 +22,17 @@ export const addItem = async (productId) => {
     store.dispatch(addToBasket(data))
 };
 
-export const increaseItem = async (productId) => {
-    let basketId = localStorage.getItem("basket_id");
+export const UpdateItem = async (productId, itemQuantity) => {
+    try {
+        let basketId = localStorage.getItem("basket_id");
+        await axios.patch(`api/v1/baskets/${basketId}/items/${productId}`, {
+            'quantity': itemQuantity
+        });
 
-    await axios.patch(`api/v1/baskets/${basketId}/items/`, {
-        'product_id': productId
-    });
-
-    store.dispatch(updateBasket(productId))
+        //updates the quantity of the item in the BasketReducer
+        store.dispatch(updateBasket(productId, itemQuantity))
+    } catch (e) {
+        console.log(e)
+    } finally {
+    }
 };
