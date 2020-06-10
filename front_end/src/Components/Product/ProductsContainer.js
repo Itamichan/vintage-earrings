@@ -3,7 +3,7 @@ import axios from "axios";
 import {Col, Container, Row, Spinner} from "reactstrap";
 import ProductCard from "./ProductCard";
 import ProductsPagination from "./ProductsPagination";
-import {addItem, increaseItem} from "../Basket/basketOperations";
+import {addItem, UpdateItem} from "../Basket/basketOperations";
 import {connect} from "react-redux";
 
 const ProductsContainer = ({basketItems}) => {
@@ -26,30 +26,34 @@ const ProductsContainer = ({basketItems}) => {
         }
     };
 
-    let itemsIdList = basketItems.map(item => {
-        return item.product['id']
-    });
 
     //load Products one time after the first rendering
     useEffect(() => {
         loadProducts()
     }, []);
 
-    let productsList = products.map(product => {
-        let updateItem;
-        if (itemsIdList.includes(product.id)) {
-            updateItem = increaseItem
+    //responsible for adding a new item to the basket or updating the quantity of an existing item.
+    let manageItem = (product) => {
+        //this filter can create a list with only one element
+        let basketItem = basketItems.filter(item => {
+            return item.product.id === product.id
+        });
+
+        if (basketItem.length === 0) {
+            addItem(product.id)
         } else {
-            updateItem = addItem
+            UpdateItem(product.id, basketItem[0].items_quantity + 1)
         }
+    };
+
+    let productsList = products.map(product => {
         return (
             <Col xs={"6"} md={"4"} xl={"3"} className={"attraction-card"} key={product.id}>
                 <ProductCard
-                    cardId={product.id}
                     cardTitle={product.name}
                     productImgList={product["photos"]}
                     productPrice={`${product.price} €`}
-                    onShoppingCartClick={updateItem}
+                    onShoppingCartClick={() => manageItem(product)}
                 />
             </Col>
         )
@@ -57,6 +61,7 @@ const ProductsContainer = ({basketItems}) => {
 
     //returns attractionsList with attractions for each corresponding page number.
     productsList = productsList.slice(PRODUCTS_PER_PAGE * (page - 1), PRODUCTS_PER_PAGE * page);
+
 
     return (
         <div className={"start-point"}>
