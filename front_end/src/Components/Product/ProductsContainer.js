@@ -42,7 +42,7 @@ const ProductsContainer = ({basketItems}) => {
         if (basketItem.length === 0) {
             addItem(product.id)
         } else {
-            UpdateItem(product.id, basketItem[0].items_quantity + 1)
+            UpdateItem(basketItem[0].id, basketItem[0].items_quantity + 1)
         }
     };
 
