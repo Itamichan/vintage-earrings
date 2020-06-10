@@ -22,12 +22,10 @@ const BasketReducer = (state, action) => {
             };
         case "UPDATE_BASKET":
             let updateBasket = state.basketItems.map(item => {
-
-                if (item.product['id'] === action.productId) {
+                if (item.product.id === action.productId) {
                     return {
-                        id: item.id,
-                        items_quantity: item.items_quantity + 1,
-                        product: item.product
+                        ...item,
+                        items_quantity: action.itemQuantity
                     }
                 }
                 return item
