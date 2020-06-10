@@ -157,7 +157,7 @@ class BasketItemsView(View):
     def patch(self, request, basket_id, item_id):
         """
 
-        @api {PATCH} /api/v1/baskets/<basket_id>/items/<product_id> Update the items_quantity
+        @api {PATCH} /api/v1/baskets/<basket_id>/items/<item_id> Update the items_quantity
         @apiVersion 1.0.0
 
         @apiName UpdateItemNumber
@@ -167,26 +167,9 @@ class BasketItemsView(View):
 
         @apiParam   {Integer}   quantity              The product_id passed by the client side.
 
-        @apiSuccess {Object}    item                    Represents the information about the item in the basket and the subsequent information about the product.
-        @apiSuccess {Integer}   id                      Id of added item to the basket.
-        @apiSuccess {String}    items_quantity          Represents the quantity of added item to the basket.
-        @apiSuccess {Object[]}  products                List with products.
-        @apiSuccess {Integer}   products.id             Product's id.
-        @apiSuccess {String}    products.name           Product's name.
-        @apiSuccess {Text}      products.description    Product's description.
-        @apiSuccess {Integer}   products.price          Product's price per item.
-        @apiSuccess {Integer}   products.quantity       Total available products.
-        @apiSuccess {Object[]}  products.photo          Product's photo dictionary.
-        @apiSuccess {Integer}   photo.id                Photo's id.
-        @apiSuccess {URL}       photo.photo_url         Photo's url.
-
-         @apiSuccessExample {json} Success-Response:
-        # todo add proper url examples
+        @apiSuccessExample {json} Success-Response:
         HTTP/1.1 200 OK
-
-            {
-
-            }
+            { }
 
         @apiError (Bad Request 400)         {Object}    InvalidItemId        Please provide a valid item id.
         @apiError (Bad Request 400)         {Object}    InvalidBasketId         Please provide a valid basket id.
@@ -214,12 +197,13 @@ class BasketItemsView(View):
             basket_item = BasketItem.objects.get(basket=basket, pk=item_id)
 
             if not basket_item:
-                return JsonResponse400('BasketItemNotFound', 'This basked does not contain such an item').json_response()
+                return JsonResponse400('BasketItemNotFound',
+                                       'This basked does not contain such an item').json_response()
 
             basket_item.items_quantity = item_quantity
             basket_item.save()
 
-
+            # todo delete comment bellow
 
             # # query set returns the item from the BasketWithItems joined with the Product table on product Foreign Key.
             # item = BasketItem.objects.select_related('product').get(pk=new_item.id)
@@ -266,7 +250,7 @@ class BasketItemsView(View):
         @apiSuccess {URL}       photo.photo_url         Photo's url.
 
          @apiSuccessExample {json} Success-Response:
-        # todo add proper url examples
+        # todo add proper url examples and JsonResponse dict
         HTTP/1.1 200 OK
 
             {
@@ -311,6 +295,53 @@ class BasketItemsView(View):
             return JsonResponse({
                 "items": items_list
             })
+        except Exception as e:
+            print(e)
+            return JsonResponse500().json_response()
+
+    def delete(self, request, basket_id, item_id):
+        """
+
+        @api {DELETE} /api/v1/baskets/<basket_id>/items/<item_id> Delete Item
+        @apiVersion 1.0.0
+
+        @apiName DeleteItem
+        @apiGroup Baskets
+
+        @apiDescription  The endpoint is responsible for removal of the Item from the Basket.
+
+
+        @apiSuccessExample {json} Success-Response:
+        HTTP/1.1 200 OK
+            { }
+
+        @apiError (Bad Request 400)         {Object}    InvalidItemId           Please provide a valid item id.
+        @apiError (Bad Request 400)         {Object}    InvalidBasketId         Please provide a valid basket id.
+        @apiError (Bad Request 400)         {Object}    InvalidQuantity         Please provide a valid quantity value.
+        @apiError (InternalServerError 500) {Object}    InternalServerError
+
+        """
+        try:
+
+            # raises an error if a value is not provided.
+
+            if not basket_id:
+                return JsonResponse400('InvalidBasketId', 'Please provide a valid basket id.').json_response()
+
+            if not item_id:
+                return JsonResponse400('InvalidItemId', 'Please provide a valid item id.').json_response()
+
+            basket = Basket.objects.get(pk=basket_id)
+
+            basket_item = BasketItem.objects.get(basket=basket, pk=item_id)
+
+            if not basket_item:
+                return JsonResponse400('BasketItemNotFound',
+                                       'This basked does not contain such an item').json_response()
+
+            basket_item.delete()
+
+            return JsonResponse({})
         except Exception as e:
             print(e)
             return JsonResponse500().json_response()
