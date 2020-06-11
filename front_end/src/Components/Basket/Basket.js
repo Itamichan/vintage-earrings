@@ -1,11 +1,11 @@
-import React, {useEffect} from 'react';
-import {Col, Container, Row} from 'reactstrap';
+import React from 'react';
+import {Button, Col, Container, Row} from 'reactstrap';
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import BasketItem from "./BasketItem";
 import {removeItem} from "./basketOperations";
 
-const Basket = ({showItemsCount, showItemsTotal, basketItems}) => {
+const Basket = ({showItemsCount, showItemsTotal, basketItems, history}) => {
 
 
     let itemsList = basketItems.map(item => {
@@ -57,6 +57,13 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems}) => {
                 )}
                 <Row>
                     {itemsList}
+                </Row>
+                <Row>
+                    <Col>
+                        <Button onClick={() => history.push('/checkout')}>
+                            Proceed to checkout
+                        </Button>
+                    </Col>
                 </Row>
             </Container>
         </div>

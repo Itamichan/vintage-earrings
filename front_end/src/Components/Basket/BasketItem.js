@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Col, Media, Row} from "reactstrap";
+import {Col, FormGroup, Input, Label, Media, Row} from "reactstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {AvField, AvForm} from "availity-reactstrap-validation";
 import {updateItem} from "./basketOperations";
@@ -48,8 +48,9 @@ const BasketItem = ({cardTitle, itemImgList, itemPrice, itemQuantity, onTrashCli
                         </Row>
                         <Row>
                             <Col xs={"2"}>
-                                <AvForm>
-                                    <AvField type="select" name="itemQty" label="Quantity" id="itemQty"
+                                <FormGroup>
+                                    <Label for="itemQty">Quantity</Label>
+                                    <Input type="select" name="itemQty" label="Quantity" id="itemQty"
                                              value={itemQuantity} disabled={sendingRequest}
                                              onChange={(e) => updateItemQuantity(parseInt(e.target.value))}
                                     >
@@ -63,8 +64,8 @@ const BasketItem = ({cardTitle, itemImgList, itemPrice, itemQuantity, onTrashCli
                                         <option>8</option>
                                         <option>9</option>
                                         <option>10</option>
-                                    </AvField>
-                                </AvForm>
+                                    </Input>
+                                </FormGroup>
                             </Col>
                         </Row>
                         <Row>

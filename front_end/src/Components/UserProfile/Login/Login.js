@@ -137,9 +137,10 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                     <div>
                         <Label for="confirmPassword" className={"text-highlight"}>Confirm Password</Label>
                         <AvField type="password" id={'confirmPassword'} name={'confirmPassword'} value={confirmPassword}
-                                 errorMessage="Please provide a password."
+                                 errorMessage="Please provide the password."
                                  disabled={sendingRequest}
                                  validate={{
+                                     required: {value: true},
                                      match: {
                                          value: 'password',
                                          errorMessage: 'Please provide a matching password'

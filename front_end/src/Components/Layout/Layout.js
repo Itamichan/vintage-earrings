@@ -13,6 +13,7 @@ import StartPage from "../StartPage/StartPage";
 import ProductsContainer from "../Product/ProductsContainer";
 import {loadBasket} from "../Basket/redux/actions";
 import Basket from "../Basket/Basket";
+import Checkout from "../Checkout/Checkout";
 
 const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
 
@@ -119,6 +120,9 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
                                         showItemsCount={itemsQuantity}
                                         showItemsTotal={itemsTotalPrice}
                                     />
+                                </Route>
+                                <Route path="/checkout">
+                                    <Checkout/>
                                 </Route>
                                 <Route path="/">
                                     <StartPage/>
