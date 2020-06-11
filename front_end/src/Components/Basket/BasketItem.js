@@ -1,7 +1,28 @@
-import React from 'react';
-import {Col, Container, Row, Spinner, Media} from "reactstrap";
+import React, {useState} from 'react';
+import {Col, Media, Row} from "reactstrap";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {AvField, AvForm} from "availity-reactstrap-validation";
+import {updateItem} from "./basketOperations";
 
-const BasketItem = ({cardTitle, itemImgList, itemPrice, itemQuantity}) => {
+const BasketItem = ({cardTitle, itemImgList, itemPrice, itemQuantity, onTrashClick, idemId}) => {
+
+    const [sendingRequest, setSendingRequest] = useState(false);
+
+    const updateItemQuantity = (newQuantity) => {
+        try {
+            setSendingRequest(true);
+            updateItem(idemId, newQuantity)
+
+        } catch (e) {
+            console.log(e)
+
+        } finally {
+            setSendingRequest(false);
+        }
+
+    };
+
+    console.log('itemQty:', itemQuantity);
     return (
         <Media className={"media-container"}>
             <Media
@@ -18,12 +39,41 @@ const BasketItem = ({cardTitle, itemImgList, itemPrice, itemQuantity}) => {
                         xs={"10"}
                         className={"attraction-info-body text-highlight"}
                     >
-                        <Media heading className={"text-header media-heading"}>
-                            {cardTitle}
-                        </Media>
-                        <div>
-                            Quantity: {itemQuantity}
-                        </div>
+                        <Row>
+                            <Col>
+                                <Media heading className={"text-header media-heading"}>
+                                    {cardTitle}
+                                </Media>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={"2"}>
+                                <AvForm>
+                                    <AvField type="select" name="itemQty" label="Quantity" id="itemQty"
+                                             value={itemQuantity} disabled={sendingRequest}
+                                             onChange={(e) => updateItemQuantity(parseInt(e.target.value))}
+                                    >
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                        <option>6</option>
+                                        <option>7</option>
+                                        <option>8</option>
+                                        <option>9</option>
+                                        <option>10</option>
+                                    </AvField>
+                                </AvForm>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <div onClick={() => onTrashClick()}>
+                                    <FontAwesomeIcon size={"2x"} icon={['far', 'trash-alt']}/>
+                                </div>
+                            </Col>
+                        </Row>
                     </Col>
                     <Col xs={"2"}>
                         {itemPrice}
