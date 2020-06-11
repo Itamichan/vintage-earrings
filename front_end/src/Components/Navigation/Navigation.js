@@ -60,7 +60,7 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, sho
                         <NavLink className={"text-header"}>
                             <div onClick={() => history.push("/basket")}>
                                 <FontAwesomeIcon icon="shopping-cart"/>
-                                {showItemsCount !== 0 && <span> {showItemsCount}</span>}
+                                {showItemsCount > 0 && <span> {showItemsCount}</span>}
                             </div>
                         </NavLink>
                     </NavItem>

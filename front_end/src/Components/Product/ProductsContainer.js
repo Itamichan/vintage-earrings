@@ -3,7 +3,7 @@ import axios from "axios";
 import {Col, Container, Row, Spinner} from "reactstrap";
 import ProductCard from "./ProductCard";
 import ProductsPagination from "./ProductsPagination";
-import {addItem, UpdateItem} from "../Basket/basketOperations";
+import {addItem, updateItem} from "../Basket/basketOperations";
 import {connect} from "react-redux";
 
 const ProductsContainer = ({basketItems}) => {
@@ -42,7 +42,7 @@ const ProductsContainer = ({basketItems}) => {
         if (basketItem.length === 0) {
             addItem(product.id)
         } else {
-            UpdateItem(basketItem[0].id, basketItem[0].items_quantity + 1)
+            updateItem(basketItem[0].id, basketItem[0].items_quantity + 1)
         }
     };
 

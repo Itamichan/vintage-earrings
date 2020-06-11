@@ -1,6 +1,6 @@
 import {store} from "../../store";
 import axios from "axios";
-import {addToBasket, updateBasket} from "./redux/actions";
+import {addToBasket, removeFromBasket, updateBasket} from "./redux/actions";
 
 
 export const addItem = async (productId) => {
@@ -22,15 +22,28 @@ export const addItem = async (productId) => {
     store.dispatch(addToBasket(data))
 };
 
-export const UpdateItem = async (productId, itemQuantity) => {
+export const updateItem = async (itemId, itemQuantity) => {
     try {
         let basketId = localStorage.getItem("basket_id");
-        await axios.patch(`api/v1/baskets/${basketId}/items/${productId}`, {
+        await axios.patch(`api/v1/baskets/${basketId}/items/${itemId}`, {
             'quantity': itemQuantity
         });
 
         //updates the quantity of the item in the BasketReducer
-        store.dispatch(updateBasket(productId, itemQuantity))
+        store.dispatch(updateBasket(itemId, itemQuantity))
+    } catch (e) {
+        console.log(e)
+    } finally {
+    }
+};
+
+export const removeItem = async (itemId) => {
+    try {
+        const basketId = localStorage.getItem("basket_id");
+        await axios.delete(`api/v1/baskets/${basketId}/items/${itemId}`);
+
+        //updates the items list in the BasketReducer
+        store.dispatch(removeFromBasket(itemId))
     } catch (e) {
         console.log(e)
     } finally {

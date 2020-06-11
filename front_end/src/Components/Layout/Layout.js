@@ -83,11 +83,13 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
         getBasketItems()
     }, []);
 
-    //calculating the total amount of items in the basket
+    //calculating the total amount of items in the basket.
     let itemsQuantity = basketItems.reduce((accumulator, currentValue) => {
         return accumulator + currentValue.items_quantity
     }, 0);
 
+
+    //calculating the total price of the items from the basket.
     let itemsTotalPrice = basketItems.reduce((accumulator, currentValue) => {
         return accumulator + currentValue.items_quantity * currentValue.product.price
     }, 0);
@@ -103,7 +105,7 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
                     <div>
                         <Notifications options={{zIndex: 10000, width: "100%"}}/>
                         <Router>
-                            <Navigation showItemsCount = {itemsQuantity}/>
+                            <Navigation showItemsCount={itemsQuantity}/>
                             <Login/>
                             <Switch>
                                 <Route path="/account">
@@ -114,8 +116,8 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
                                 </Route>
                                 <Route path="/basket">
                                     <Basket
-                                        showItemsCount = {itemsQuantity}
-                                        showItemsTotal = {itemsTotalPrice}
+                                        showItemsCount={itemsQuantity}
+                                        showItemsTotal={itemsTotalPrice}
                                     />
                                 </Route>
                                 <Route path="/">
@@ -143,7 +145,7 @@ const mapDispatchToProps = (dispatch) => {
 //map the global state to properties that are passed into the comp
 const mapStateToProps = (state) => {
     return {
-        basketItems: state.BasketReducer.basketItems,
+        basketItems: state.BasketReducer.basketItems
     }
 };
 
