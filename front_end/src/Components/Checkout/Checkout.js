@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import {Button, Col, Container, Label, ModalBody, Row} from "reactstrap";
 import {AvField, AvForm} from "availity-reactstrap-validation";
-import {withRouter} from "react-router";
+import {withRouter, useParams} from "react-router";
+import axios from "axios";
+import {notify} from "react-notify-toast";
 
 const Checkout = ({history}) => {
 
@@ -16,6 +18,31 @@ const Checkout = ({history}) => {
     const [city, setCity] = useState('');
     const [country, setCountry] = useState('');
 
+    const checkout = async () => {
+        try {
+            setSendingRequest(true);
+            const basketId = localStorage.getItem('basket_id');
+
+            await axios.post(`api/v1/baskets/${basketId}/address`, {
+                'email': email,
+                'confirmEmail': confirmEmail,
+                'firstName': firstName,
+                'lastName': lastName,
+                'streetAddress': streetAddress,
+                'aptNr': aptNr,
+                'postalCode': postalCode,
+                'city': city,
+                'country': country
+            });
+            notify.show('yay!!', "success", 1700);
+        } catch (e) {
+            console.log(e)
+
+        } finally {
+            setSendingRequest(false);
+        }
+    };
+
     return (
         <Container className={'start-point'}>
             <Row>
@@ -25,7 +52,7 @@ const Checkout = ({history}) => {
             </Row>
             <Row>
                 <Col xs={4}>
-                    <AvForm onValidSubmit={() => history.push('/')}>
+                    <AvForm onValidSubmit={() => checkout()}>
                         <Label for="email" className={"text-highlight"}>Email</Label>
                         <AvField type="email" name="email" id="email" value={email}
                                  errorMessage="Please provide an email."

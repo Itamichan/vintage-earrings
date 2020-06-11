@@ -60,7 +60,7 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history}) => {
                 </Row>
                 <Row>
                     <Col>
-                        <Button onClick={() => history.push('/checkout')}>
+                        <Button onClick={() => history.push(`/checkout`)}>
                             Proceed to checkout
                         </Button>
                     </Col>

@@ -17,8 +17,6 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
     const formRef = useRef();
 
     const register = async () => {
-
-
         try {
             setSendingRequest(true);
 
