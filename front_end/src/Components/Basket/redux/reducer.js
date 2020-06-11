@@ -14,8 +14,15 @@ const BasketReducer = (state, action) => {
                 ...state,
                 basketItems: [...state.basketItems, action.item]
             };
+        case  "REMOVE_FROM_BASKET":
+            let reducedBasketList = state.basketItems.filter(item => {
+                return item.id !== action.itemId
+            });
+            return {
+                ...state,
+                basketItems: reducedBasketList
+            };
         case "LOAD_BASKET":
-
             return {
                 ...state,
                 basketItems: [...action.items]

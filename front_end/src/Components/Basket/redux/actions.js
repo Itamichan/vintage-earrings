@@ -6,6 +6,13 @@ export const addToBasket = (item) => {
     }
 };
 
+export const removeFromBasket = (itemId) => {
+    return {
+        type: "REMOVE_FROM_BASKET",
+        itemId: itemId,
+    }
+};
+
 export const loadBasket = (items) => {
     return {
         type: "LOAD_BASKET",
@@ -20,3 +27,4 @@ export const updateBasket = (itemId, itemQuantity) => {
         itemQuantity: itemQuantity
     }
 };
+
