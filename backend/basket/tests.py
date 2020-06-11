@@ -217,3 +217,32 @@ class BasketItemsTest(TestCase):
         check_item = BasketItem.objects.filter(pk=item_id).exists()
 
         self.assertFalse(check_item)
+
+
+class BasketCheckoutTest(TestCase):
+    # todo proper test
+    def test_checkout(self):
+        product = Product.objects.create(name='earings', description='very beautiful', price=200, quantity=20)
+        ProductPhoto.objects.create(photo_url='photo a', product=product)
+
+        basket = Basket.objects.create()
+        basket_id = basket.id
+
+        basket_item = BasketItem.objects.create(basket=basket, product=product, items_quantity=1)
+        item_id = basket_item.id
+
+        response = self.client.post(
+            path=f'/api/v1/baskets/{basket_id}/checkout',
+            data=json.dumps({
+                'email': 'dummy_data',
+                'confirmEmail': 'dummy_data',
+                'firstName': 'dummy_data',
+                'lastName': 'dummy_data',
+                'streetAddress': 'dummy_data',
+                'aptNr': 'dummy_data',
+                'postalCode': 'dummy_data',
+                'city': 'dummy_data'
+            })
+        )
+
+        self.assertEqual(response.status_code, 200)

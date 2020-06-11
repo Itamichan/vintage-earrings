@@ -345,3 +345,79 @@ class BasketItemsView(View):
         except Exception as e:
             print(e)
             return JsonResponse500().json_response()
+
+
+class BasketCheckoutView(View):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(BasketCheckoutView, self).dispatch(request, *args, **kwargs)
+
+    def post(self, request, basket_id):
+        # todo the proper docuemntation
+        """
+
+        @api {POST} /api/v1/baskets/<basket_id>/checkout Checkout Basket
+        @apiVersion 1.0.0
+
+        @apiName CheckoutBasket
+        @apiGroup Baskets
+
+        @apiDescription  The endpoint is responsible for
+
+        @apiParam   {Integer}   email              The product_id passed by the client side.
+        @apiParam   {Integer}   confirmEmail              The product_id passed by the client side.
+        @apiParam   {Integer}   firstName              The product_id passed by the client side.
+        @apiParam   {Integer}   lastName              The product_id passed by the client side.
+        @apiParam   {Integer}   streetAddress              The product_id passed by the client side.
+        @apiParam   {Integer}   aptNr              The product_id passed by the client side.
+        @apiParam   {Integer}   postalCode              The product_id passed by the client side.
+        @apiParam   {Integer}   city              The product_id passed by the client side.
+        @apiParam   {Integer}   country              The product_id passed by the client side.
+
+
+        @apiSuccess {Object}    item                    Represents the
+        @apiSuccess {Integer}   id                      Id of added item to the basket.
+
+
+         @apiSuccessExample {json} Success-Response:
+
+        HTTP/1.1 200 OK
+
+            {
+
+            }
+
+        @apiError (Bad Request 400)         {Object}    InvalidProductId        Please provide a valid product id.
+        @apiError (Bad Request 400)         {Object}    InvalidBasketId         Please provide a valid basket id.
+        @apiError (InternalServerError 500) {Object}    InternalServerError
+
+        """
+        try:
+
+            payload = json.loads(request.body.decode('UTF-8'))
+
+
+            email = payload.get('email', '')
+            confirmEmail = payload.get('confirmEmail', '')
+            firstName = payload.get('firstName', '')
+            lastName = payload.get('lastName', '')
+            streetAddress = payload.get('streetAddress', '')
+            aptNr = payload.get('aptNr', '')
+            postalCode = payload.get('postalCode', '')
+            city = payload.get('city', '')
+
+            basket = Basket.objects.get(pk=basket_id)
+
+            basket_item = BasketItem.objects.select_related('basket').get(basket=basket)
+
+            stripe_id = basket_item.basket.stripe_id
+            print('stripe:id:', stripe_id)
+
+            if not stripe_id:
+                print('no stripe_id')
+
+            return JsonResponse({})
+        except Exception as e:
+            print(e)
+            return JsonResponse500().json_response()

@@ -8,6 +8,7 @@ class Basket(models.Model):
     # Models the basket.
 
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
+    stripe_id = models.CharField(max_length=64, null=True)
 
     class Meta:
         db_table = 'baskets'
