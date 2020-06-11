@@ -1,1 +1,1 @@
-web: gunicorn -w 2 --pythonpath vintage_earrings vintage_earrings.wsgi
+web: gunicorn -w 2 --pythonpath backend vintage_earrings.wsgi
