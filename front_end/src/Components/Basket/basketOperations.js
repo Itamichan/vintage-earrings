@@ -1,6 +1,7 @@
 import {store} from "../../store";
 import axios from "axios";
 import {addToBasket, removeFromBasket, updateBasket} from "./redux/actions";
+import {notify} from "react-notify-toast";
 
 
 export const addItem = async (productId) => {
@@ -25,12 +26,18 @@ export const addItem = async (productId) => {
 export const updateItem = async (itemId, itemQuantity) => {
     try {
         let basketId = localStorage.getItem("basket_id");
-        await axios.patch(`api/v1/baskets/${basketId}/items/${itemId}`, {
-            'quantity': itemQuantity
-        });
+        //sets the limit of having the same item in the basket no more than 10.
+        if (itemQuantity < 11) {
+            await axios.patch(`api/v1/baskets/${basketId}/items/${itemId}`, {
+                'quantity': itemQuantity
+            });
 
-        //updates the quantity of the item in the BasketReducer
-        store.dispatch(updateBasket(itemId, itemQuantity))
+            //updates the quantity of the item in the BasketReducer
+            store.dispatch(updateBasket(itemId, itemQuantity))
+        } else {
+            notify.show('You can have maximum 10 items of the same product', "error", 2000);
+        }
+
     } catch (e) {
         console.log(e)
     } finally {
