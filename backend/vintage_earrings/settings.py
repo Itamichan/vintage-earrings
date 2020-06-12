@@ -25,6 +25,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'my_fancy_key')
 
 ENVIRONMENT = os.environ.get('ENVIRONMENT', 'dev')
 
+HOST = os.environ.get('HOST', 'http://localhost:3000')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG = ENVIRONMENT == 'dev'
