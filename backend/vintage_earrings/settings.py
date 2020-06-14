@@ -170,3 +170,5 @@ LOGGING = {
 
 import logging.config
 logging.config.dictConfig(LOGGING)
+
+print('i am a print statement')
