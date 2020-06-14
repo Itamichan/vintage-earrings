@@ -153,6 +153,8 @@ class BasketItemsView(View):
                     'photos': list(item.product.productphoto_set.all().values())
                 }
             })
+        except Basket.DoesNotExist:
+            return JsonResponse400('BasketNotFound', 'Such basket id does not exist').json_response()
         except Exception as e:
             print(e)
             return JsonResponse500().json_response()
@@ -491,8 +493,6 @@ class BasketPaymentVerifyView(View):
 
             basket = Basket.objects.get(pk=basket_id)
             stripe_id = basket.stripe_id
-
-
 
             return JsonResponse({
 
