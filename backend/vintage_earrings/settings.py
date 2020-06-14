@@ -32,7 +32,7 @@ HOST = os.environ.get('HOST', 'http://localhost:3000')
 DEBUG = ENVIRONMENT == 'dev'
 
 ALLOWED_HOSTS = [
-    'https://vintage-earrings.herokuapp.com/',
+    '*',
     "127.0.0.1",
 ]
 
