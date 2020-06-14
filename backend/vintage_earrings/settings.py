@@ -37,6 +37,7 @@ if ENVIRONMENT != 'dev':
 ALLOWED_HOSTS = [
     'vintage-earrings.herokuapp.com',
     "127.0.0.1",
+    "localhost"
 ]
 
 # Application definition
@@ -185,5 +186,3 @@ LOGGING = {
 
 import logging.config
 logging.config.dictConfig(LOGGING)
-
-print('i am a print statement')
