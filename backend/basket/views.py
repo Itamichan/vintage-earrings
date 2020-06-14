@@ -1,5 +1,8 @@
 import json
+import uuid
 
+import stripe
+from django.conf import settings
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -354,7 +357,7 @@ class BasketCheckoutView(View):
         return super(BasketCheckoutView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, basket_id):
-        # todo the proper docuemntation
+        # todo the proper documentation
         """
 
         @api {POST} /api/v1/baskets/<basket_id>/checkout Checkout Basket
@@ -397,7 +400,6 @@ class BasketCheckoutView(View):
 
             payload = json.loads(request.body.decode('UTF-8'))
 
-
             email = payload.get('email', '')
             confirmEmail = payload.get('confirmEmail', '')
             firstName = payload.get('firstName', '')
@@ -408,16 +410,93 @@ class BasketCheckoutView(View):
             city = payload.get('city', '')
 
             basket = Basket.objects.get(pk=basket_id)
-
-            basket_item = BasketItem.objects.select_related('basket').get(basket=basket)
-
-            stripe_id = basket_item.basket.stripe_id
-            print('stripe:id:', stripe_id)
+            stripe_id = basket.stripe_id
 
             if not stripe_id:
-                print('no stripe_id')
 
-            return JsonResponse({})
+                basket_items_list = BasketItem.objects.prefetch_related('product').filter(basket=basket)
+
+                stripe.api_key = 'sk_test_IIRC36ZwqA4Tt319muIGI9kQ00yXuuhkWK'
+
+                # creating the list with all the products' information to be passed to stripe
+                line_items = []
+
+                for item in basket_items_list:
+                    line_items.append(
+                        {
+                            "name": item.product.name,
+                            "currency": 'eur',
+                            "amount": item.product.price * 100,
+                            "quantity": item.items_quantity,
+                            'images': [product_image.photo_url for product_image in item.product.productphoto_set.all()]
+                        }
+                    )
+
+                # stripe payment
+                stripe_response = stripe.checkout.Session.create(
+                    success_url=f"{settings.HOST}/success/{basket_id}",
+                    cancel_url=f"{settings.HOST}/cancel/{basket_id}",
+                    customer_email=email,
+                    payment_method_types=["card"],
+                    line_items=line_items,
+                    mode='payment',
+                )
+
+                # Getting the data from the stripe response that is important for the client
+                stripe_id = stripe_response['id']
+
+                # saving the stripe_id to the Basket
+                basket.stripe_id = stripe_id
+
+            return JsonResponse({
+                'sessionId': stripe_id
+            })
+        except Exception as e:
+            print(e)
+            return JsonResponse500().json_response()
+
+
+class BasketPaymentVerifyView(View):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(BasketPaymentVerifyView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, basket_id):
+        # todo the proper documentation
+        """
+
+        @api {POST} /api/v1/${basketId}/payment/verify Verify Payment
+        @apiVersion 1.0.0
+
+        @apiName PaymentVerify
+        @apiGroup Baskets
+
+        @apiDescription  The endpoint is responsible for verifying that the stripe payment was successful.
+
+
+         @apiSuccessExample {json} Success-Response:
+
+        HTTP/1.1 200 OK
+
+            {
+
+            }
+
+
+        @apiError (InternalServerError 500) {Object}    InternalServerError
+
+        """
+        try:
+
+            basket = Basket.objects.get(pk=basket_id)
+            stripe_id = basket.stripe_id
+
+
+
+            return JsonResponse({
+
+            })
         except Exception as e:
             print(e)
             return JsonResponse500().json_response()

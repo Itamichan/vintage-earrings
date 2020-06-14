@@ -28,12 +28,11 @@ ENVIRONMENT = os.environ.get('ENVIRONMENT', 'dev')
 HOST = os.environ.get('HOST', 'http://localhost:3000')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-SECURE_SSL_REDIRECT = True
-DEBUG = False
+DEBUG = True
 
-if ENVIRONMENT == 'dev':
-    DEBUG = True
-    SECURE_SSL_REDIRECT = False
+if ENVIRONMENT != 'dev':
+    DEBUG = False
+    SECURE_SSL_REDIRECT = True
 
 ALLOWED_HOSTS = [
     'vintage-earrings.herokuapp.com',
@@ -137,7 +136,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", '')
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", '')
+
+S3_USE_SIGV4 = True
+AWS_S3_SIGNATURE_VERSION = "s3v4"
+AWS_STATIC_BUCKET_NAME = "vintage-earrings-static"
+
+AWS_PRELOAD_METADATA = True
+AWS_QUERYSTRING_AUTH = False
+
+STATIC_URL = "https://%s.s3.amazonaws.com/" % AWS_STATIC_BUCKET_NAME
+STATICFILES_STORAGE = "static.storage.StaticS3Storage"
+
 
 LOGGING = {
     'version': 1,
