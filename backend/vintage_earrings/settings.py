@@ -28,11 +28,15 @@ ENVIRONMENT = os.environ.get('ENVIRONMENT', 'dev')
 HOST = os.environ.get('HOST', 'http://localhost:3000')
 
 # SECURITY WARNING: don't run with debug turned on in production!
+SECURE_SSL_REDIRECT = True
+DEBUG = False
 
-DEBUG = ENVIRONMENT == 'dev'
+if ENVIRONMENT == 'dev':
+    DEBUG = True
+    SECURE_SSL_REDIRECT = False
 
 ALLOWED_HOSTS = [
-    '*',
+    'vintage-earrings.herokuapp.com',
     "127.0.0.1",
 ]
 
