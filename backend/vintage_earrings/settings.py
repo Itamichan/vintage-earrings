@@ -27,6 +27,8 @@ ENVIRONMENT = os.environ.get('ENVIRONMENT', 'dev')
 
 HOST = os.environ.get('HOST', 'http://localhost:3000')
 
+STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -150,7 +152,6 @@ AWS_QUERYSTRING_AUTH = False
 STATIC_URL = "https://%s.s3.amazonaws.com/" % AWS_STATIC_BUCKET_NAME
 STATICFILES_STORAGE = "static.storage.StaticS3Storage"
 
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -185,4 +186,10 @@ LOGGING = {
 }
 
 import logging.config
+
 logging.config.dictConfig(LOGGING)
+
+try:
+    from .developer_settings import *
+except:
+    pass

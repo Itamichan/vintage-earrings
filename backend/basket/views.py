@@ -418,7 +418,7 @@ class BasketCheckoutView(View):
 
                 basket_items_list = BasketItem.objects.prefetch_related('product').filter(basket=basket)
 
-                stripe.api_key = 'sk_test_IIRC36ZwqA4Tt319muIGI9kQ00yXuuhkWK'
+                stripe.api_key = settings.STRIPE_API_KEY
 
                 # creating the list with all the products' information to be passed to stripe
                 line_items = []
@@ -449,6 +449,7 @@ class BasketCheckoutView(View):
 
                 # saving the stripe_id to the Basket
                 basket.stripe_id = stripe_id
+                basket.save()
 
             return JsonResponse({
                 'sessionId': stripe_id
