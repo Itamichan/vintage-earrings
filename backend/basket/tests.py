@@ -1,5 +1,7 @@
 import json
 
+import stripe
+from django.conf import settings
 from django.test import TestCase
 
 from basket.models import Basket, BasketItem

@@ -14,6 +14,7 @@ class JsonResponseError(Exception):
 
         return JsonResponse(response, status=self.status)
 
+
 class JsonResponse500(JsonResponseError):
 
     def __init__(self, error_text=None):
@@ -40,6 +41,12 @@ class JsonResponse401(JsonResponseError):
         JsonResponseError.__init__(self, 401, "Unauthorized", str(unauthorized_text))
 
 
+class JsonResponse402(JsonResponseError):
+
+    def __init__(self, unauthorized_text):
+        JsonResponseError.__init__(self, 402, "PaymentRequired", str(unauthorized_text))
+
+
 class JsonResponse412(JsonResponseError):
 
     def __init__(self, error, description):
@@ -50,7 +57,3 @@ class JsonResponse404(JsonResponseError):
 
     def __init__(self, error, description):
         JsonResponseError.__init__(self, 404, error, description)
-
-
-
-

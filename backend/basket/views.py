@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 
 from basket.models import Basket, BasketItem
-from errors import JsonResponse500, JsonResponse400
+from errors import JsonResponse500, JsonResponse400, JsonResponse402
 from product.models import Product
 
 
@@ -414,7 +414,7 @@ class BasketCheckoutView(View):
             basket = Basket.objects.get(pk=basket_id)
             stripe_id = basket.stripe_id
 
-            if not stripe_id:
+            if not stripe_id or True:
 
                 basket_items_list = BasketItem.objects.prefetch_related('product').filter(basket=basket)
 
@@ -469,7 +469,7 @@ class BasketPaymentVerifyView(View):
         # todo the proper documentation
         """
 
-        @api {POST} /api/v1/${basketId}/payment/verify Verify Payment
+        @api {POST} /api/v1/baskets/${basketId}/payment/verify Verify Payment
         @apiVersion 1.0.0
 
         @apiName PaymentVerify
@@ -483,7 +483,7 @@ class BasketPaymentVerifyView(View):
         HTTP/1.1 200 OK
 
             {
-
+                'payment_status': succeeded
             }
 
 
@@ -495,8 +495,19 @@ class BasketPaymentVerifyView(View):
             basket = Basket.objects.get(pk=basket_id)
             stripe_id = basket.stripe_id
 
-            return JsonResponse({
+            # retrieve a stripe session
+            session_response = stripe.checkout.Session.retrieve(stripe_id)
+            payment_intent = session_response.payment_intent
 
+            # retrieve stripe PaymentIntent
+            payment_intent_response = stripe.PaymentIntent.retrieve(payment_intent)
+            status = payment_intent_response.status
+
+            if status != 'succeeded':
+                return JsonResponse402('There was an error processing your payment.').json_response()
+
+            return JsonResponse({
+                'payment_status': status
             })
         except Exception as e:
             print(e)
