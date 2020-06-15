@@ -110,7 +110,6 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
                         <Router>
                             <Navigation showItemsCount={itemsQuantity}/>
                             <Login/>
-                            <SuccessPage/>
                             <Switch>
                                 <Route path="/account">
                                     <UserAccount/>
@@ -118,10 +117,9 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
                                 <Route path="/products">
                                     <ProductsContainer/>
                                 </Route>
-                                <Route path="/basket/success">
-                                   <SuccessPage/>
+                                <Route exact path="/success/:basketId" component={SuccessPage}>
                                 </Route>
-                                <Route path="/basket/success">
+                                <Route path="/cancel">
                                     <CancellationPage/>
                                 </Route>
                                 <Route path="/basket">
