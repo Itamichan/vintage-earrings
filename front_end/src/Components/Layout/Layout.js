@@ -14,6 +14,8 @@ import ProductsContainer from "../Product/ProductsContainer";
 import {loadBasket} from "../Basket/redux/actions";
 import Basket from "../Basket/Basket";
 import Checkout from "../Checkout/Checkout";
+import SuccessPage from "../Checkout/SuccessPage";
+import CancellationPage from "../Checkout/CancellationPage";
 
 const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
 
@@ -108,6 +110,7 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
                         <Router>
                             <Navigation showItemsCount={itemsQuantity}/>
                             <Login/>
+                            <SuccessPage/>
                             <Switch>
                                 <Route path="/account">
                                     <UserAccount/>
@@ -117,6 +120,9 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
                                 </Route>
                                 <Route path="/basket/success">
                                    <SuccessPage/>
+                                </Route>
+                                <Route path="/basket/success">
+                                    <CancellationPage/>
                                 </Route>
                                 <Route path="/basket">
                                     <Basket

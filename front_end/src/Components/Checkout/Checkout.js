@@ -4,26 +4,29 @@ import {AvField, AvForm} from "availity-reactstrap-validation";
 import {withRouter, useParams} from "react-router";
 import axios from "axios";
 import {notify} from "react-notify-toast";
+import {loadStripe} from '@stripe/stripe-js';
 
 const Checkout = ({history}) => {
 
     const [sendingRequest, setSendingRequest] = useState(false);
-    const [email, setEmail] = useState('');
-    const [confirmEmail, setConfirmEmail] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [streetAddress, setStreetAddress] = useState('');
-    const [aptNr, setAptNr] = useState('');
-    const [postalCode, setPostalCode] = useState('');
-    const [city, setCity] = useState('');
-    const [country, setCountry] = useState('');
+    const [email, setEmail] = useState('cris@gmail.com');
+    const [confirmEmail, setConfirmEmail] = useState('cris@gmail.com');
+    const [firstName, setFirstName] = useState('cris');
+    const [lastName, setLastName] = useState('garb');
+    const [streetAddress, setStreetAddress] = useState('fff');
+    const [aptNr, setAptNr] = useState('ff');
+    const [postalCode, setPostalCode] = useState('fgfg');
+    const [city, setCity] = useState('kista');
+    const [country, setCountry] = useState('Sweden');
+
+    const stripePromise = loadStripe('pk_test_HOdcOxCrsy4Yyhic9468ZiDc00Ar5VIhOY');
 
     const checkout = async () => {
         try {
             setSendingRequest(true);
             const basketId = localStorage.getItem('basket_id');
 
-            await axios.post(`api/v1/baskets/${basketId}/address`, {
+            const {data} = await axios.post(`api/v1/baskets/${basketId}/checkout`, {
                 'email': email,
                 'confirmEmail': confirmEmail,
                 'firstName': firstName,
@@ -34,6 +37,15 @@ const Checkout = ({history}) => {
                 'city': city,
                 'country': country
             });
+
+            const sessionId = data.sessionId;
+            const stripe = await stripePromise;
+            const {error} = await stripe.redirectToCheckout({
+                sessionId,
+            });
+            if (error) {
+                console.log(error.message)
+            }
             notify.show('yay!!', "success", 1700);
         } catch (e) {
             console.log(e)
@@ -43,6 +55,7 @@ const Checkout = ({history}) => {
         }
     };
 
+    // todo implement proper validation to all fields
     return (
         <Container className={'start-point'}>
             <Row>
