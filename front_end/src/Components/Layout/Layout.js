@@ -117,9 +117,10 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
                                 <Route path="/products">
                                     <ProductsContainer/>
                                 </Route>
-                                <Route exact path="/success/:basketId" component={SuccessPage}>
+                                <Route exact path="/success/:basketId">
+                                    <SuccessPage/>
                                 </Route>
-                                <Route path="/cancel">
+                                <Route path="/cancel/:basketId">
                                     <CancellationPage/>
                                 </Route>
                                 <Route path="/basket">

@@ -7,7 +7,7 @@ const StartPage = ({history}) => {
     return (
         <div id={"start-container"} className={"start-point"}>
             start page
-            <div style={{textAlign: 'center'}}>
+            <div>
                 <Button onClick={() => history.push('/products')}>Shop Now!</Button>
             </div>
         </div>

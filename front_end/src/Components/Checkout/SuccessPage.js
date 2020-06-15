@@ -29,21 +29,39 @@ const SuccessPage = (props) => {
         checkPayment()
     }, []);
 
+    let paymentResponse;
+
+    //rendering the adeqcvate feedback bases on stripe's PaymentIntent status
+    switch (paymentStatus) {
+        case  'succeeded':
+            paymentResponse = 'Your order is created.';
+            break;
+        case  'requires_payment_method':
+            paymentResponse = 'Your order requires payment method.';
+            break;
+        case  'canceled':
+            paymentResponse = 'Your order was cancelled.';
+            break;
+        case  'processing':
+            paymentResponse = 'Your order is under processing.';
+            break;
+        case  'requires_action':
+            paymentResponse = 'Your order requires additional actions.';
+            break;
+        case  'requires_confirmation':
+            paymentResponse = 'Your order requires confirmation.';
+            break;
+        default:
+            paymentResponse = ' Payment failed. Please try again.'
+    }
+
     return (
         <div>
             {sendingRequest ? (
                 <Spinner color="danger"/>
             ) : (
                 <div className={'start-point'}>
-                    {paymentStatus === 'succeeded' ? (
-                        <div>
-                            order is created
-                        </div>
-                    ) : (
-                        <div>
-                            payment failed
-                        </div>
-                    )}
+                    {paymentResponse}
                 </div>
             )}
         </div>
