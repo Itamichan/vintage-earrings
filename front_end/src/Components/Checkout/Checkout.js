@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {Button, Col, Container, Label, ModalBody, Row} from "reactstrap";
+import {Button, Col, Container, Label, Row} from "reactstrap";
 import {AvField, AvForm} from "availity-reactstrap-validation";
-import {withRouter, useParams} from "react-router";
+import {withRouter} from "react-router";
 import axios from "axios";
 import {notify} from "react-notify-toast";
 import {loadStripe} from '@stripe/stripe-js';
@@ -14,12 +14,17 @@ const Checkout = ({history}) => {
     const [firstName, setFirstName] = useState('cris');
     const [lastName, setLastName] = useState('garb');
     const [streetAddress, setStreetAddress] = useState('fff');
-    const [aptNr, setAptNr] = useState('ff');
-    const [postalCode, setPostalCode] = useState('fgfg');
+    const [aptNr, setAptNr] = useState(23);
+    const [postalCode, setPostalCode] = useState(2222);
     const [city, setCity] = useState('kista');
     const [country, setCountry] = useState('Sweden');
 
     const stripePromise = loadStripe('pk_test_HOdcOxCrsy4Yyhic9468ZiDc00Ar5VIhOY');
+
+    //code inspired from https://flaviocopes.com/how-to-uppercase-first-letter-javascript/
+    const capitalizeWord = (word) => {
+        return word.charAt(0).toUpperCase() + word.slice(1)
+    };
 
     const checkout = async () => {
         try {
@@ -29,13 +34,13 @@ const Checkout = ({history}) => {
             const {data} = await axios.post(`api/v1/baskets/${basketId}/checkout`, {
                 'email': email,
                 'confirmEmail': confirmEmail,
-                'firstName': firstName,
-                'lastName': lastName,
+                'firstName': capitalizeWord(firstName),
+                'lastName': capitalizeWord(lastName),
                 'streetAddress': streetAddress,
                 'aptNr': aptNr,
                 'postalCode': postalCode,
-                'city': city,
-                'country': country
+                'city': capitalizeWord(city),
+                'country': capitalizeWord(country)
             });
 
             const sessionId = data.sessionId;
@@ -55,7 +60,6 @@ const Checkout = ({history}) => {
         }
     };
 
-    // todo implement proper validation to all fields
     return (
         <Container className={'start-point'}>
             <Row>
@@ -93,58 +97,102 @@ const Checkout = ({history}) => {
                                  onChange={(e) => setConfirmEmail(e.target.value)}/>
                         <Label for="firstName" className={"text-highlight"}>First Name</Label>
                         <AvField type="text" id={'firstName'} name={'firstName'} value={firstName}
-                                 errorMessage="Please provide the email."
+                                 errorMessage="Please provide the First Name."
                                  disabled={sendingRequest}
                                  validate={{
-                                     required: {value: true}
+                                     required: {value: true},
+                                     pattern: {
+                                         value: '^[A-Za-z]+$',
+                                         errorMessage: "Only letter characters are allowed."
+                                     },
+                                     maxLength: {
+                                         value: 40,
+                                         errorMessage: "Maximum 40 characters are allowed."
+                                     }
                                  }}
                                  onChange={(e) => setFirstName(e.target.value)}/>
                         <Label for="lastName" className={"text-highlight"}>Last Name</Label>
                         <AvField type="text" id={'lastName'} name={'lastName'} value={lastName}
-                                 errorMessage="Please provide the email."
+                                 errorMessage="Please provide the Last Name."
                                  disabled={sendingRequest}
                                  validate={{
-                                     required: {value: true}
+                                     required: {value: true},
+                                     pattern: {
+                                         value: '^[A-Za-z]+$',
+                                         errorMessage: "Only letter characters are allowed."
+                                     },
+                                     maxLength: {
+                                         value: 40,
+                                         errorMessage: "Maximum 40 characters are allowed."
+                                     }
                                  }}
                                  onChange={(e) => setLastName(e.target.value)}/>
                         <Label for="streetAddress" className={"text-highlight"}>Street Address</Label>
                         <AvField type="text" id={'streetAddress'} name={'streetAddress'} value={streetAddress}
-                                 errorMessage="Please provide the email."
+                                 errorMessage="Please provide the street address."
                                  disabled={sendingRequest}
                                  validate={{
-                                     required: {value: true}
+                                     required: {value: true},
+                                     maxLength: {
+                                         value: 40,
+                                         errorMessage: "Maximum 40 characters are allowed."
+                                     }
                                  }}
                                  onChange={(e) => setStreetAddress(e.target.value)}/>
-                        <Label for="aptNr" className={"text-highlight"}>aptNr</Label>
-                        <AvField type="text" id={'aptNr'} name={'aptNr'} value={aptNr}
-                                 errorMessage="Please provide the email."
+                        <Label for="aptNr" className={"text-highlight"}>Apartment Number</Label>
+                        <AvField type="number" id={'aptNr'} name={'aptNr'} value={aptNr}
+                                 errorMessage="Please provide the apartment number."
                                  disabled={sendingRequest}
                                  validate={{
-                                     required: {value: true}
+                                     required: {value: true},
+                                     pattern: {
+                                         value: '^[0-9]+$',
+                                         errorMessage: "Only numerical characters are allowed."
+                                     }
                                  }}
                                  onChange={(e) => setAptNr(e.target.value)}/>
-                        <Label for="postalCode" className={"text-highlight"}>postal Code</Label>
-                        <AvField type="text" id={'postalCode'} name={'postalCode'} value={postalCode}
+                        <Label for="postalCode" className={"text-highlight"}>Postal Code</Label>
+                        <AvField type="number" id={'postalCode'} name={'postalCode'} value={postalCode}
                                  errorMessage="Please provide the email."
                                  disabled={sendingRequest}
                                  validate={{
-                                     required: {value: true}
+                                     required: {value: true},
+                                     pattern: {
+                                         value: '^[0-9]+$',
+                                         errorMessage: "Only numerical characters are allowed."
+                                     }
                                  }}
                                  onChange={(e) => setPostalCode(e.target.value)}/>
-                        <Label for="city" className={"text-highlight"}>city</Label>
+                        <Label for="city" className={"text-highlight"}>City</Label>
                         <AvField type="text" id={'city'} name={'city'} value={city}
                                  errorMessage="Please provide the email."
                                  disabled={sendingRequest}
                                  validate={{
-                                     required: {value: true}
+                                     required: {value: true},
+                                     pattern: {
+                                         value: '^[A-Za-z]+$',
+                                         errorMessage: "Only letter characters are allowed."
+                                     },
+                                     maxLength: {
+                                         value: 40,
+                                         errorMessage: "Maximum 40 characters are allowed."
+                                     }
                                  }}
                                  onChange={(e) => setCity(e.target.value)}/>
-                        <Label for="country" className={"text-highlight"}>country</Label>
+                        <Label for="country" className={"text-highlight"}>Country</Label>
                         <AvField type="text" id={'country'} name={'country'} value={country}
                                  errorMessage="Please provide the email."
                                  disabled={sendingRequest}
                                  validate={{
-                                     required: {value: true}
+                                     required: {value: true},
+                                     pattern: {
+                                         value: '^[A-Za-z]+$',
+                                         errorMessage: "Only letter characters are allowed."
+                                     },
+                                     maxLength: {
+                                         value: 40,
+                                         errorMessage: "Maximum 40 characters are allowed."
+                                     }
                                  }}
                                  onChange={(e) => setCountry(e.target.value)}/>
                         <Button

@@ -58,6 +58,6 @@ export const removeItem = async (itemId) => {
 };
 
 export const removeBasket = () => {
-    store.dispatch(cleanBasket());
     localStorage.removeItem('basket_id');
+    store.dispatch(cleanBasket());
 };
