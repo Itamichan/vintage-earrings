@@ -10,7 +10,6 @@ class OrderCreationTest(TestCase):
     """
     Tests that a Order is created based on the existing Basket. After Order creation the Basket is destroyed
     """
-    # todo refactor the test
     def test_order_creation(self):
         basket = Basket.objects.create(stripe_id='some-random-stripe-id')
 

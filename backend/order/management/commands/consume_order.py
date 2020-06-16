@@ -1,8 +1,6 @@
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
-
 import pika
-
 from basket.models import Basket, BasketItem
 from order.models import Order, OrderItem
 
@@ -12,8 +10,6 @@ class Command(BaseCommand):
 
     def create_basket(self, basket_id):
         basket = Basket.objects.get(pk=basket_id)
-
-        print(basket)
 
         items_qs = BasketItem.objects.select_related('product').filter(basket=basket)
 
@@ -38,7 +34,7 @@ class Command(BaseCommand):
 
         channel.queue_declare(queue='order', durable=True)
 
-        # This uses the basic.qos protocol method to tell RabbitMQ not to give more than one message to a worker at a time.
+        # Tells RabbitMQ not to give more than one message to a worker at a time.
         channel.basic_qos(prefetch_count=1)
 
         channel.basic_consume(
