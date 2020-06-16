@@ -28,3 +28,9 @@ export const updateBasket = (itemId, itemQuantity) => {
     }
 };
 
+export const cleanBasket = () => {
+    return {
+        type: "CLEAN_BASKET"
+    }
+};
+

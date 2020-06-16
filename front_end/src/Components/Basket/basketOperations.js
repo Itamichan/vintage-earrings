@@ -1,6 +1,6 @@
 import {store} from "../../store";
 import axios from "axios";
-import {addToBasket, removeFromBasket, updateBasket} from "./redux/actions";
+import {addToBasket, cleanBasket, removeFromBasket, updateBasket} from "./redux/actions";
 import {notify} from "react-notify-toast";
 
 
@@ -16,7 +16,7 @@ export const addItem = async (productId) => {
         basketId = data.basket_id
     }
 
-    let {data} = await axios.post(`api/v1/baskets/${basketId}/items/`, {
+    let {data} = await axios.post(`api/v1/baskets/${basketId}/items`, {
         'product_id': productId
     });
     //adds item to the basketItems in the BasketReducer.
@@ -55,4 +55,9 @@ export const removeItem = async (itemId) => {
         console.log(e)
     } finally {
     }
+};
+
+export const removeBasket = () => {
+    store.dispatch(cleanBasket());
+    localStorage.removeItem('basket_id');
 };

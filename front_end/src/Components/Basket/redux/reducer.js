@@ -41,6 +41,11 @@ const BasketReducer = (state, action) => {
                 ...state,
                 basketItems: updateBasket
             };
+        case "CLEAN_BASKET":
+            return {
+                ...state,
+                basketItems: []
+            };
 
         default:
             return state
