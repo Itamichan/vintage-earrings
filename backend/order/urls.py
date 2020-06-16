@@ -1,10 +1,11 @@
 from django.urls import path
 
-from order.views import OrderView
+from order.views import OrderItemsView
 
-app_name = 'baskets'
+app_name = 'orders'
 
 urlpatterns = [
-    path('', OrderView.as_view(), name='order'),
+    path('order/items', OrderItemsView.as_view(), name='orderItems'),
+
 
 ]
