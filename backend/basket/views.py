@@ -1,6 +1,7 @@
 import json
 import uuid
 
+import pika
 import stripe
 from django.conf import settings
 from django.http import JsonResponse
@@ -505,6 +506,34 @@ class BasketPaymentVerifyView(View):
 
             if status != 'succeeded':
                 return JsonResponse402('There was an error processing your payment.').json_response()
+
+            # establish a connection with RabbitMQ server.
+
+            credentials = pika.PlainCredentials(settings.MPQ_USERNAME, settings.MPQ_PASSWORD)
+
+            connection = pika.BlockingConnection(
+                pika.ConnectionParameters(host='localhost', credentials=credentials))
+            channel = connection.channel()
+
+            # make sure the recipient queue exists.
+            # The durability options let the tasks survive even if RabbitMQ is restarted.
+            channel.queue_declare(queue='order', durable=True)
+
+            """
+            In RabbitMQ a message can never be sent directly to the queue, it always needs to go through an exchange. 
+            A default exchange is identified by an empty string. This exchange is special ‒ it allows us to specify 
+            exactly to which queue the message should go. The queue name needs to be specified in the routing_key parameter:
+            """
+
+            channel.basic_publish(exchange='',
+                                  routing_key='order',
+                                  body=basket_id,
+                                  properties=pika.BasicProperties(
+                                      delivery_mode=2,  # make message persistent
+                                  )
+                                  )
+            print("Message sent")
+            connection.close()
 
             return JsonResponse({
                 'payment_status': status
