@@ -33,7 +33,6 @@ const Checkout = ({history}) => {
 
             const {data} = await axios.post(`api/v1/baskets/${basketId}/checkout`, {
                 'email': email,
-                'confirmEmail': confirmEmail,
                 'firstName': capitalizeWord(firstName),
                 'lastName': capitalizeWord(lastName),
                 'streetAddress': streetAddress,
@@ -44,6 +43,7 @@ const Checkout = ({history}) => {
             });
 
             const sessionId = data.sessionId;
+
             const stripe = await stripePromise;
             const {error} = await stripe.redirectToCheckout({
                 sessionId,

@@ -463,8 +463,7 @@ class BasketPaymentVerifyView(View):
     def get(self, request, basket_id):
         # todo the proper documentation
         """
-
-        @api {POST} /api/v1/baskets/${basketId}/payment/verify Verify Payment
+        @api {GET} /api/v1/baskets/${basketId}/payment/verify Verify Payment
         @apiVersion 1.0.0
 
         @apiName PaymentVerify
@@ -472,8 +471,7 @@ class BasketPaymentVerifyView(View):
 
         @apiDescription  The endpoint is responsible for verifying that the stripe payment was successful.
 
-
-         @apiSuccessExample {json} Success-Response:
+        @apiSuccessExample {json} Success-Response:
 
         HTTP/1.1 200 OK
 
@@ -481,11 +479,15 @@ class BasketPaymentVerifyView(View):
                 'payment_status': succeeded
             }
 
-
+        @apiError (Bad Request 400)         {Object}    InvalidBasketId         Please provide a valid basket id.
+        @apiError (Bad Request 402)         {Object}    UnsuccessfulPayment  There was an error processing your payment.
         @apiError (InternalServerError 500) {Object}    InternalServerError
 
         """
         try:
+
+            if not basket_id:
+                return JsonResponse400('InvalidBasketId', 'Please provide a valid basket id.').json_response()
 
             basket = Basket.objects.get(pk=basket_id)
             stripe_id = basket.stripe_id
@@ -514,9 +516,9 @@ class BasketPaymentVerifyView(View):
             channel.queue_declare(queue='order', durable=True)
 
             """
-            In RabbitMQ a message can never be sent directly to the queue, it always needs to go through an exchange. 
+            A message can never be sent directly to the queue, it always needs to go through an exchange. 
             A default exchange is identified by an empty string. This exchange is special ‒ it allows us to specify 
-            exactly to which queue the message should go. The queue name needs to be specified in the routing_key parameter:
+            exactly to which queue the message should go. The queue name needs to be specified in the routing_key.
             """
 
             channel.basic_publish(exchange='',
