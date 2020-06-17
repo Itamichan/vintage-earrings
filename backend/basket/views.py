@@ -4,6 +4,8 @@ import uuid
 import pika
 import stripe
 from django.conf import settings
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -330,7 +332,6 @@ class BasketItemsView(View):
         try:
 
             # raises an error if a value is not provided.
-
             if not basket_id:
                 return JsonResponse400('InvalidBasketId', 'Please provide a valid basket id.').json_response()
 
@@ -343,7 +344,7 @@ class BasketItemsView(View):
 
             if not basket_item:
                 return JsonResponse400('BasketItemNotFound',
-                                       'This basked does not contain such an item').json_response()
+                                       'This basket does not contain such an item').json_response()
 
             basket_item.delete()
 
@@ -369,21 +370,11 @@ class BasketCheckoutView(View):
         @apiName CheckoutBasket
         @apiGroup Baskets
 
-        @apiDescription  The endpoint is responsible for
+        @apiDescription  The endpoint is responsible for creating a stripe payment session and returning the stripe session id.
 
-        @apiParam   {Integer}   email              The product_id passed by the client side.
-        @apiParam   {Integer}   confirmEmail              The product_id passed by the client side.
-        @apiParam   {Integer}   firstName              The product_id passed by the client side.
-        @apiParam   {Integer}   lastName              The product_id passed by the client side.
-        @apiParam   {Integer}   streetAddress              The product_id passed by the client side.
-        @apiParam   {Integer}   aptNr              The product_id passed by the client side.
-        @apiParam   {Integer}   postalCode              The product_id passed by the client side.
-        @apiParam   {Integer}   city              The product_id passed by the client side.
-        @apiParam   {Integer}   country              The product_id passed by the client side.
+        @apiParam   {String}   email              The email passed by the client side.
 
-
-        @apiSuccess {Object}    item                    Represents the
-        @apiSuccess {Integer}   id                      Id of added item to the basket.
+        @apiSuccess {String}   sessionId          Represents the stripe session id.
 
 
          @apiSuccessExample {json} Success-Response:
@@ -391,11 +382,11 @@ class BasketCheckoutView(View):
         HTTP/1.1 200 OK
 
             {
-
+                'sessionId': 329e-4913-ae15-e9242451f698
             }
 
-        @apiError (Bad Request 400)         {Object}    InvalidProductId        Please provide a valid product id.
         @apiError (Bad Request 400)         {Object}    InvalidBasketId         Please provide a valid basket id.
+        @apiError (Bad Request 400)         {Object}    InvalidEmail            Please provide a valid email.
         @apiError (InternalServerError 500) {Object}    InternalServerError
 
         """
@@ -404,13 +395,15 @@ class BasketCheckoutView(View):
             payload = json.loads(request.body.decode('UTF-8'))
 
             email = payload.get('email', '')
-            confirmEmail = payload.get('confirmEmail', '')
-            firstName = payload.get('firstName', '')
-            lastName = payload.get('lastName', '')
-            streetAddress = payload.get('streetAddress', '')
-            aptNr = payload.get('aptNr', '')
-            postalCode = payload.get('postalCode', '')
-            city = payload.get('city', '')
+
+            try:
+                validate_email(email)
+            except ValidationError as ve:
+                print('error message:', ','.join(ve.messages))
+                return JsonResponse400('InvalidEmail', ','.join(ve.messages)).json_response()
+
+            if not basket_id:
+                return JsonResponse400('InvalidBasketId', 'Please provide a valid basket id.').json_response()
 
             basket = Basket.objects.get(pk=basket_id)
             stripe_id = basket.stripe_id
@@ -418,8 +411,6 @@ class BasketCheckoutView(View):
             if not stripe_id or True:
 
                 basket_items_list = BasketItem.objects.prefetch_related('product').filter(basket=basket)
-
-                stripe.api_key = settings.STRIPE_API_KEY
 
                 # creating the list with all the products' information to be passed to stripe
                 line_items = []
@@ -436,13 +427,16 @@ class BasketCheckoutView(View):
                     )
 
                 # stripe payment
+
+                stripe.api_key = settings.STRIPE_API_KEY
+
                 stripe_response = stripe.checkout.Session.create(
                     success_url=f"{settings.HOST}/success/{basket_id}",
                     cancel_url=f"{settings.HOST}/cancel/{basket_id}",
                     customer_email=email,
                     payment_method_types=["card"],
                     line_items=line_items,
-                    mode='payment',
+                    mode='payment'
                 )
 
                 # Getting the data from the stripe response that is important for the client
