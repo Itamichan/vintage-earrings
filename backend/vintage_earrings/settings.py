@@ -196,9 +196,10 @@ try:
 except:
     pass
 
+
 # RabbitMQ URL
 
-CLOUDAMQP_URL = os.environ.get("CLOUDAMQP_URL", f"amqp://{MPQ_USERNAME}:{MPQ_PASSWORD}@localhost:5672/%2f")
+CLOUDAMQP_URL = os.environ.get("CLOUDAMQP_URL", f"amqp://admin:{MPQ_PASSWORD}@localhost:5672/%2f")
 
 print('CLOUDAMQP_URL', CLOUDAMQP_URL)
 
