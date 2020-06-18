@@ -492,6 +492,8 @@ class BasketPaymentVerifyView(View):
             basket = Basket.objects.get(pk=basket_id)
             stripe_id = basket.stripe_id
 
+            stripe.api_key = settings.STRIPE_API_KEY
+
             # retrieve a stripe session
             session_response = stripe.checkout.Session.retrieve(stripe_id)
             payment_intent = session_response.payment_intent
@@ -505,10 +507,8 @@ class BasketPaymentVerifyView(View):
 
             # establish a connection with RabbitMQ server.
 
-            credentials = pika.PlainCredentials(settings.MPQ_USERNAME, settings.MPQ_PASSWORD)
-
-            connection = pika.BlockingConnection(
-                pika.ConnectionParameters(host='localhost', credentials=credentials))
+            params = pika.URLParameters(settings.CLOUDAMQP_URL)
+            connection = pika.BlockingConnection(params)
             channel = connection.channel()
 
             # make sure the recipient queue exists.
@@ -535,5 +535,5 @@ class BasketPaymentVerifyView(View):
                 'payment_status': status
             })
         except Exception as e:
-            print(e)
+            raise e
             return JsonResponse500().json_response()

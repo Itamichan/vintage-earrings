@@ -12,8 +12,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import dj_database_url
+import logging.config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import pika
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -186,11 +189,24 @@ LOGGING = {
     }
 }
 
-import logging.config
-
 logging.config.dictConfig(LOGGING)
 
 try:
     from .developer_settings import *
 except:
     pass
+
+# RabbitMQ URL
+
+CLOUDAMQP_URL = os.environ.get("CLOUDAMQP_URL", f"amqp://{MPQ_USERNAME}:{MPQ_PASSWORD}@localhost:5672/%2f")
+
+print('CLOUDAMQP_URL', CLOUDAMQP_URL)
+
+params = pika.URLParameters(CLOUDAMQP_URL)
+connection = pika.BlockingConnection(params)
+channel = connection.channel()
+
+
+# VINTAGE_EARRINGS_INDEX_URL
+
+VINTAGE_EARRINGS_INDEX_URL = os.environ.get('VINTAGE_EARRINGS_INDEX_URL', 'http://localhost:3000')
