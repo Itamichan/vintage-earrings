@@ -8,6 +8,7 @@ import {loadStripe} from '@stripe/stripe-js';
 
 const Checkout = ({history}) => {
 
+    //todo clean the dummy data
     const [sendingRequest, setSendingRequest] = useState(false);
     const [email, setEmail] = useState('cris@gmail.com');
     const [confirmEmail, setConfirmEmail] = useState('cris@gmail.com');
@@ -21,25 +22,28 @@ const Checkout = ({history}) => {
 
     const stripePromise = loadStripe('pk_test_HOdcOxCrsy4Yyhic9468ZiDc00Ar5VIhOY');
 
-    //code inspired from https://flaviocopes.com/how-to-uppercase-first-letter-javascript/
-    const capitalizeWord = (word) => {
-        return word.charAt(0).toUpperCase() + word.slice(1)
-    };
+    //todo for later: code if I want to save the address info
+
+    // //code inspired from https://flaviocopes.com/how-to-uppercase-first-letter-javascript/
+    // const capitalizeWord = (word) => {
+    //     return word.charAt(0).toUpperCase() + word.slice(1)
+    // };
+    // 'email': email,
+    //     'firstName': capitalizeWord(firstName),
+    //     'lastName': capitalizeWord(lastName),
+    //     'streetAddress': streetAddress,
+    //     'aptNr': aptNr,
+    //     'postalCode': postalCode,
+    //     'city': capitalizeWord(city),
+    //     'country': capitalizeWord(country)
 
     const checkout = async () => {
         try {
             setSendingRequest(true);
             const basketId = localStorage.getItem('basket_id');
 
-            const {data} = await axios.post(`api/v1/baskets/${basketId}/checkout`, {
-                'email': email,
-                'firstName': capitalizeWord(firstName),
-                'lastName': capitalizeWord(lastName),
-                'streetAddress': streetAddress,
-                'aptNr': aptNr,
-                'postalCode': postalCode,
-                'city': capitalizeWord(city),
-                'country': capitalizeWord(country)
+            const {data} = await axios.post(`/api/v1/baskets/${basketId}/checkout`, {
+                "email":email
             });
 
             const sessionId = data.sessionId;
