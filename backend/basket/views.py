@@ -535,5 +535,5 @@ class BasketPaymentVerifyView(View):
                 'payment_status': status
             })
         except Exception as e:
-            raise e
+            print(e)
             return JsonResponse500().json_response()

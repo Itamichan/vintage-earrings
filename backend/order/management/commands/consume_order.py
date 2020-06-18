@@ -26,10 +26,8 @@ class Command(BaseCommand):
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
     def handle(self, *args, **options):
-        credentials = pika.PlainCredentials(settings.MPQ_USERNAME, settings.MPQ_PASSWORD)
-
-        connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host='localhost', credentials=credentials))
+        params = pika.URLParameters(settings.CLOUDAMQP_URL)
+        connection = pika.BlockingConnection(params)
         channel = connection.channel()
 
         channel.queue_declare(queue='order', durable=True)

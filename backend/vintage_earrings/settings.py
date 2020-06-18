@@ -199,7 +199,7 @@ except:
 
 # RabbitMQ URL
 
-CLOUDAMQP_URL = os.environ.get("CLOUDAMQP_URL", f"amqp://admin:letdown-caged-spearfish-acrid-tweezers-when-rotting-below@localhost:5672/%2f")
+CLOUDAMQP_URL = os.environ.get("CLOUDAMQP_URL", "amqp://admin:letdown-caged-spearfish-acrid-tweezers-when-rotting-below@localhost:5672/%2f")
 
 print('CLOUDAMQP_URL', CLOUDAMQP_URL)
 
