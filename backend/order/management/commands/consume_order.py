@@ -18,6 +18,7 @@ class Command(BaseCommand):
         for item in items_qs:
             OrderItem.objects.create(order=order, product=item.product, items_quantity=item.items_quantity)
 
+        print('message consumed')
         # destroy the basket after the order is created
         basket.delete()
 
