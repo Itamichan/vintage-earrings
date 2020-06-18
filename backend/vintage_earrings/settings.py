@@ -203,11 +203,6 @@ CLOUDAMQP_URL = os.environ.get("CLOUDAMQP_URL", "amqp://admin:letdown-caged-spea
 
 print('CLOUDAMQP_URL', CLOUDAMQP_URL)
 
-params = pika.URLParameters(CLOUDAMQP_URL)
-connection = pika.BlockingConnection(params)
-channel = connection.channel()
-
-
 # VINTAGE_EARRINGS_INDEX_URL
 
 VINTAGE_EARRINGS_INDEX_URL = os.environ.get('VINTAGE_EARRINGS_INDEX_URL', 'http://localhost:3000')
