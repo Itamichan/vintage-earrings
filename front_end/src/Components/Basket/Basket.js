@@ -28,42 +28,44 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history}) => {
         <div className={'start-point'}>
             basket
             <Container>
-                {showItemsCount > 0? (
-                    <Row>
-                        <Col>
-                            <div>
-                                <span>Total ({showItemsCount} </span>
-                                {
-                                    showItemsCount > 1 ? (
-                                        <span>items):</span>
-                                    ) : (
-                                        <span>item):</span>)}
-                            </div>
-                        </Col>
-                        <Col>
-                            <div>
-                                {showItemsTotal} €
-                            </div>
-                        </Col>
-                    </Row>
+                {showItemsCount > 0 ? (
+                    <div>
+                        <Row>
+                            <Col>
+                                <div>
+                                    <span>Total ({showItemsCount} </span>
+                                    {
+                                        showItemsCount > 1 ? (
+                                            <span>items):</span>
+                                        ) : (
+                                            <span>item):</span>)}
+                                </div>
+                            </Col>
+                            <Col>
+                                <div>
+                                    {showItemsTotal} €
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Button onClick={() => history.push(`/checkout`)}>
+                                    Proceed to checkout
+                                </Button>
+                            </Col>
+                        </Row>
+                    </div>
                 ) : (
                     <Row>
                         <Col xs={12}>
                             <div>
-                               You have no items in your basket
+                                You have no items in your basket
                             </div>
                         </Col>
                     </Row>
                 )}
                 <Row>
                     {itemsList}
-                </Row>
-                <Row>
-                    <Col>
-                        <Button onClick={() => history.push(`/checkout`)}>
-                            Proceed to checkout
-                        </Button>
-                    </Col>
                 </Row>
             </Container>
         </div>
