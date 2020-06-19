@@ -20,10 +20,20 @@
     }
   },
     {
+    "model": "product.product",
+    "pk": 3,
+    "fields": {
+      "name": "earings3",
+      "description": "very beautiful",
+      "price": 50,
+      "quantity": 25
+    }
+  },
+    {
     "model": "product.productPhoto",
     "pk": 1,
     "fields": {
-      "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT2lS_uRmpLtYHtc4mIdHcysDiulBedZW5gnK9Sf1LLK2YyzVM0&usqp=CAU",
+      "photo_url": "https://i1.wp.com/www.hrcubed.co.uk/wp-content/uploads/2018/11/Hamster.jpg?fit=925%2C673&ssl=1",
       "product_id": 1
     }
   },
@@ -31,7 +41,7 @@
     "model": "product.productPhoto",
     "pk": 2,
      "fields": {
-      "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT2lS_uRmpLtYHtc4mIdHcysDiulBedZW5gnK9Sf1LLK2YyzVM0&usqp=CAU",
+      "photo_url": "https://i1.wp.com/www.hrcubed.co.uk/wp-content/uploads/2018/11/Hamster.jpg?fit=925%2C673&ssl=1",
       "product_id": 1
     }
   },
@@ -48,7 +58,7 @@
     "pk": 4,
      "fields": {
       "photo_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT2lS_uRmpLtYHtc4mIdHcysDiulBedZW5gnK9Sf1LLK2YyzVM0&usqp=CAU",
-      "product_id": 2
+      "product_id": 3
     }
   }
   
