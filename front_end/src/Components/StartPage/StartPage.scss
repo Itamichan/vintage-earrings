@@ -1,21 +1,58 @@
+@import "../../global_scss/global_styles";
+
 #start-container {
   color: black;
 
-  #hero-img {
+  #hero-container {
     position: relative;
 
     #img-container {
       background-image: url("https://vintage-earrings.s3.eu-north-1.amazonaws.com/static/media/bg.png");
       background-size: contain;
       background-repeat: no-repeat;
+      //todo set bg to black if this is still a viable solution
+      //background-color: #000000;
+      background-position: center;
 
       width: 100vw;
-      height: 48vh;
-
-
-      #shop-button {
-        position: absolute;
+      height: 40rem;
+      //todo proper scaling of the img
+      @media (min-width: 600px) {
+        height: 40rem;
       }
+    }
+    #img-header {
+      position: absolute;
+      z-index: 100;
+      top: 5rem;
+      left: 48%;
+
+      #hero-header {
+        position: relative;
+        &:hover {
+          color: $compliment-color !important;
+          cursor: text;
+        }
+      }
+      #hero-header::after {
+        position: absolute;
+        bottom: -22px;
+
+        display: block;
+
+        content: 'Find your perfect pair...';
+        transform: scaleY(-1);
+
+        opacity: .4;
+      }
+    }
+
+    #shop-button {
+      position: absolute;
+      z-index: 100;
+      bottom: 1.5rem;
+      left: 48%;
+
     }
   }
 }

@@ -184,7 +184,7 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
 
                                     }}
                                     disabled={sendingRequest}
-                                    className={"link-button"}
+                                    className={"invisible-button"}
                                 >
                                     Create a new account
                                 </button>

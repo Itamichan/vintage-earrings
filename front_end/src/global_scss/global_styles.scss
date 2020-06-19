@@ -129,6 +129,24 @@ $compliment-light2-color: #9E6DBB;
   }
 }
 
+.invisible-button {
+
+  background-color: transparent;
+  border: none;
+  display: inline-block;
+  padding-bottom: 1rem;
+  color: $secondary-color !important;
+
+  &:hover {
+    color: $secondary-dark-color !important;
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: $secondary-dark2-color !important;
+  }
+}
+
 //.filter-tag-button {
 //  @include button();
 //  margin: 0 0.5rem;
@@ -147,8 +165,8 @@ $compliment-light2-color: #9E6DBB;
 }
 
 //ensures that all components leave space on top for the navigation bar
-.start-point{
-  margin-top:  4rem;
+.start-point {
+  margin-top: 4rem;
   //todo remove the color after applying the correct classes for the text
   color: black;
 }
