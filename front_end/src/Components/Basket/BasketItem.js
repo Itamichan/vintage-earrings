@@ -34,11 +34,7 @@ const BasketItem = ({history, item, onTrashClick}) => {
                 onClick={() => history.push({
                     pathname: `/products/product/${item.product.id}`,
                     state: {
-                        productImgList: item.product.photos,
-                        productPrice: `${item.product.price} €`,
-                        productDescription: item.product.description,
-                        productName: item.product.name,
-                        productQty: item.product.quantity
+                        product: item.product
                     }
                 })}
             >

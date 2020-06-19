@@ -50,12 +50,7 @@ const ProductsContainer = ({basketItems}) => {
         return (
             <Col xs={"6"} md={"4"} xl={"3"} key={product.id}>
                 <ProductCard
-                    productId={product.id}
-                    productName={product.name}
-                    productImgList={product["photos"]}
-                    productPrice={`${product.price} €`}
-                    productDescription={product.description}
-                    productQty={product.quantity}
+                    product={product}
                     onShoppingCartClick={() => manageItem(product.id)}
                 />
             </Col>

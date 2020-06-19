@@ -4,10 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import "./ProductCard.scss"
 import {withRouter} from "react-router";
 
-const ProductCard = ({
-                         productName, productQty, productImgList, productPrice, onShoppingCartClick, productId, history,
-                         productDescription
-                     }) => {
+const ProductCard = ({product, onShoppingCartClick, history}) => {
 
 
     return (
@@ -16,16 +13,12 @@ const ProductCard = ({
                 <CardImg
                     className={"card-img"}
                     top width="100%"
-                    src={productImgList[0].photo_url}
+                    src={product["photos"][0].photo_url}
                     alt="img of the product"
                     onClick={() => history.push({
-                        pathname: `/products/product/${productId}`,
+                        pathname: `/products/product/${product.id}`,
                         state: {
-                            productImgList: productImgList,
-                            productPrice: productPrice,
-                            productDescription: productDescription,
-                            productName: productName,
-                            productQty: productQty
+                            product: product
                         }
                     })}
                 />
@@ -33,20 +26,16 @@ const ProductCard = ({
                     <CardTitle
                         className={"text-header"}
                         onClick={() => history.push({
-                            pathname: `/products/product/${productId}`,
+                            pathname: `/products/product/${product.id}`,
                             state: {
-                                productImgList: productImgList,
-                                productPrice: productPrice,
-                                productDescription: productDescription,
-                                productName: productName,
-                                productQty: productQty
+                                product: product
                             }
                         })}
                     >
-                        {productName}
+                        {product.name}
                     </CardTitle>
                     <CardText className={"text-highlight card-text"}>
-                        {productPrice}
+                        {`${product.price} €`}
                         <FontAwesomeIcon
                             icon="cart-plus"
                             onClick={() => onShoppingCartClick()}
