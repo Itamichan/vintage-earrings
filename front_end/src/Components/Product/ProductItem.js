@@ -1,14 +1,6 @@
 import React, {useState} from 'react';
 import {useLocation, useParams, withRouter} from "react-router";
-import {
-    Button,
-    Carousel,
-    CarouselCaption,
-    CarouselControl,
-    CarouselIndicators,
-    CarouselItem,
-    Container
-} from 'reactstrap';
+import {Button, Carousel, CarouselControl, CarouselIndicators, CarouselItem, Container} from 'reactstrap';
 import Row from "reactstrap/es/Row";
 import Col from "reactstrap/es/Col";
 import './ProductItem.scss';
@@ -31,7 +23,7 @@ const ProductItem = ({basketItems}) => {
     let manageItem = (productId) => {
         //this filter can create a list with only one element
         let basketItem = basketItems.filter(item => {
-            return item.product.id === productId
+            return item.product.id === parseInt(productId)
         });
 
         if (basketItem.length === 0) {
