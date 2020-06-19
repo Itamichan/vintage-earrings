@@ -33,14 +33,14 @@ const ProductsContainer = ({basketItems}) => {
     }, []);
 
     //responsible for adding a new item to the basket or updating the quantity of an existing item.
-    let manageItem = (product) => {
+    let manageItem = (productId) => {
         //this filter can create a list with only one element
         let basketItem = basketItems.filter(item => {
-            return item.product.id === product.id
+            return item.product.id === productId
         });
 
         if (basketItem.length === 0) {
-            addItem(product.id)
+            addItem(productId)
         } else {
             updateItem(basketItem[0].id, basketItem[0].items_quantity + 1)
         }
@@ -50,10 +50,13 @@ const ProductsContainer = ({basketItems}) => {
         return (
             <Col xs={"6"} md={"4"} xl={"3"} key={product.id}>
                 <ProductCard
-                    cardTitle={product.name}
+                    productId={product.id}
+                    productName={product.name}
                     productImgList={product["photos"]}
                     productPrice={`${product.price} €`}
-                    onShoppingCartClick={() => manageItem(product)}
+                    productDescription={product.description}
+                    productQty={product.quantity}
+                    onShoppingCartClick={() => manageItem(product.id)}
                 />
             </Col>
         )

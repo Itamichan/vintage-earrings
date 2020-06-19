@@ -1,4 +1,18 @@
-.card-text {
-  display: flex;
-  justify-content: space-between;
+.card {
+  .card-img {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .card-text {
+    display: flex;
+    justify-content: space-between;
+    .cart-plus {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
 }
+

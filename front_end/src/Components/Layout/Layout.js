@@ -16,6 +16,7 @@ import Basket from "../Basket/Basket";
 import Checkout from "../Checkout/Checkout";
 import SuccessPage from "../Checkout/SuccessPage";
 import CancellationPage from "../Checkout/CancellationPage";
+import ProductItem from "../Product/ProductItem";
 
 const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
 
@@ -113,6 +114,10 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
                             <Switch>
                                 <Route path="/account">
                                     <UserAccount/>
+                                </Route>
+
+                                <Route path={"/products/product/:productId"}>
+                                    <ProductItem/>
                                 </Route>
                                 <Route path="/products">
                                     <ProductsContainer/>
