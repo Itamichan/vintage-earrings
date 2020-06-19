@@ -90,9 +90,14 @@ const ProductItem = ({basketItems}) => {
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs={12}>
+                    <Col xs={6}>
                         <div>
                             {product.name}
+                        </div>
+                    </Col>
+                    <Col xs={6}>
+                        <div>
+                            {`${product.price} €`}
                         </div>
                     </Col>
                     <Col xs={12}>
@@ -102,6 +107,13 @@ const ProductItem = ({basketItems}) => {
                         >
                             Add to Basket
                         </Button>
+                    </Col>
+                    <Col>
+                        <div>
+                            <p>
+                                {product.description}
+                            </p>
+                        </div>
                     </Col>
                 </Row>
             </Container>
