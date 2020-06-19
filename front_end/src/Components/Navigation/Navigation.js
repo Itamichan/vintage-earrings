@@ -13,7 +13,6 @@ import {
 import {logout, openModal} from "../UserProfile/Login/redux/actions";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
-import logo from "../../static/images/logo_transerent.png";
 import "./Navigation.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
@@ -51,7 +50,7 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, sho
         <div>
             <Navbar fixed={"top"} id={"navbar"} light expand={false}>
                 <NavbarBrand id={"navbar-logo"} href="/">
-                    <img src={logo} alt="VintageEarrings logo"/>
+                    {/*<img src={} alt="VintageEarrings logo"/>*/}
                     <span className={"text-header-important"}> VintageEarrings</span>
                 </NavbarBrand>
                 <Nav>

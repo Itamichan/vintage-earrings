@@ -1,3 +1,21 @@
 #start-container {
   color: black;
+
+  #hero-img {
+    position: relative;
+
+    #img-container {
+      background-image: url("https://vintage-earrings.s3.eu-north-1.amazonaws.com/static/media/bg.png");
+      background-size: contain;
+      background-repeat: no-repeat;
+
+      width: 100vw;
+      height: 48vh;
+
+
+      #shop-button {
+        position: absolute;
+      }
+    }
+  }
 }
