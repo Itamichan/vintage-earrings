@@ -12,17 +12,12 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history}) => {
         return (
             <Col xs={"12"} key={item.id}>
                 <BasketItem
-                    cardTitle={item.product.name}
-                    idemId={item.id}
-                    itemImgList={item.product.photos}
-                    itemPrice={`${item.product.price} €`}
-                    itemQuantity={item.items_quantity}
+                    item={item}
                     onTrashClick={() => removeItem(item.id)}
                 />
             </Col>
         )
     });
-
 
     return (
         <div className={'start-point'}>
@@ -48,6 +43,9 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history}) => {
                             </Col>
                         </Row>
                         <Row>
+                            {itemsList}
+                        </Row>
+                        <Row>
                             <Col>
                                 <Button onClick={() => history.push(`/checkout`)}>
                                     Proceed to checkout
@@ -64,9 +62,6 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history}) => {
                         </Col>
                     </Row>
                 )}
-                <Row>
-                    {itemsList}
-                </Row>
             </Container>
         </div>
     )

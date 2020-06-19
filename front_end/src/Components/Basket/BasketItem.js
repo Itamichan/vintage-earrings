@@ -1,17 +1,18 @@
 import React, {useState} from 'react';
 import {Col, FormGroup, Input, Label, Media, Row} from "reactstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {AvField, AvForm} from "availity-reactstrap-validation";
 import {updateItem} from "./basketOperations";
+import "./BasketItem.scss";
+import {withRouter} from "react-router";
 
-const BasketItem = ({cardTitle, itemImgList, itemPrice, itemQuantity, onTrashClick, idemId}) => {
+const BasketItem = ({history, item, onTrashClick}) => {
 
     const [sendingRequest, setSendingRequest] = useState(false);
 
     const updateItemQuantity = (newQuantity) => {
         try {
             setSendingRequest(true);
-            updateItem(idemId, newQuantity)
+            updateItem(item.id, newQuantity)
 
         } catch (e) {
             console.log(e)
@@ -22,15 +23,24 @@ const BasketItem = ({cardTitle, itemImgList, itemPrice, itemQuantity, onTrashCli
 
     };
 
-    console.log('itemQty:', itemQuantity);
     return (
         <Media className={"media-container"}>
             <Media
                 left
                 className={"media-img"}
                 object
-                src={itemImgList[0].photo_url}
-                alt="attraction image"
+                src={item.product.photos[0].photo_url}
+                alt="product image"
+                onClick={() => history.push({
+                    pathname: `/products/product/${item.product.id}`,
+                    state: {
+                        productImgList: item.product.photos,
+                        productPrice: `${item.product.price} €`,
+                        productDescription: item.product.description,
+                        productName: item.product.name,
+                        productQty: item.product.quantity
+                    }
+                })}
             >
             </Media>
             <Media body className={"media-body"}>
@@ -42,7 +52,7 @@ const BasketItem = ({cardTitle, itemImgList, itemPrice, itemQuantity, onTrashCli
                         <Row>
                             <Col>
                                 <Media heading className={"text-header media-heading"}>
-                                    {cardTitle}
+                                    {item.product.name}
                                 </Media>
                             </Col>
                         </Row>
@@ -51,7 +61,7 @@ const BasketItem = ({cardTitle, itemImgList, itemPrice, itemQuantity, onTrashCli
                                 <FormGroup>
                                     <Label for="itemQty">Quantity</Label>
                                     <Input type="select" name="itemQty" label="Quantity" id="itemQty"
-                                             value={itemQuantity} disabled={sendingRequest}
+                                             value={item.items_quantity} disabled={sendingRequest}
                                              onChange={(e) => updateItemQuantity(parseInt(e.target.value))}
                                     >
                                         <option>1</option>
@@ -77,7 +87,7 @@ const BasketItem = ({cardTitle, itemImgList, itemPrice, itemQuantity, onTrashCli
                         </Row>
                     </Col>
                     <Col xs={"2"}>
-                        {itemPrice}
+                        {`${item.product.price} €`}
                     </Col>
                 </Row>
             </Media>
@@ -85,4 +95,4 @@ const BasketItem = ({cardTitle, itemImgList, itemPrice, itemQuantity, onTrashCli
     )
 };
 
-export default BasketItem;
+export default withRouter(BasketItem);
