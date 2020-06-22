@@ -107,7 +107,6 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
                         <Route path="/account">
                             <UserAccount/>
                         </Route>
-
                         <Route path={"/products/product/:productId"}>
                             <ProductItem/>
                         </Route>
