@@ -1,15 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import "./StartPage.scss";
-import {Button, Col, Container, Label, Modal, ModalBody, ModalHeader, Row, Spinner} from "reactstrap";
+import {Button, Col, Container, Row, Spinner} from "reactstrap";
 import {withRouter} from "react-router";
-import {
-    BrowserView,
-    MobileView,
-    isBrowser,
-    isMobile
-} from "react-device-detect";
-import "./StartPage.scss";
-import ProductsPagination from "../Product/ProductsPagination";
+import {BrowserView, MobileView} from "react-device-detect";
 import axios from "axios";
 import ProductCard from "../Product/ProductCard";
 
@@ -20,8 +13,8 @@ const StartPage = ({history}) => {
 
     const loadLatestProducts = async () => {
         try {
-            const {data} = await axios.get('api/v1/products/');
-            setLatestProducts(data.products)
+            const {data} = await axios.get('api/v1/products/latest/');
+            setLatestProducts(data.latestProducts)
         } catch (e) {
             console.log(e)
         } finally {
