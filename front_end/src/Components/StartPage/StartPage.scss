@@ -29,8 +29,9 @@
 
       #hero-header {
         position: relative;
+        color: $primary-color!important;
         &:hover {
-          color: $compliment-color !important;
+          color: $primary-color !important;
           cursor: text;
         }
       }
@@ -53,6 +54,16 @@
       bottom: 1.5rem;
       left: 48%;
 
+    }
+  }
+  #logo-text-section {
+    padding: 4rem 0;
+    #logo-text-container {
+      display: flex;
+      flex-flow: column wrap;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
     }
   }
 }

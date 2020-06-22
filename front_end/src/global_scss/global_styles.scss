@@ -66,7 +66,7 @@ $compliment-light2-color: #9E6DBB;
   @include text-emphasis();
   font-family: 'Lobster Two', sans-serif;
   font-size: 1.5rem;
-  color: #fff;
+  color: $compliment-color !important;
   @media (min-width: 415px) {
     font-size: 2rem;
   }
@@ -99,6 +99,7 @@ $compliment-light2-color: #9E6DBB;
   @include button();
   @include text-emphasis();
   background-color: $primary-color;
+  color: #000000;
 
   &:hover {
     background-color: $primary-dark-color;
