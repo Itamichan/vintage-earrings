@@ -17,10 +17,9 @@ import Checkout from "../Checkout/Checkout";
 import SuccessPage from "../Checkout/SuccessPage";
 import CancellationPage from "../Checkout/CancellationPage";
 import ProductItem from "../Product/ProductItem";
+import Footer from "../Footer/Footer";
 
 const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
-
-    const [loading, setLoading] = useState(true);
 
     const verifyUser = async () => {
         try {
@@ -35,7 +34,6 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
         } catch (e) {
 
         } finally {
-            setLoading(false)
         }
     };
 
@@ -99,52 +97,45 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
     }, 0);
 
     return (
-        <div>
-            {
-                loading ? (
-                    <div>
-                        <Spinner color="danger"/>
-                    </div>
-                ) : (
-                    <div>
-                        <Notifications options={{zIndex: 10000, width: "100%"}}/>
-                        <Router>
-                            <Navigation showItemsCount={itemsQuantity}/>
-                            <Login/>
-                            <Switch>
-                                <Route path="/account">
-                                    <UserAccount/>
-                                </Route>
+        <div id={'layout-container'}>
+            <div id={'main-body'}>
+                <Notifications options={{zIndex: 10000, width: "100%"}}/>
+                <Router>
+                    <Navigation showItemsCount={itemsQuantity}/>
+                    <Login/>
+                    <Switch>
+                        <Route path="/account">
+                            <UserAccount/>
+                        </Route>
 
-                                <Route path={"/products/product/:productId"}>
-                                    <ProductItem/>
-                                </Route>
-                                <Route path="/products">
-                                    <ProductsContainer/>
-                                </Route>
-                                <Route path="/success/:basketId">
-                                    <SuccessPage/>
-                                </Route>
-                                <Route path="/cancel/:basketId">
-                                    <CancellationPage/>
-                                </Route>
-                                <Route path="/basket">
-                                    <Basket
-                                        showItemsCount={itemsQuantity}
-                                        showItemsTotal={itemsTotalPrice}
-                                    />
-                                </Route>
-                                <Route path="/checkout">
-                                    <Checkout/>
-                                </Route>
-                                <Route path="/">
-                                    <StartPage/>
-                                </Route>
-                            </Switch>
-                        </Router>
-                    </div>
-                )
-            }
+                        <Route path={"/products/product/:productId"}>
+                            <ProductItem/>
+                        </Route>
+                        <Route path="/products">
+                            <ProductsContainer/>
+                        </Route>
+                        <Route path="/success/:basketId">
+                            <SuccessPage/>
+                        </Route>
+                        <Route path="/cancel/:basketId">
+                            <CancellationPage/>
+                        </Route>
+                        <Route path="/basket">
+                            <Basket
+                                showItemsCount={itemsQuantity}
+                                showItemsTotal={itemsTotalPrice}
+                            />
+                        </Route>
+                        <Route path="/checkout">
+                            <Checkout/>
+                        </Route>
+                        <Route path="/">
+                            <StartPage/>
+                        </Route>
+                    </Switch>
+                </Router>
+            </div>
+            <Footer/>
         </div>
     )
 };
