@@ -3,9 +3,9 @@
 
 $bg-color: #FAF6F5; // Background color */
 
-$primary-color: #d8bd3c; // Primary color */
-$primary-dark-color: #AD941F;
-$primary-dark2-color: #856F06;
+$primary-color: #e0c53f; // Primary color */
+$primary-dark-color: #b0971e;
+$primary-dark2-color: #917a06;
 $primary-light-color: #ECD360;
 $primary-light2-color: #FFEB8F;
 
@@ -46,6 +46,7 @@ $compliment-light2-color: #9E6DBB;
   @include text();
   font-family: 'Lobster Two', sans-serif;
   font-size: 1.5rem;
+  padding-bottom: 1rem;
   color: $compliment-color !important;
 
   &:hover {
@@ -127,24 +128,6 @@ $compliment-light2-color: #9E6DBB;
 
   &:active {
     background-color: $secondary-dark2-color;
-  }
-}
-
-.invisible-button {
-
-  background-color: transparent;
-  border: none;
-  display: inline-block;
-  padding-bottom: 1rem;
-  color: $secondary-color !important;
-
-  &:hover {
-    color: $secondary-dark-color !important;
-    text-decoration: underline;
-  }
-
-  &:active {
-    color: $secondary-dark2-color !important;
   }
 }
 

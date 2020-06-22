@@ -3,67 +3,94 @@
 #start-container {
   color: black;
 
-  #hero-container {
-    position: relative;
+  #hero-section {
+    background-color: #000000;
+    #hero-container {
+      position: relative;
 
-    #img-container {
-      background-image: url("https://vintage-earrings.s3.eu-north-1.amazonaws.com/static/media/bg.png");
-      background-size: contain;
-      background-repeat: no-repeat;
-      //todo set bg to black if this is still a viable solution
-      background-color: #000000;
-      background-position: center;
+      #img-container {
+        background-image: url("https://vintage-earrings.s3.eu-north-1.amazonaws.com/static/media/bg.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
 
-      width: 100vw;
-      height: 40rem;
-      //todo proper scaling of the img
-      @media (min-width: 600px) {
+        width: 100%;
         height: 40rem;
-      }
-    }
-    #img-header {
-      position: absolute;
-      z-index: 100;
-      top: 8rem;
-      left: 48%;
 
-      #hero-header {
-        position: relative;
-        color: $primary-color!important;
-        &:hover {
-          color: $primary-color !important;
-          cursor: text;
+        //todo proper scaling of the img
+        @media (min-width: 600px) {
+          height: 40rem;
         }
       }
-      #hero-header::after {
+
+      #img-header {
         position: absolute;
-        bottom: -22px;
+        z-index: 100;
+        top: 8rem;
+        left: 48%;
 
-        display: block;
+        #hero-header {
+          position: relative;
+          color: $primary-color !important;
 
-        content: 'Find your perfect pair...';
-        transform: scaleY(-1);
+          &:hover {
+            color: $primary-color !important;
+            cursor: text;
+          }
+        }
 
-        opacity: .4;
+        #hero-header::after {
+          position: absolute;
+          bottom: -22px;
+
+          display: block;
+
+          content: 'Find your perfect pair...';
+          transform: scaleY(-1);
+
+          opacity: 0.4;
+        }
+      }
+
+      #shop-button {
+        position: absolute;
+        z-index: 100;
+        bottom: 1.5rem;
+        left: 48%;
+
       }
     }
-
-    #shop-button {
-      position: absolute;
-      z-index: 100;
-      bottom: 1.5rem;
-      left: 48%;
-
-    }
   }
+
   #logo-text-section {
     padding: 4rem 0;
+
     #logo-text-container {
       display: flex;
       flex-flow: column wrap;
       justify-content: center;
       align-items: center;
       align-content: center;
+    }
+  }
+
+  #products-preview-section {
+    padding-bottom: 4rem;
+  }
+
+  #about-us-section {
+    background-color: $primary-color;
+    padding: 4rem;
+
+    #about-us-container {
+      display: flex;
+      flex-flow: column wrap;
+      justify-content: center;
+      align-items: center;
+
+      #about-us-text {
+        padding: 2rem 0;
+      }
     }
   }
 }

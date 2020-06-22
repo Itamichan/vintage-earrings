@@ -39,20 +39,26 @@ const StartPage = ({history}) => {
 
     return (
         <div id={"start-container"} className={"start-point"}>
-            <section id={'hero-container'}>
-                <div id={'img-container'}/>
-                <div id={'img-header'}>
-                    <div className={'text-header'} id={'hero-header'}>
-                        Find your perfect pair...
-                    </div>
-                </div>
-                <Button
-                    id={'shop-button'}
-                    className={'neutral-button'}
-                    onClick={() => history.push('/products')}
-                >
-                    Shop Now!
-                </Button>
+            <section id={'hero-section'}>
+                <Container id={'hero-container'}>
+                    <Row>
+                        <Col>
+                            <div id={'img-container'}/>
+                            <div id={'img-header'}>
+                                <div className={'text-header'} id={'hero-header'}>
+                                    Find your perfect pair...
+                                </div>
+                            </div>
+                            <Button
+                                id={'shop-button'}
+                                className={'neutral-button'}
+                                onClick={() => history.push('/products')}
+                            >
+                                Shop Now!
+                            </Button>
+                        </Col>
+                    </Row>
+                </Container>
             </section>
             <section id={'logo-text-section'}>
                 <Container fluid={true} id={'logo-text-container'}>
@@ -60,7 +66,7 @@ const StartPage = ({history}) => {
                         <Col>
                             <BrowserView>
                                 <div className={'text-header-important'}>
-                                    Here we offer unique style earrings for the unique person you are!
+                                    Find the perfect vintage earrings which will enhance your unique style.
                                 </div>
                             </BrowserView>
                             <MobileView>
@@ -72,7 +78,7 @@ const StartPage = ({history}) => {
                     </Row>
                 </Container>
             </section>
-            <section id={'products-preview'}>
+            <section id={'products-preview-section'}>
                 <Container>
                     <Row>
                         <Col xs={12} className={'text-header'}>
@@ -92,6 +98,39 @@ const StartPage = ({history}) => {
                     </Row>
                 </Container>
 
+            </section>
+            <section id={'about-us-section'}>
+                <Container id={'about-us-container'}>
+                    <Row>
+                        <Col xs={12} className={'text-header-important'}>
+                            VintageEarrings
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col className={'text-default'} id={'about-us-text'}>
+                            <div>
+                                <p>
+                                    VintageEarrings is a web shop is for those of you who are logging for the style of
+                                    the past days.
+                                    We try to find the most unique and special patterns and make them available to you
+                                    at a
+                                    reasonable price.
+                                </p>
+                                <p>
+                                    We hope that you will manage to find your exact perfect pair of earrings. If not,
+                                    feel free to come again later. We are constantly updating our stores inventory.
+                                </p>
+                            </div>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Button className={'action-button'}>
+                                Contact Us
+                            </Button>
+                        </Col>
+                    </Row>
+                </Container>
             </section>
         </div>
     )
