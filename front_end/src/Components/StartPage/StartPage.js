@@ -97,7 +97,6 @@ const StartPage = ({history}) => {
                         )}
                     </Row>
                 </Container>
-
             </section>
             <section id={'about-us-section'}>
                 <Container id={'about-us-container'}>
@@ -125,7 +124,10 @@ const StartPage = ({history}) => {
                     </Row>
                     <Row>
                         <Col>
-                            <Button className={'action-button'}>
+                            <Button
+                                className={'action-button'}
+                                onClick={() => history.push('/contact')}
+                            >
                                 Contact Us
                             </Button>
                         </Col>

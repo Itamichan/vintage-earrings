@@ -18,6 +18,7 @@ import SuccessPage from "../Checkout/SuccessPage";
 import CancellationPage from "../Checkout/CancellationPage";
 import ProductItem from "../Product/ProductItem";
 import Footer from "../Footer/Footer";
+import ContactPage from "../ContactPage/ContactPage";
 
 const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
 
@@ -127,6 +128,9 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
                         </Route>
                         <Route path="/checkout">
                             <Checkout/>
+                        </Route>
+                        <Route path="/contact">
+                            <ContactPage/>
                         </Route>
                         <Route path="/">
                             <StartPage/>
