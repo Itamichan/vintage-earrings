@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import "./StartPage.scss";
-import {Button, Col, Container, Label, Modal, ModalBody, ModalHeader, Row} from "reactstrap";
+import {Button, Col, Container, Label, Modal, ModalBody, ModalHeader, Row, Spinner} from "reactstrap";
 import {withRouter} from "react-router";
 import {
     BrowserView,
@@ -9,8 +9,41 @@ import {
     isMobile
 } from "react-device-detect";
 import "./StartPage.scss";
+import ProductsPagination from "../Product/ProductsPagination";
+import axios from "axios";
+import ProductCard from "../Product/ProductCard";
 
 const StartPage = ({history}) => {
+
+    const [loading, setLoading] = useState(true);
+    const [latestProducts, setLatestProducts] = useState([]);
+
+    const loadLatestProducts = async () => {
+        try {
+            const {data} = await axios.get('api/v1/products/');
+            setLatestProducts(data.products)
+        } catch (e) {
+            console.log(e)
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    let latestProductsList = latestProducts.map(product => {
+        return (
+            <Col xs={"6"} md={"4"} xl={"3"} key={product.id}>
+                <ProductCard
+                    product={product}
+                />
+            </Col>
+        )
+    });
+
+    //load latestProducts one time after the first rendering
+    useEffect(() => {
+        loadLatestProducts()
+    }, []);
+
     return (
         <div id={"start-container"} className={"start-point"}>
             <section id={'hero-container'}>
@@ -45,6 +78,27 @@ const StartPage = ({history}) => {
                         </Col>
                     </Row>
                 </Container>
+            </section>
+            <section id={'products-preview'}>
+                <Container>
+                    <Row>
+                        <Col xs={12} className={'text-header'}>
+                            Latest additions:
+                        </Col>
+                        {loading ? (
+                            <Col>
+                                <Spinner color="danger"/>
+                            </Col>
+                        ) : (
+                            <Col>
+                                <Row>
+                                    {latestProductsList}
+                                </Row>
+                            </Col>
+                        )}
+                    </Row>
+                </Container>
+
             </section>
         </div>
     )

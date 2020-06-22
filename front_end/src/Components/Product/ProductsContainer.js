@@ -87,8 +87,6 @@ const ProductsContainer = ({basketItems}) => {
                                             />
                                         </Col>
                                     </Row>
-                                    {/*provides empty space that will be covered by the TripBanner*/}
-                                    <div id={"buffer-div"}/>
                                 </Col>
                             )}
                         </Row>

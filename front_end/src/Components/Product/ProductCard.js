@@ -34,6 +34,8 @@ const ProductCard = ({product, onShoppingCartClick, history}) => {
                     >
                         {product.name}
                     </CardTitle>
+                    {/*shows the price and the cart only if the onShoppingCartClick property had received a value */}
+                    {onShoppingCartClick &&
                     <CardText className={"text-highlight card-text"}>
                         {`${product.price} €`}
                         <FontAwesomeIcon
@@ -43,6 +45,7 @@ const ProductCard = ({product, onShoppingCartClick, history}) => {
 
                         />
                     </CardText>
+                    }
                 </CardBody>
             </Card>
         </div>
