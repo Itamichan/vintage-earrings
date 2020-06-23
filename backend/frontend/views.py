@@ -3,8 +3,6 @@ from django.conf import settings
 from django.http import HttpResponse
 
 def frontend(request):
-    # TODO - Cache this call
-
     content = requests.get(settings.VINTAGE_EARRINGS_INDEX_URL, verify=False)
     html = content.text.replace('<!DOCTYPE doctype html>', '<!DOCTYPE html>')
 
