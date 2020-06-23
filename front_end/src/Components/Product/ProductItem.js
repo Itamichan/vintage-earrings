@@ -75,7 +75,7 @@ const ProductItem = ({basketItems}) => {
         <section className={'start-point'} id={'product-section'}>
             <Container id={'product-container'}>
                 <Row>
-                    <Col className={'item-img-carousel'} xs={8}>
+                    <Col className={'item-img-carousel'} xs={12} md={8}>
                         <Carousel
                             activeIndex={activeIndex}
                             next={next}
@@ -88,7 +88,7 @@ const ProductItem = ({basketItems}) => {
                             <CarouselControl direction="next" directionText="Next" onClickHandler={next}/>
                         </Carousel>
                     </Col>
-                    <Col id={'product-main-info'} xs={4}>
+                    <Col id={'product-main-info'} xs={12} md={4}>
                         <Row>
                             <Col xs={12}>
                                 <div>

@@ -1,15 +1,13 @@
 #product-section {
   #product-container {
-    padding: 0 0;
-
     .carousel-item {
       img {
         max-width: 100%;
       }
+    }
 
-      .item-img-carousel {
-        padding: 0 2rem;
-      }
+    .item-img-carousel {
+      padding-bottom: 1rem;
     }
 
     #product-main-info {
@@ -21,6 +19,7 @@
 
       #add-button {
         width: 100%;
+        margin-top: 1rem;
       }
     }
 

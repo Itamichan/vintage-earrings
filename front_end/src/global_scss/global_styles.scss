@@ -64,7 +64,7 @@ $compliment-light2-color: #9E6DBB;
   }
 
   &:active {
-    color: $compliment-dark2-color;
+    color: $compliment-dark2-color!important;;
   }
 }
 
@@ -89,7 +89,7 @@ $compliment-light2-color: #9E6DBB;
   }
 
   &:active {
-    background-color: $primary-dark2-color;
+    background-color: $primary-dark2-color!important;;
   }
 }
 
@@ -119,7 +119,7 @@ $compliment-light2-color: #9E6DBB;
   }
 
   &:active {
-    background-color: $compliment-dark2-color;
+    background-color: $compliment-dark2-color!important;;
   }
 }
 
