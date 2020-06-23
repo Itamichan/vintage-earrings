@@ -72,10 +72,10 @@ const ProductItem = ({basketItems}) => {
     });
 
     return (
-        <div className={'start-point'}>
-            <Container fluid={true} id={'product-container'}>
+        <section className={'start-point'} id={'product-section'}>
+            <Container id={'product-container'}>
                 <Row>
-                    <Col>
+                    <Col className={'item-img-carousel'} xs={8}>
                         <Carousel
                             activeIndex={activeIndex}
                             next={next}
@@ -88,27 +88,36 @@ const ProductItem = ({basketItems}) => {
                             <CarouselControl direction="next" directionText="Next" onClickHandler={next}/>
                         </Carousel>
                     </Col>
+                    <Col id={'product-main-info'} xs={4}>
+                        <Row>
+                            <Col xs={12}>
+                                <div>
+                                    {product.name}
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={12}>
+                                <div>
+                                    {`${product.price} €`}
+                                </div>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={12}>
+                                <Button
+                                    className={'action-button'}
+                                    id={'add-button'}
+                                    onClick={() => manageItem(productId)}
+                                >
+                                    Add to Basket
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Col>
                 </Row>
                 <Row>
-                    <Col xs={6}>
-                        <div>
-                            {product.name}
-                        </div>
-                    </Col>
-                    <Col xs={6}>
-                        <div>
-                            {`${product.price} €`}
-                        </div>
-                    </Col>
-                    <Col xs={12}>
-                        <Button
-                            className={'action-button'}
-                            onClick={() => manageItem(productId)}
-                        >
-                            Add to Basket
-                        </Button>
-                    </Col>
-                    <Col>
+                    <Col id={'product-description'}>
                         <div>
                             <p>
                                 {product.description}
@@ -117,7 +126,7 @@ const ProductItem = ({basketItems}) => {
                     </Col>
                 </Row>
             </Container>
-        </div>
+        </section>
     )
 };
 

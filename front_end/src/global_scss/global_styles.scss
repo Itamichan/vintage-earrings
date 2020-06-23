@@ -4,7 +4,7 @@
 $bg-color: #FAF6F5; // Background color */
 
 $primary-color: #e0c53f; // Primary color */
-$primary-dark-color: #b0971e;
+$primary-dark-color: #d5b625;
 $primary-dark2-color: #917a06;
 $primary-light-color: #ECD360;
 $primary-light2-color: #FFEB8F;
@@ -82,11 +82,10 @@ $compliment-light2-color: #9E6DBB;
 
 @mixin button() {
   background-color: $primary-color;
-  color: #000000;
+  color: #000000!important;
   &:hover {
     cursor: pointer;
     background-color: $primary-dark-color;
-    color: #ffffff;
   }
 
   &:active {
@@ -97,6 +96,9 @@ $compliment-light2-color: #9E6DBB;
 .action-button {
   @include button();
   @include text-emphasis();
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 
 .auth-button {
@@ -147,7 +149,5 @@ $compliment-light2-color: #9E6DBB;
 
 //ensures that all components leave space on top for the navigation bar
 .start-point {
-  margin-top: 4rem;
-  //todo remove the color after applying the correct classes for the text
-  color: black;
+  margin-top: 8rem;
 }
