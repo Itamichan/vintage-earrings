@@ -1,37 +1,29 @@
-import datetime
 import json
-import jwt
-from django.conf import settings
-from django.contrib.auth import password_validation, authenticate
-from django.core.exceptions import ValidationError
-from django.core.validators import validate_email
-from django.db import IntegrityError
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
+from communication import contact_support_email
+from errors import JsonResponse500
 
-from decorators import validate_token
-from errors import JsonResponse400, JsonResponse500, JsonResponse401
-from user.models import User
 
-class UserAccountView(View):
+class UserContactView(View):
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
-        return super(UserAccountView, self).dispatch(request, *args, **kwargs)
+        return super(UserContactView, self).dispatch(request, *args, **kwargs)
 
-    @validate_token
-    def get(self, request):
+    def post(self, request):
+        # todo documentation
         """
 
-        @api {POST} api/v1/registration User registration
+        @api {POST} api/v1/user/contact User communication
         @apiVersion 1.0.0
 
-        @apiName    UserRegistration
-        @apiGroup   Authentication
+        @apiName    UserCommunication
+        @apiGroup   User
 
-        @apiDescription  The endpoint is responsible for the registration of a new user.
+        @apiDescription  The endpoint is responsible for receiving the emails sent by the users sent by the contact form.
 
         @apiParam   {String{8..}}                password       The password provided by the user. Must be at least 8 characters long.
         @apiParam   {String}                     email          The provided email by the user. Used as username.
@@ -47,6 +39,14 @@ class UserAccountView(View):
         """
 
         try:
+
+            payload = json.loads(request.body.decode('UTF-8'))
+
+            email = payload.get('email', '')
+            name = payload.get('name', '')
+            text = payload.get('message', '')
+
+            contact_support_email(email, text, name)
 
             return JsonResponse({}, status=200)
 

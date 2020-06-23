@@ -42,32 +42,4 @@ class OrderItemsView(View):
         @apiError (InternalServerError 500) {Object}    InternalServerError
 
         """
-        # try:
-        #     payload = json.loads(request.body.decode('UTF-8'))
-        #
-        #     basket_id = payload.get('basket_id', '')
-        #
-        #     if not basket_id:
-        #         return JsonResponse400('InvalidBasketId', 'Please provide a valid basket id.').json_response()
-        #
-        #     basket = Basket.objects.get(pk=basket_id)
-        #
-        #     items_qs = BasketItem.objects.select_related('product').filter(basket=basket)
-        #
-        #     order = Order.objects.create(stripe_id=basket.stripe_id)
-        #
-        #     for item in items_qs:
-        #         OrderItem.objects.create(order=order, product=item.product, items_quantity=item.items_quantity)
-        #
-        #     # destroy the basket after the order is created
-        #     basket.delete()
-        #
-        #     return JsonResponse({
-        #
-        #     })
-        #
-        # except Basket.DoesNotExist:
-        #     return JsonResponse400('BasketNotFound', 'Such basket id does not exist').json_response()
-        # except Exception as e:
-        #     print(e)
-        #     return JsonResponse500().json_response()
+

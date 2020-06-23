@@ -201,9 +201,8 @@ except:
 
 CLOUDAMQP_URL = os.environ.get("CLOUDAMQP_URL", "amqp://admin:letdown-caged-spearfish-acrid-tweezers-when-rotting-below@localhost:5672/%2f")
 
-# todo remove the print
-print('CLOUDAMQP_URL', CLOUDAMQP_URL)
-
 # VINTAGE_EARRINGS_INDEX_URL
 
 VINTAGE_EARRINGS_INDEX_URL = os.environ.get('VINTAGE_EARRINGS_INDEX_URL', 'http://localhost:3000')
+
+SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY', SENDGRID_API_KEY_LOCAL)
