@@ -17,9 +17,9 @@ const ContactPage = (props) => {
         try {
             setSendingRequest(true);
             await axios.post(`/api/v1/user/contact/`, {
-                email: email,
-                name: name,
-                message: message
+                    email: email,
+                    name: name,
+                    message: message
                 }
             );
             notify.show('Thank you for your message!', "success", 1700);
@@ -33,12 +33,17 @@ const ContactPage = (props) => {
         <section id={'contact-page-section'} className={'start-point'}>
             <Container id={'contact-page-container'}>
                 <Row>
-                    <Col xs={12} md={{ size: 6, offset: 3 }} className={'text-header'}>
+                    <Col xs={12} md={{size: 6, offset: 3}}
+                         className={'text-header'}
+                         id={'contact-header'}
+                    >
                         Contact Us
                     </Col>
                 </Row>
                 <Row>
-                    <Col xs={12} md={{ size: 6, offset: 3 }}>
+                    <Col xs={12} md={{size: 6, offset: 3}}
+                         id={'contact-body'}
+                    >
                         <AvForm onValidSubmit={() => contactSupport()}>
                             <Label for="email" className={"text-highlight"}>Email</Label>
                             <AvField type="email" name="email" id="email" value={email}

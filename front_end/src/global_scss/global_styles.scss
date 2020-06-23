@@ -64,7 +64,7 @@ $compliment-light2-color: #9E6DBB;
   }
 
   &:active {
-    color: $compliment-dark2-color!important;;
+    color: $compliment-dark2-color !important;;
   }
 }
 
@@ -82,20 +82,21 @@ $compliment-light2-color: #9E6DBB;
 
 @mixin button() {
   background-color: $primary-color;
-  color: #000000!important;
+  color: #000000 !important;
   &:hover {
     cursor: pointer;
     background-color: $primary-dark-color;
   }
 
   &:active {
-    background-color: $primary-dark2-color!important;;
+    background-color: $primary-dark2-color !important;
   }
 }
 
 .action-button {
   @include button();
   @include text-emphasis();
+
   &:hover {
     transform: scale(1.1);
   }
@@ -111,7 +112,7 @@ $compliment-light2-color: #9E6DBB;
     margin-left: 0.5rem;
   }
 
-  color: #ffffff;
+  color: #ffffff!important;
   background-color: $compliment-color;
 
   &:hover {
@@ -119,7 +120,7 @@ $compliment-light2-color: #9E6DBB;
   }
 
   &:active {
-    background-color: $compliment-dark2-color!important;;
+    background-color: $compliment-dark2-color !important;
   }
 }
 
@@ -128,10 +129,10 @@ $compliment-light2-color: #9E6DBB;
   border: none;
   display: inline-block;
   padding-bottom: 1rem;
-  color: $compliment-color !important;
+  color: $compliment-color!important;
 
   &:hover {
-    color: $compliment-dark-color !important;
+    color: $compliment-dark-color;
     text-decoration: underline;
   }
 
