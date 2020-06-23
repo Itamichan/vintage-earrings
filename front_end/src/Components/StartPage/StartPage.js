@@ -8,7 +8,6 @@ import ProductCard from "../Product/ProductCard";
 
 const StartPage = ({history}) => {
 
-    const [loading, setLoading] = useState(true);
     const [latestProducts, setLatestProducts] = useState([]);
 
     const loadLatestProducts = async () => {
@@ -18,7 +17,6 @@ const StartPage = ({history}) => {
         } catch (e) {
             console.log(e)
         } finally {
-            setLoading(false);
         }
     };
 
@@ -51,7 +49,7 @@ const StartPage = ({history}) => {
                             </div>
                             <Button
                                 id={'shop-button'}
-                                className={'neutral-button'}
+                                className={'action-button'}
                                 onClick={() => history.push('/products')}
                             >
                                 Shop Now!
@@ -84,17 +82,11 @@ const StartPage = ({history}) => {
                         <Col xs={12} className={'text-header'}>
                             Latest additions:
                         </Col>
-                        {loading ? (
-                            <Col>
-                                <Spinner color="danger"/>
-                            </Col>
-                        ) : (
-                            <Col>
-                                <Row>
-                                    {latestProductsList}
-                                </Row>
-                            </Col>
-                        )}
+                        <Col>
+                            <Row>
+                                {latestProductsList}
+                            </Row>
+                        </Col>
                     </Row>
                 </Container>
             </section>

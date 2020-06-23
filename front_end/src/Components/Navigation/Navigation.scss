@@ -4,9 +4,14 @@
   height: 4rem;
   background-color: $primary-color;
 
-  #navbar-logo {
-    img {
-      height: 2rem;
+  #navbar-text{
+    &:hover {
+      color: $compliment-dark-color !important;
+      cursor: pointer;
+    }
+
+    &:active {
+      color: $compliment-dark2-color !important;
     }
   }
 }

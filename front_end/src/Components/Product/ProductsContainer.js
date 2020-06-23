@@ -5,6 +5,7 @@ import ProductCard from "./ProductCard";
 import ProductsPagination from "./ProductsPagination";
 import {addItem, updateItem} from "../Basket/basketOperations";
 import {connect} from "react-redux";
+import "./ProductsContainer.scss";
 
 const ProductsContainer = ({basketItems}) => {
 
@@ -63,7 +64,6 @@ const ProductsContainer = ({basketItems}) => {
 
     return (
         <div className={"start-point"}>
-            product's container
             <Container id={"products-container"} fluid={true}>
                 <Row>
                     <Col>

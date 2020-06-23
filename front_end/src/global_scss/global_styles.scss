@@ -9,12 +9,6 @@ $primary-dark2-color: #917a06;
 $primary-light-color: #ECD360;
 $primary-light2-color: #FFEB8F;
 
-$secondary-color: #324E8A; // Secondary color */
-$secondary-dark-color: #1E3A74;
-$secondary-dark2-color: #0D2559;
-$secondary-light-color: #7189BB;
-$secondary-light2-color: #4A659E;
-
 $compliment-color: #682D8A; // Compliment color */
 $compliment-dark-color: #521A74;
 $compliment-dark2-color: #3B0959;
@@ -27,10 +21,12 @@ $compliment-light2-color: #9E6DBB;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 1rem;
   font-weight: 400;
+  color: #000000;
 }
 
 .text-default {
   @include text();
+  color: #ffffff;
 }
 
 @mixin text-emphasis() {
@@ -42,31 +38,40 @@ $compliment-light2-color: #9E6DBB;
   @include text-emphasis();
 }
 
-.text-header {
+@mixin text-header() {
   @include text();
   font-family: 'Lobster Two', sans-serif;
   font-size: 1.5rem;
   padding-bottom: 1rem;
-  color: $compliment-color !important;
+  //todo the responsiveness
+  @media (max-width: 415px) {
+  }
+}
+
+.text-header-standard {
+  @include text-header();
+}
+
+.text-header-highlight {
+  @include text-header();
+  padding-bottom: 0;
+
+  color: $compliment-color;
 
   &:hover {
-    color: $compliment-dark-color !important;
+    color: $compliment-dark-color;
     cursor: pointer;
   }
 
   &:active {
-    color: $compliment-dark2-color !important;
-  }
-
-  @media (max-width: 415px) {
-
+    color: $compliment-dark2-color;
   }
 }
 
 .text-header-important {
   @include text-emphasis();
-  font-family: 'Lobster Two', sans-serif;
-  font-size: 1.5rem;
+  @include text-header();
+
   color: $compliment-color !important;
   @media (min-width: 415px) {
     font-size: 2rem;
@@ -76,34 +81,12 @@ $compliment-light2-color: #9E6DBB;
 //buttons
 
 @mixin button() {
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-.action-button {
-  @include button();
-  @include text-emphasis();
-  background-color: $secondary-color;
-  color: #FAF6F5;
-
-  &:hover {
-    background-color: $secondary-dark-color;
-  }
-
-  &:active {
-    background-color: $secondary-dark2-color;
-  }
-}
-
-.neutral-button {
-  @include button();
-  @include text-emphasis();
   background-color: $primary-color;
   color: #000000;
-
   &:hover {
+    cursor: pointer;
     background-color: $primary-dark-color;
+    color: #ffffff;
   }
 
   &:active {
@@ -111,10 +94,14 @@ $compliment-light2-color: #9E6DBB;
   }
 }
 
+.action-button {
+  @include button();
+  @include text-emphasis();
+}
+
 .auth-button {
   @include button();
   @include text();
-  background-color: $secondary-color;
   width: 100%;
   margin: 0.5rem 0;
 
@@ -122,24 +109,34 @@ $compliment-light2-color: #9E6DBB;
     margin-left: 0.5rem;
   }
 
+  color: #ffffff;
+  background-color: $compliment-color;
+
   &:hover {
-    background-color: $secondary-dark-color;
+    background-color: $compliment-dark-color;
   }
 
   &:active {
-    background-color: $secondary-dark2-color;
+    background-color: $compliment-dark2-color;
   }
 }
 
-//.filter-tag-button {
-//  @include button();
-//  margin: 0 0.5rem;
-//  background-color: $base-color;
-//
-//  &:hover {
-//    background-color: $base-color-dark;
-//  }
-//}
+.invisible-button {
+  background-color: transparent;
+  border: none;
+  display: inline-block;
+  padding-bottom: 1rem;
+  color: $compliment-color !important;
+
+  &:hover {
+    color: $compliment-dark-color !important;
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: $compliment-dark2-color !important;
+  }
+}
 
 .material-frame {
   background: white;

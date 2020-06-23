@@ -16,7 +16,7 @@ const ContactPage = (props) => {
     const contactSupport = async () => {
         try {
             setSendingRequest(true);
-            await axios.post(`/api/v1/contact`, {
+            await axios.post(`/api/v1/user/contact/`, {
                 email: email,
                 name: name,
                 message: message
