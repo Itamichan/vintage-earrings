@@ -1,18 +1,57 @@
-.card {
-  .card-img, .card-title {
-    &:hover {
-      cursor: pointer;
-    }
-  }
+.card-container {
+  margin-bottom: 2rem;
 
-  .card-text {
-    display: flex;
-    justify-content: space-between;
-    .cart-plus {
+  .card {
+    .card-img, .card-title, .cart-plus {
       &:hover {
         cursor: pointer;
       }
     }
-  }
-}
 
+    .card-img {
+      height: 8rem;
+      //responsive attraction image
+      @media (min-width: 490px) {
+        height: 10rem;
+      }
+      @media (min-width: 576px) {
+        height: 12rem;
+      }
+      @media (min-width: 768px) {
+        height: 14rem;
+      }
+      @media (min-width: 870px) {
+        height: 15rem;
+      }
+      @media (min-width: 992px) {
+        height: 10rem;
+      }
+      @media (min-width: 1200px) {
+        height: 15rem;
+      }
+      @media (min-width: 1400px) {
+        height: 16rem;
+      }
+      @media (min-width: 1650px) {
+        height: 20rem;
+      }
+      @media (min-width: 1800px) {
+        height: 22rem;
+      }
+    }
+
+    .card-body {
+      padding: 0.5rem;
+
+      .card-title {
+        margin-bottom: 0;
+      }
+    }
+
+    .card-text {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+}
