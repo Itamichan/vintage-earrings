@@ -24,7 +24,7 @@ const ProductCard = ({product, onShoppingCartClick, history}) => {
                 />
                 <CardBody>
                     <CardTitle
-                        className={"text-header card-title"}
+                        className={"text-header-standard card-title"}
                         onClick={() => history.push({
                             pathname: `/products/product/${product.id}`,
                             state: {

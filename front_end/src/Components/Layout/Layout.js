@@ -136,9 +136,9 @@ const Layout = ({loginUser, logout, loadBasket, basketItems}) => {
                             <StartPage/>
                         </Route>
                     </Switch>
+                    <Footer/>
                 </Router>
             </div>
-            <Footer/>
         </div>
     )
 };
