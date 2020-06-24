@@ -1,7 +1,7 @@
 @import "../../global_scss/global_styles";
 
 #navbar {
-  height: 8vh;
+  min-height: 8vh;
   background-color: $primary-color;
 
   #navbar-text{
