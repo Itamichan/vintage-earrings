@@ -79,7 +79,7 @@ const StartPage = ({history}) => {
             <section id={'logo-text-section'}>
                 <Container fluid={true} id={'logo-text-container'}>
                     <Row>
-                        <Col>
+                        <Col id={'text-adv'}>
                             <BrowserView>
                                 <div className={'text-header-important'}>
                                     Find the perfect vintage earrings which will enhance your unique style.
@@ -111,7 +111,7 @@ const StartPage = ({history}) => {
             <section id={'about-us-section'}>
                 <Container id={'about-us-container'}>
                     <Row>
-                        <Col xs={12} className={'text-header-important'}>
+                        <Col xs={12} className={'text-header-important'} id={'logo-name'}>
                             VintageEarrings
                         </Col>
                     </Row>

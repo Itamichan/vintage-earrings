@@ -72,10 +72,9 @@ $compliment-light2-color: #9E6DBB;
   @include text-emphasis();
   @include text-header();
 
+  font-size: 1.8rem;
   color: $compliment-color !important;
-  @media (min-width: 415px) {
-    font-size: 2rem;
-  }
+
 }
 
 //buttons
