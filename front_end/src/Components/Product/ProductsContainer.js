@@ -22,7 +22,7 @@ const ProductsContainer = ({basketItems}) => {
         try {
             const {data} = await axios.get('/api/v1/products/', {
                 params: {
-                    text: productName
+                    product_name: productName
                 }
             });
             setProducts(data.products)
@@ -38,6 +38,10 @@ const ProductsContainer = ({basketItems}) => {
     useEffect(() => {
         loadProducts()
     }, []);
+
+    useEffect(() => {
+        loadProducts()
+    }, [productName]);
 
     //responsible for adding a new item to the basket or updating the quantity of an existing item.
     let manageItem = (productId) => {

@@ -24,13 +24,17 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, sho
 
     let toggleNavItem;
 
-    //if user is not logged in we see "Login" button otherwise "Profile".
+    //if user is not logged in we see "Login" button otherwise "hello, user_email".
     if (isUserLoggedIn) {
+
+        let mail_name = email.substring(0, email.indexOf('@'));
+        let capitalized_name = mail_name.charAt(0).toUpperCase() + mail_name.slice(1);
+
         toggleNavItem =
             <ButtonDropdown isOpen={isOpen} toggle={toggleUserMenu}>
                 <DropdownToggle nav caret className={"text-header-standard"} id={'user-menu'}>
                     {/*todo truncate the email only until @*/}
-                    hello, {email}
+                    hello, {capitalized_name}
                 </DropdownToggle>
                 <DropdownMenu right>
                     <DropdownItem onClick={() => history.push("/account")}>My Account</DropdownItem>
