@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import "./StartPage.scss";
 import {Button, Col, Container, Row, Spinner} from "reactstrap";
 import {withRouter} from "react-router";
-import {BrowserView, MobileView} from "react-device-detect";
+import {BrowserView, MobileView, isBrowser} from "react-device-detect";
 import axios from "axios";
 import ProductCard from "../Product/ProductCard";
 
@@ -36,24 +36,42 @@ const StartPage = ({history}) => {
     }, []);
 
     return (
-        <div id={"start-container"} className={"start-point"}>
+        <div id={"start-container"}>
             <section id={'hero-section'}>
                 <Container id={'hero-container'}>
                     <Row>
                         <Col>
-                            <div id={'img-container'}/>
-                            <div id={'img-header'}>
-                                <div className={'text-header'} id={'hero-header'}>
-                                    Find your perfect pair...
+                            {isBrowser ? (
+                                <div className={'hero-area'}>
+                                    <div id={'img-container'}/>
+                                    <div className={'img-header'}>
+                                        <div className={'text-header hero-header'}>
+                                            Find your perfect pair...
+                                        </div>
+                                    </div>
+                                    <Button
+                                        className={'action-button shop-button'}
+                                        onClick={() => history.push('/products')}
+                                    >
+                                        Shop Now!
+                                    </Button>
                                 </div>
-                            </div>
-                            <Button
-                                id={'shop-button'}
-                                className={'action-button'}
-                                onClick={() => history.push('/products')}
-                            >
-                                Shop Now!
-                            </Button>
+                            ) : (
+                                <div className={'hero-area'}>
+                                    <div id={'img-container-mobile'}/>
+                                    <div className={'img-header'}>
+                                        <div className={'text-header hero-header'}>
+                                            Find your perfect pair...
+                                        </div>
+                                    </div>
+                                    <Button
+                                        className={'action-button shop-button'}
+                                        onClick={() => history.push('/products')}
+                                    >
+                                        Shop Now!
+                                    </Button>
+                                </div>
+                            )}
                         </Col>
                     </Row>
                 </Container>

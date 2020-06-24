@@ -2,62 +2,79 @@
 
 #start-container {
   color: black;
+  padding-top: 8vh;
 
   #hero-section {
     background-color: #000000;
+
     #hero-container {
-      position: relative;
 
-      #img-container {
-        background-image: url("https://vintage-earrings.s3.eu-north-1.amazonaws.com/static/media/bg.png");
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
+      .hero-area {
+        position: relative;
 
-        width: 100%;
-        height: 40rem;
+        display: flex;
+        justify-content: center;
 
-        //todo proper scaling of the img
-        @media (min-width: 600px) {
-          height: 40rem;
+        #img-container, #img-container-mobile {
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+
+          width: 100%;
         }
-      }
 
-      #img-header {
-        position: absolute;
-        z-index: 100;
-        top: 8rem;
-        left: 48%;
+        #img-container {
+          background-image: url("https://vintage-earrings.s3.eu-north-1.amazonaws.com/static/media/bg.png");
 
-        #hero-header {
-          position: relative;
-          color: $primary-color !important;
+          height: 40rem;
 
-          &:hover {
-            color: $primary-color !important;
-            cursor: text;
+          //todo proper scaling of the img
+          @media (min-width: 600px) {
+            height: 40rem;
           }
         }
 
-        #hero-header::after {
-          position: absolute;
-          bottom: -22px;
-
-          display: block;
-
-          content: 'Find your perfect pair...';
-          transform: scaleY(-1);
-
-          opacity: 0.4;
+        #img-container-mobile {
+          background-image: url("https://vintage-earrings.s3.eu-north-1.amazonaws.com/static/media/bg-small.png");
+          // 8 vh for the navigation component
+          height: 92vh;
         }
-      }
 
-      #shop-button {
-        position: absolute;
-        z-index: 100;
-        bottom: 1.5rem;
-        left: 48%;
+        .img-header {
+          position: absolute;
+          z-index: 100;
+          top: 8rem;
+          left: 48%;
 
+          .hero-header {
+            position: relative;
+            color: $primary-color !important;
+
+            &:hover {
+              color: $primary-color !important;
+              cursor: text;
+            }
+          }
+
+          .hero-header::after {
+            position: absolute;
+            bottom: -22px;
+
+            display: block;
+
+            content: 'Find your perfect pair...';
+            transform: scaleY(-1);
+
+            opacity: 0.4;
+          }
+        }
+
+        .shop-button {
+          position: absolute;
+          z-index: 100;
+          bottom: 3rem;
+
+        }
       }
     }
   }
