@@ -1,13 +1,6 @@
 import React, {useState} from 'react';
 import {
-    ButtonDropdown,
-    DropdownItem,
-    DropdownMenu,
-    DropdownToggle,
-    Nav,
-    Navbar,
-    NavbarBrand,
-    NavItem,
+    ButtonDropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavItem,
     NavLink
 } from 'reactstrap';
 import {logout, openModal} from "../UserProfile/Login/redux/actions";
@@ -15,6 +8,8 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import "./Navigation.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {BrowserView, MobileView, isBrowser} from "react-device-detect";
+
 
 const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, showItemsCount}) => {
 
@@ -24,7 +19,7 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, sho
 
     let toggleNavItem;
 
-    //if user is not logged in we see "Login" button otherwise "hello, user_email".
+    //if user is not logged in we see "Login" button otherwise "hello, user_email"/ "Profile".
     if (isUserLoggedIn) {
 
         let mail_name = email.substring(0, email.indexOf('@'));
@@ -33,8 +28,11 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, sho
         toggleNavItem =
             <ButtonDropdown isOpen={isOpen} toggle={toggleUserMenu}>
                 <DropdownToggle nav caret className={"text-header-standard"} id={'user-menu'}>
-                    {/*todo truncate the email only until @*/}
-                    hello, {capitalized_name}
+                    {isBrowser ? (
+                        `hello, ${capitalized_name}`
+                    ) : (
+                        `Profile`
+                    )}
                 </DropdownToggle>
                 <DropdownMenu right>
                     <DropdownItem onClick={() => history.push("/account")}>My Account</DropdownItem>
@@ -48,7 +46,6 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, sho
                 <NavLink onClick={openLoginModal} className={"text-header"}>Login</NavLink>
             </NavItem>
     }
-
 
 
     return (
