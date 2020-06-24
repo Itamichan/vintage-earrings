@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {Col, Container, Row, Spinner} from "reactstrap";
+import {Col, Container, Input, Row, Spinner} from "reactstrap";
 import ProductCard from "./ProductCard";
 import ProductsPagination from "./ProductsPagination";
 import {addItem, updateItem} from "../Basket/basketOperations";
@@ -11,6 +11,8 @@ const ProductsContainer = ({basketItems}) => {
 
     const [loading, setLoading] = useState(true);
     const [products, setProducts] = useState([]);
+    const [productName, setProductName] = useState(null);
+
     const [page, setPage] = useState(1);
 
     // puts the limit of how many products appear per page
@@ -18,7 +20,11 @@ const ProductsContainer = ({basketItems}) => {
 
     const loadProducts = async () => {
         try {
-            const {data} = await axios.get('/api/v1/products/');
+            const {data} = await axios.get('/api/v1/products/', {
+                params: {
+                    text: productName
+                }
+            });
             setProducts(data.products)
         } catch (e) {
             console.log(e)
@@ -61,6 +67,17 @@ const ProductsContainer = ({basketItems}) => {
     //returns attractionsList with attractions for each corresponding page number.
     productsList = productsList.slice(PRODUCTS_PER_PAGE * (page - 1), PRODUCTS_PER_PAGE * page);
 
+    const searchProduct = (searchWord) => {
+        setProductName(searchWord)
+    };
+
+    const searchInput = <Input
+        type="search"
+        placeholder={"Search"}
+        onChange={(event) => {
+            searchProduct(event.target.value)
+        }}
+    />;
 
     return (
         <div className={"start-point"}>
@@ -74,6 +91,13 @@ const ProductsContainer = ({basketItems}) => {
                                 </Col>
                             ) : (
                                 <Col>
+                                    <Row>
+                                        <Col>
+                                            <div id={"search-desktop"}>
+                                                {searchInput}
+                                            </div>
+                                        </Col>
+                                    </Row>
                                     <Row>
                                         {productsList}
                                     </Row>

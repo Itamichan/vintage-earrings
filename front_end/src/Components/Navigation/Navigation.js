@@ -46,6 +46,7 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, sho
     }
 
 
+
     return (
         <div>
             <Navbar fixed={"top"} id={"navbar"} light expand={false}>

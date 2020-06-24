@@ -43,9 +43,6 @@ $compliment-light2-color: #9E6DBB;
   font-family: 'Lobster Two', sans-serif;
   font-size: 1.5rem;
   padding-bottom: 1rem;
-  //todo the responsiveness
-  @media (max-width: 415px) {
-  }
 }
 
 .text-header-standard {
@@ -59,12 +56,12 @@ $compliment-light2-color: #9E6DBB;
   color: $compliment-color;
 
   &:hover {
-    color: $compliment-dark-color;
+    color: $compliment-dark-color!important;
     cursor: pointer;
   }
 
   &:active {
-    color: $compliment-dark2-color !important;;
+    color: $compliment-dark2-color !important;
   }
 }
 
