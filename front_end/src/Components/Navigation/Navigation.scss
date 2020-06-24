@@ -4,7 +4,13 @@
   min-height: 8vh;
   background-color: $primary-color;
 
-  #navbar-text{
+  #user-menu {
+    &:hover {
+      color: black;
+    }
+  }
+
+  #navbar-text {
     &:hover {
       color: $compliment-dark-color !important;
       cursor: pointer;

@@ -28,7 +28,7 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, sho
     if (isUserLoggedIn) {
         toggleNavItem =
             <ButtonDropdown isOpen={isOpen} toggle={toggleUserMenu}>
-                <DropdownToggle nav caret className={"text-header"}>
+                <DropdownToggle nav caret className={"text-header-standard"} id={'user-menu'}>
                     {/*todo truncate the email only until @*/}
                     hello, {email}
                 </DropdownToggle>
