@@ -6,7 +6,7 @@ from authentication.views import RegistrationView, LoginView, VerifyTokenView
 
 urlpatterns = [
     path('registration', RegistrationView.as_view(), name='registration'),
-    path('login', LoginView.as_view(), name='login'),
+    path('login/', LoginView.as_view(), name='login'),
     path('token/verify', VerifyTokenView.as_view(), name='verifyTokenView'),
 
 ]

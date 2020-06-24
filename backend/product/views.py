@@ -1,3 +1,5 @@
+import json
+
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -22,6 +24,9 @@ class ProductsView(View):
         @apiGroup Products
 
         @apiDescription  The endpoint is responsible for getting all the existing products from the database.
+
+        @apiParam   {String}   product_name             User input which will be checked against the product's name.
+
 
         @apiSuccess {Object[]}  products                List with products.
         @apiSuccess {Integer}   products.id             Product's id.
@@ -73,9 +78,15 @@ class ProductsView(View):
 
         """
         try:
+            # todo create a test for the passed product_name
+            product_name = request.GET.get('product_name', None)
 
             # get a query set with all the products and prefetch the productphoto_set related to the products
-            product_qs = Product.objects.prefetch_related('productphoto_set').all()
+
+            if product_name is not None:
+                product_qs = Product.objects.prefetch_related('productphoto_set').filter(name__contains=product_name)
+            else:
+                product_qs = Product.objects.prefetch_related('productphoto_set').all()
 
             product_list = []
 
