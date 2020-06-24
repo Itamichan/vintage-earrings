@@ -18,7 +18,7 @@ const ProductsContainer = ({basketItems}) => {
 
     const loadProducts = async () => {
         try {
-            const {data} = await axios.get('api/v1/products/');
+            const {data} = await axios.get('/api/v1/products/');
             setProducts(data.products)
         } catch (e) {
             console.log(e)

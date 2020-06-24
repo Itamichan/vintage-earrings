@@ -12,7 +12,7 @@ const StartPage = ({history}) => {
 
     const loadLatestProducts = async () => {
         try {
-            const {data} = await axios.get('api/v1/products/latest/');
+            const {data} = await axios.get('/api/v1/products/latest/');
             setLatestProducts(data.latestProducts)
         } catch (e) {
             console.log(e)
