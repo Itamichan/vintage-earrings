@@ -96,7 +96,7 @@ const ProductsContainer = ({basketItems}) => {
                             ) : (
                                 <Col>
                                     <Row>
-                                        <Col>
+                                        <Col md={{size:8, offset: 2}} lg={{size:6, offset: 3}}>
                                             <div id={"search-desktop"}>
                                                 {searchInput}
                                             </div>

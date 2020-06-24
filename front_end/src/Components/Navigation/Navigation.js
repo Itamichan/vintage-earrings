@@ -49,25 +49,23 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, sho
 
 
     return (
-        <div>
-            <Navbar fixed={"top"} id={"navbar"} light expand={false}>
-                <NavbarBrand id={"navbar-logo"} href="/">
-                    {/*<img src={} alt="VintageEarrings logo"/>*/}
-                    <span className={"text-header-important"} id={'navbar-text'}>VintageEarrings</span>
-                </NavbarBrand>
-                <Nav>
-                    {toggleNavItem}
-                    <NavItem>
-                        <NavLink className={'text-header-highlight'}>
-                            <div onClick={() => history.push("/basket")}>
-                                <FontAwesomeIcon icon="shopping-cart"/>
-                                {showItemsCount > 0 && <span> {showItemsCount}</span>}
-                            </div>
-                        </NavLink>
-                    </NavItem>
-                </Nav>
-            </Navbar>
-        </div>
+        <Navbar fixed={"top"} light expand={false}>
+            <NavbarBrand id={"navbar-logo"} href="/">
+                {/*<img src={} alt="VintageEarrings logo"/>*/}
+                <span className={"text-header-important"} id={'navbar-text'}>VintageEarrings</span>
+            </NavbarBrand>
+            <Nav>
+                {toggleNavItem}
+                <NavItem>
+                    <NavLink className={'text-header-highlight'}>
+                        <div onClick={() => history.push("/basket")}>
+                            <FontAwesomeIcon icon="shopping-cart"/>
+                            {showItemsCount > 0 && <span> {showItemsCount}</span>}
+                        </div>
+                    </NavLink>
+                </NavItem>
+            </Nav>
+        </Navbar>
     )
 };
 
