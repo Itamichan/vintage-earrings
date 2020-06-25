@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import "./Navigation.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {BrowserView, MobileView, isBrowser} from "react-device-detect";
+import {isBrowser, BrowserView} from "react-device-detect";
 
 
 const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, showItemsCount}) => {
@@ -35,7 +35,9 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, sho
                     )}
                 </DropdownToggle>
                 <DropdownMenu right>
+                    <DropdownItem onClick={() => history.push("/products")}>Shop</DropdownItem>
                     <DropdownItem onClick={() => history.push("/account")}>My Account</DropdownItem>
+                    <DropdownItem onClick={() => history.push("/contact")}>Contact</DropdownItem>
                     <DropdownItem divider/>
                     <DropdownItem onClick={logout}>Log Out</DropdownItem>
                 </DropdownMenu>
@@ -56,6 +58,15 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, sho
             </NavbarBrand>
             <Nav>
                 {toggleNavItem}
+                <BrowserView>
+                    <NavItem>
+                        <NavLink className={'text-header-highlight'}>
+                            <div onClick={() => history.push("/products")}>
+                                Shop
+                            </div>
+                        </NavLink>
+                    </NavItem>
+                </BrowserView>
                 <NavItem>
                     <NavLink className={'text-header-highlight'}>
                         <div onClick={() => history.push("/basket")}>

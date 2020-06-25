@@ -71,6 +71,9 @@ $compliment-light2-color: #9E6DBB;
 
   font-size: 1.8rem;
   color: $compliment-color !important;
+  @media (min-width: 320px) {
+    font-size: 1.5rem;
+  }
 
 }
 
