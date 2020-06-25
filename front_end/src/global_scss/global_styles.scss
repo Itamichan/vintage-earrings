@@ -47,21 +47,21 @@ $compliment-light2-color: #9E6DBB;
 
 .text-header-standard {
   @include text-header();
+  color: $compliment-color !important;
 }
 
 .text-header-highlight {
   @include text-header();
   padding-bottom: 0;
-
-  color: $compliment-color;
+  color: $primary-color !important;
 
   &:hover {
-    color: $compliment-dark-color!important;
+    color: $primary-dark-color !important;
     cursor: pointer;
   }
 
   &:active {
-    color: $compliment-dark2-color !important;
+    color: $primary-dark2-color !important;
   }
 }
 
@@ -111,7 +111,7 @@ $compliment-light2-color: #9E6DBB;
     margin-left: 0.5rem;
   }
 
-  color: #ffffff!important;
+  color: #ffffff !important;
   background-color: $compliment-color;
 
   &:hover {
@@ -128,7 +128,7 @@ $compliment-light2-color: #9E6DBB;
   border: none;
   display: inline-block;
   padding-bottom: 1rem;
-  color: $compliment-color!important;
+  color: $compliment-color !important;
 
   &:hover {
     color: $compliment-dark-color;

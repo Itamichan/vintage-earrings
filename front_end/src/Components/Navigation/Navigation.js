@@ -51,7 +51,7 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, sho
 
 
     return (
-        <Navbar fixed={"top"} light expand={false}>
+        <Navbar fixed={"top"} color={"dark"} expand={false}>
             <NavbarBrand id={"navbar-logo"} href="/">
                 {/*<img src={} alt="VintageEarrings logo"/>*/}
                 <span className={"text-header-important"} id={'navbar-text'}>VintageEarrings</span>

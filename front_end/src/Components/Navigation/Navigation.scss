@@ -1,29 +1,27 @@
 @import "../../global_scss/global_styles";
 
 .navbar {
-  min-height: 8vh;
-  background-color: $primary-color;
+  background-color: #202020 !important;
+
 
   #user-menu {
     &:hover {
-      color: black;
-
+      color: #000000;
     }
   }
 
-  //overwriting bootstrap
-  .nav {
-    padding-top: 14px
-  }
 
   #navbar-text {
+    font-size: 2rem;
+    color: $primary-color !important;
+
     &:hover {
-      color: $compliment-dark-color !important;
+      color: $primary-dark-color !important;
       cursor: pointer;
     }
 
     &:active {
-      color: $compliment-dark2-color !important;
+      color: $primary-dark2-color !important;
     }
   }
 }
