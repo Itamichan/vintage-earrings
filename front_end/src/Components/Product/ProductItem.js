@@ -82,7 +82,11 @@ const ProductItem = ({basketItems}) => {
                             previous={previous}
                             interval={false}
                         >
-                            <CarouselIndicators items={photoList} activeIndex={activeIndex} onClickHandler={goToIndex}/>
+                            <CarouselIndicators
+                                items={photoList}
+                                activeIndex={activeIndex}
+                                onClickHandler={goToIndex}
+                            />
                             {slides}
                             <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous}/>
                             <CarouselControl direction="next" directionText="Next" onClickHandler={next}/>
