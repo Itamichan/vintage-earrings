@@ -4,6 +4,8 @@ import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import BasketItem from "./BasketItem";
 import {removeItem} from "./basketOperations";
+import "./Basket.scss";
+import {isBrowser, isMobile, isTablet} from "react-device-detect";
 
 const Basket = ({showItemsCount, showItemsTotal, basketItems, history}) => {
 
@@ -20,50 +22,62 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history}) => {
     });
 
     return (
-        <div className={'start-point'}>
-            basket
-            <Container>
-                {showItemsCount > 0 ? (
-                    <div>
-                        <Row>
-                            <Col>
-                                <div>
-                                    <span>Total ({showItemsCount} </span>
-                                    {
-                                        showItemsCount > 1 ? (
-                                            <span>items):</span>
-                                        ) : (
-                                            <span>item):</span>)}
-                                </div>
-                            </Col>
-                            <Col>
-                                <div>
-                                    {showItemsTotal} €
-                                </div>
-                            </Col>
-                        </Row>
-                        <Row>
-                            {itemsList}
-                        </Row>
-                        <Row>
-                            <Col>
-                                <Button onClick={() => history.push(`/checkout`)}>
-                                    Proceed to checkout
-                                </Button>
-                            </Col>
-                        </Row>
-                    </div>
-                ) : (
+        <Container id={'basket-container'} className={'start-point'}>
+            {showItemsCount > 0 ? (
+                <div>
                     <Row>
-                        <Col xs={12}>
+                        <Col className={'basket-heading'}>
                             <div>
-                                You have no items in your basket
+                                <span>Total ({showItemsCount} </span>
+                                {
+                                    showItemsCount > 1 ? (
+                                        <span>items):</span>
+                                    ) : (
+                                        <span>item):</span>)}
+                            </div>
+                        </Col>
+                        <Col className={'basket-heading'}>
+                            <div>
+                                {showItemsTotal} €
                             </div>
                         </Col>
                     </Row>
-                )}
-            </Container>
-        </div>
+                    <Row>
+                        {itemsList}
+                    </Row>
+                    <Row>
+                        <div id={'button-area'}>
+                            {isBrowser &&
+                            <Col id={'checkout-button'}>
+                                <Button
+                                    onClick={() => history.push(`/checkout`)}
+                                    className={'action-button '}
+                                >
+                                    Proceed to checkout
+                                </Button>
+                            </Col>}
+                            {isMobile || isTablet ?
+                                <Col id={'checkout-button-mobile'}>
+                                    <Button
+                                        onClick={() => history.push(`/checkout`)}
+                                        className={'action-button'}
+                                    >
+                                        Proceed to checkout
+                                    </Button>
+                                </Col> : null}
+                        </div>
+                    </Row>
+                </div>
+            ) : (
+                <Row>
+                    <Col xs={12}>
+                        <div>
+                            You have no items in your basket
+                        </div>
+                    </Col>
+                </Row>
+            )}
+        </Container>
     )
 };
 
