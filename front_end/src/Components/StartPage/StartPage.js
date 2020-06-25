@@ -97,7 +97,7 @@ const StartPage = ({history}) => {
             <section id={'products-preview-section'}>
                 <Container>
                     <Row>
-                        <Col xs={12} className={'text-header'}>
+                        <Col xs={12} className={'text-header-standard'}>
                             Latest additions:
                         </Col>
                         <Col>

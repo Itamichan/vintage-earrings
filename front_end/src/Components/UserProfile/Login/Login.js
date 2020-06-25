@@ -97,7 +97,7 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                     closeModal();
                     setRegisterUser(false)
                 }}>
-                <div className={"text-header"}>
+                <div className={"text-header-standard"}>
                     {registerUser ? "Register" : "Login"}
                 </div>
             </ModalHeader>

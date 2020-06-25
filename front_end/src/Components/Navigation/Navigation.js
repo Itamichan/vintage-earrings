@@ -45,7 +45,7 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, sho
     } else {
         toggleNavItem =
             <NavItem className={'text-header-highlight'}>
-                <NavLink onClick={openLoginModal} className={"text-header"}>Login</NavLink>
+                <NavLink onClick={openLoginModal} className={"text-header-standard"}>Login</NavLink>
             </NavItem>
     }
 

@@ -1,33 +1,38 @@
 
 #basket-container {
   height: 100vh;
+  position: relative;
 
   .basket-heading {
     padding-bottom: 2rem;
+
+    #heading-total {
+      text-align: right;
+    }
   }
 
-  #button-area {
+  #items-container {
+    padding-bottom: 3rem;
+  }
+
+  .button-area {
     width: 100%;
     text-align: center;
-
-    #checkout-button {
-      padding-top: 3rem;
-
-    }
+    padding-bottom: 2rem;
 
     #checkout-button-mobile {
       position: fixed;
       bottom: 0;
       left: 0;
       z-index: 200;
-
       padding: 0;
-      text-align: center;
 
+      text-align: center;
 
       button {
         width: 100vw;
         height: 5rem;
+
         font-size: 1.5rem;
       }
     }

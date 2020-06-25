@@ -26,29 +26,50 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history}) => {
             {showItemsCount > 0 ? (
                 <div>
                     <Row>
-                        <Col className={'basket-heading'}>
-                            <div>
-                                <span>Total ({showItemsCount} </span>
-                                {
-                                    showItemsCount > 1 ? (
-                                        <span>items):</span>
-                                    ) : (
-                                        <span>item):</span>)}
-                            </div>
-                        </Col>
-                        <Col className={'basket-heading'}>
-                            <div>
-                                {showItemsTotal} €
-                            </div>
-                        </Col>
-                    </Row>
-                    <Row>
-                        {itemsList}
-                    </Row>
-                    <Row>
-                        <div id={'button-area'}>
+                        <div className={'button-area'}>
                             {isBrowser &&
-                            <Col id={'checkout-button'}>
+                            <Col>
+                                <Button
+                                    onClick={() => history.push(`/checkout`)}
+                                    className={'action-button '}
+                                >
+                                    Proceed to checkout
+                                </Button>
+                            </Col>}
+                        </div>
+                    </Row>
+                    <Row>
+                        <Col className={'basket-heading text-header-important'}>
+                            <Row>
+                                <Col xs={6}>
+                                    <div>
+                                        <span>Total ({showItemsCount} </span>
+                                        {
+                                            showItemsCount > 1 ? (
+                                                <span>items):</span>
+                                            ) : (
+                                                <span>item):</span>)}
+                                    </div>
+                                </Col>
+                                <Col xs={6} id={'heading-total'}>
+                                    <div>
+                                        {showItemsTotal} €
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col id={'items-container'}>
+                            <Row>
+                                {itemsList}
+                            </Row>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <div className={'button-area'}>
+                            {isBrowser &&
+                            <Col>
                                 <Button
                                     onClick={() => history.push(`/checkout`)}
                                     className={'action-button '}

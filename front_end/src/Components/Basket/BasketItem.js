@@ -42,23 +42,23 @@ const BasketItem = ({history, item, onTrashClick}) => {
             <Media body className={"media-body"}>
                 <Row>
                     <Col
-                        xs={"10"}
+                        xs={"7"}
                         className={"attraction-info-body text-highlight"}
                     >
                         <Row>
                             <Col>
-                                <Media heading className={"text-header media-heading"}>
+                                <Media heading className={"text-header-standard media-heading"}>
                                     {item.product.name}
                                 </Media>
                             </Col>
                         </Row>
                         <Row>
-                            <Col xs={"2"}>
+                            <Col xs={"6"} md={4}>
                                 <FormGroup>
-                                    <Label for="itemQty">Quantity</Label>
+                                    <Label for="itemQty" className={'text-default'}>Quantity</Label>
                                     <Input type="select" name="itemQty" label="Quantity" id="itemQty"
-                                             value={item.items_quantity} disabled={sendingRequest}
-                                             onChange={(e) => updateItemQuantity(parseInt(e.target.value))}
+                                           value={item.items_quantity} disabled={sendingRequest}
+                                           onChange={(e) => updateItemQuantity(parseInt(e.target.value))}
                                     >
                                         <option>1</option>
                                         <option>2</option>
@@ -73,16 +73,16 @@ const BasketItem = ({history, item, onTrashClick}) => {
                                     </Input>
                                 </FormGroup>
                             </Col>
-                        </Row>
-                        <Row>
-                            <Col>
-                                <div onClick={() => onTrashClick()}>
+                            <Col xs={"4"} md={12} className={'trash-icon-wrapper'}>
+                                <div onClick={() => onTrashClick()} className={"text-default icon-delete"}>
                                     <FontAwesomeIcon size={"2x"} icon={['far', 'trash-alt']}/>
                                 </div>
                             </Col>
                         </Row>
                     </Col>
-                    <Col xs={"2"}>
+                    <Col xs={"5"}
+                         className={'item-price text-header-standard'}
+                    >
                         {`${item.product.price} €`}
                     </Col>
                 </Row>

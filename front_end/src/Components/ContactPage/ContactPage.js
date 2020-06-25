@@ -34,7 +34,7 @@ const ContactPage = (props) => {
             <Container id={'contact-page-container'}>
                 <Row>
                     <Col xs={12} md={{size: 6, offset: 3}}
-                         className={'text-header'}
+                         className={'text-header-standard'}
                          id={'contact-header'}
                     >
                         Contact Us
