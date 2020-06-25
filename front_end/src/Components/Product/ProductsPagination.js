@@ -14,7 +14,7 @@ const ProductsPagination = ({currentPage, setCurrentPage, ItemsPerPage, totalIte
                 key={i}
                 className={'pagination-item-style'}
                 active={i === currentPage}>
-                <PaginationLink className={'pagination-link-style'} onClick={() => setCurrentPage(i)} >
+                <PaginationLink className={'pagination-link-style text-highlight'} onClick={() => setCurrentPage(i)} >
                     {i}
                 </PaginationLink>
             </PaginationItem>

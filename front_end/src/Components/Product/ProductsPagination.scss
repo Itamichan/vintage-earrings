@@ -1,27 +1,30 @@
 @import "../../global_scss/global_styles";
 
-//code inspired from @narendrajadhav from stackblitz.com
-.pagination-item-style {
-  margin-left: 0.5rem;
+.pagination {
+  padding-top: 1rem;
+  //code inspired from @narendrajadhav from stackblitz.com
+  .pagination-item-style {
+    margin-left: 0.5rem;
 
-  .page-link {
-    color: black;
-  }
+    .page-link {
+      color: black;
+    }
 
-  &.page-item {
-    &.active {
-      button {
-        background-color: $primary-dark2-color;
-        border-color: $primary-dark2-color;
+    &.page-item {
+      &.active {
+        button {
+          background-color: $primary-dark2-color;
+          border-color: $primary-dark2-color;
+        }
       }
     }
   }
-}
 
-.pagination-link-style {
-  background-color: $primary-color;
+  .pagination-link-style {
+    background-color: $primary-color;
 
-  &:hover {
-    background-color: $primary-dark2-color;
+    &:hover {
+      background-color: $primary-dark2-color;
+    }
   }
 }

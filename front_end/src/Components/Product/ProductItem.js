@@ -119,7 +119,8 @@ const ProductItem = ({basketItems}) => {
                 <Row>
                     <Col id={'product-description'}>
                         <div>
-                            <p>
+                            <h1 className={'text-header-standard'}>Description:</h1>
+                            <p className={'text-default'} id={'description-text'}>
                                 {product.description}
                             </p>
                         </div>

@@ -16,7 +16,7 @@ const ProductsContainer = ({basketItems}) => {
     const [page, setPage] = useState(1);
 
     // puts the limit of how many products appear per page
-    const PRODUCTS_PER_PAGE = 8;
+    const PRODUCTS_PER_PAGE = 12;
 
     const loadProducts = async () => {
         try {
@@ -85,7 +85,7 @@ const ProductsContainer = ({basketItems}) => {
 
     return (
         <div className={"start-point"}>
-            <Container id={"products-container"} fluid={true}>
+            <Container id={"products-container"}>
                 <Row>
                     <Col>
                         <Row>
@@ -96,7 +96,7 @@ const ProductsContainer = ({basketItems}) => {
                             ) : (
                                 <Col>
                                     <Row>
-                                        <Col md={{size:8, offset: 2}} lg={{size:6, offset: 3}}>
+                                        <Col md={{size: 8, offset: 2}} lg={{size: 6, offset: 3}}>
                                             <div id={"search-desktop"}>
                                                 {searchInput}
                                             </div>
