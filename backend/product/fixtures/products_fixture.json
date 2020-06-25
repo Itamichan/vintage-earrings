@@ -3,7 +3,7 @@
     "model": "product.product",
     "pk": 1,
     "fields": {
-      "name": "Turquoise Feathers",
+      "name": "Feathers",
       "description": "Earrings with native american turquoise. Set on sterling silver. Vintage from the 1980s.",
       "price": 33,
       "quantity": 10
@@ -33,7 +33,7 @@
     "model": "product.product",
     "pk": 4,
     "fields": {
-      "name": "Edwardian Drops",
+      "name": "Edwardian",
       "description": "Two great Edwardian drops, a beautiful art nouveau style floral tunnel. Sterling silver are also perfect for an elegant wedding.\nDimensions cm. 5",
       "price": 37,
       "quantity": 10
@@ -253,7 +253,7 @@
     "model": "product.product",
     "pk": 26,
     "fields": {
-      "name": "Mercedes Robirosa ",
+      "name": "Robirosa ",
       "description": "This item may take some time to prepare. Contact the shop to find out when it will dispatch.",
       "price": 184,
       "quantity": 4
