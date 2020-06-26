@@ -179,7 +179,7 @@ class LatestProductsView(View):
         try:
 
             # get a query set with the latest 6 added products and prefetch the productphoto_set related to the products
-            product_qs = Product.objects.prefetch_related('productphoto_set').order_by('-id')[:6]
+            product_qs = Product.objects.prefetch_related('productphoto_set').order_by('-id')[:4]
 
             latestProducts_list = []
 

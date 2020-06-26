@@ -88,4 +88,4 @@ class LatestProductsListTest(TransactionTestCase):
             path='/api/v1/products/latest/')
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(response.json()['latestProducts']), 6)
+        self.assertEqual(len(response.json()['latestProducts']), 4)
