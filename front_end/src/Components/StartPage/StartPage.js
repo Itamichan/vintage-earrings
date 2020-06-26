@@ -111,7 +111,7 @@ const StartPage = ({history}) => {
             <section id={'about-us-section'}>
                 <Container id={'about-us-container'}>
                     <Row>
-                        <Col xs={12} className={'text-header-important'} id={'logo-name'}>
+                        <Col xs={12} className={'text-header-important'}>
                             VintageEarrings
                         </Col>
                     </Row>

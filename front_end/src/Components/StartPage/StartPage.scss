@@ -2,7 +2,7 @@
 
 #start-container {
   color: black;
-  padding-top: 6vh;
+  padding-top: 5vh;
 
   #hero-section {
     background-color: #000000;
@@ -99,7 +99,7 @@
   }
 
   #about-us-section {
-    background-color: #000000;
+    background-color: rgba(0, 0, 0, 0.1);
     padding: 4rem;
 
     #about-us-container {
@@ -108,13 +108,8 @@
       justify-content: center;
       align-items: center;
 
-      #logo-name {
-        color: $primary-color !important;
-      }
-
       #about-us-text {
         padding: 2rem 0;
-        color: #ffffff;
       }
     }
   }

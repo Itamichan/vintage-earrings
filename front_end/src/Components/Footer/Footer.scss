@@ -1,6 +1,51 @@
+@import "../../global_scss/global_styles";
+
 #footer-section {
-  height: 8rem;
-  @media (max-width: 1024px) {
-    height: 0;
+  padding: 4rem 2rem;
+  background-color: #000000;
+
+  #footer-container {
+    .footer-header {
+      padding-bottom: 1rem;
+    }
+
+    .info-section {
+      display: flex;
+      flex-flow: column wrap;
+      align-items: center;
+    }
+
+    #footer-navigation-links, #footer-social-links {
+      ul {
+        list-style: none;
+        padding-inline-start: 0;
+        margin-bottom: 0;
+      }
+    }
+
+    #footer-navigation-links {
+      li {
+        &:hover {
+          cursor: pointer;
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    #footer-social-links {
+      li {
+        display: inline-block;
+        margin: 0.5rem;
+      }
+    }
+
+    .footer-font {
+      color: #ffffff;
+      font-size: 1.2rem;
+
+      &:hover {
+        color: $primary-dark-color;
+      }
+    }
   }
 }
