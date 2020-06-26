@@ -31,7 +31,7 @@ $compliment-light2-color: #9E6DBB;
 @mixin text-emphasis() {
   @include text();
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .text-highlight {
@@ -103,7 +103,7 @@ $compliment-light2-color: #9E6DBB;
 
 .auth-button {
   @include button();
-  @include text();
+  @include text-emphasis();
   width: 100%;
   margin: 0.5rem 0;
 
