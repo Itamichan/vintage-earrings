@@ -64,7 +64,7 @@ const SuccessPage = (props) => {
     return (
         <div>
             {sendingRequest ? (
-                <Spinner color="danger"/>
+                <Spinner color="secondary"/>
             ) : (
                 <div className={'start-point'}>
                     {paymentResponse}

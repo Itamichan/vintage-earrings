@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import "./StartPage.scss";
-import {Button, Col, Container, Row, Spinner} from "reactstrap";
+import {Button, Col, Container, Row} from "reactstrap";
 import {withRouter} from "react-router";
-import {BrowserView, MobileView, isBrowser} from "react-device-detect";
+import {BrowserView, isBrowser, MobileView} from "react-device-detect";
 import axios from "axios";
 import ProductCard from "../Product/ProductCard";
 

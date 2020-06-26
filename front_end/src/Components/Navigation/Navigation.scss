@@ -1,9 +1,8 @@
 @import "../../global_scss/global_styles";
 
 .navbar {
-  background-color: #202020 !important;
-
-
+  background-color: #000000 !important;
+  border-bottom: 1px solid #515151;
   #user-menu {
     &:hover {
       color: #000000;
