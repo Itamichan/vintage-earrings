@@ -53,7 +53,7 @@ const BasketItem = ({history, item, onTrashClick}) => {
                             </Col>
                         </Row>
                         <Row>
-                            <Col xs={"6"} md={4}>
+                            <Col xs={8} md={4}>
                                 <FormGroup>
                                     <Label for="itemQty" className={'text-default'}>Quantity</Label>
                                     <Input type="select" name="itemQty" label="Quantity" id="itemQty"
@@ -73,7 +73,7 @@ const BasketItem = ({history, item, onTrashClick}) => {
                                     </Input>
                                 </FormGroup>
                             </Col>
-                            <Col xs={"4"} md={12} className={'trash-icon-wrapper'}>
+                            <Col xs={4} md={12} className={'trash-icon-wrapper'}>
                                 <div onClick={() => onTrashClick()} className={"text-default icon-delete"}>
                                     <FontAwesomeIcon size={"2x"} icon={['far', 'trash-alt']}/>
                                 </div>

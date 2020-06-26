@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Spinner} from "reactstrap";
+import {Button, Spinner} from "reactstrap";
 import axios from "axios";
 import {useParams, withRouter} from "react-router";
 import {removeBasket} from "../Basket/basketOperations";
+import "./SuccessPage.scss";
 
-const SuccessPage = (props) => {
+const SuccessPage = ({history}) => {
 
     const [sendingRequest, setSendingRequest] = useState(true);
     const [paymentResponse, setPaymentResponse] = useState('');
@@ -12,10 +13,8 @@ const SuccessPage = (props) => {
     let params = useParams();
     const basketId = params.basketId;
 
-
     const checkPayment = async () => {
         try {
-            setSendingRequest(true);
 
             const {data} = await axios.get(`/api/v1/baskets/${basketId}/payment/verify`,);
 
@@ -48,26 +47,55 @@ const SuccessPage = (props) => {
                 default:
                     setPaymentResponse(' Payment failed. Please try again.')
             }
+
         } catch (e) {
             console.log(e)
         } finally {
             setSendingRequest(false)
         }
-
     };
 
     useEffect(() => {
-        checkPayment()
+        checkPayment();
     }, []);
 
 
     return (
-        <div>
+        <div id={'success-page-container'} className={'start-point'}>
             {sendingRequest ? (
                 <Spinner color="secondary"/>
             ) : (
-                <div className={'start-point'}>
-                    {paymentResponse}
+                <div>
+                    {paymentResponse === 'Your order is created.' ? (
+                        <div>
+                            <div>
+                                {paymentResponse}
+                            </div>
+                            <div>
+                                <Button className={'action-button'}
+                                        onClick={() => history.push('/products')}
+                                >
+                                    Continue shopping
+                                </Button>
+                            </div>
+                        </div>
+                    ) : (
+                        <div>
+                            <div>
+                                {paymentResponse}
+                                <p>
+                                    Please contact us if you have any questions.
+                                </p>
+                            </div>
+                            <div>
+                                <Button className={'action-button'}
+                                        onClick={() => history.push('/contact')}
+                                >
+                                    Contact
+                                </Button>
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
         </div>
