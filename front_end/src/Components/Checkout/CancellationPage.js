@@ -1,24 +1,39 @@
 import React from 'react';
-import {Button} from "reactstrap";
+import {Button, Col, Container, Row} from "reactstrap";
 import {withRouter} from "react-router";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import "./CancellationPage.scss";
 
-//todo prettify the page
 const CancellationPage = ({history}) => {
     return (
-        <div className={'start-point'}>
-            Your checkout process is cancelled.
-            <div>
-                Continue shopping:
-                <Button onClick={() => history.push('/products')}>Shop Now!</Button>
-            </div>
-            <div>
-                Go back to your basket:
-                <div onClick={() => history.push("/basket")}>
-                    <FontAwesomeIcon icon="shopping-cart"/>
-                </div>
-            </div>
-        </div>
+        <Container className={'start-point'} id={'cancellation-page-container'}>
+            <Row>
+                <Col xs={12}>
+                    Your checkout process is cancelled.
+                </Col>
+            </Row>
+            <Row>
+                <Col id={'option-buttons'} xs={12}>
+                    <Row>
+                        <Col xs={12} md={6}>
+                            <Button
+                                onClick={() => history.push('/products')}
+                                className={'action-button'}
+                            >
+                                Shop
+                            </Button>
+                        </Col>
+                        <Col xs={12} md={6}>
+                            <Button
+                                onClick={() => history.push('/basket')}
+                                className={'action-button'}
+                            >
+                                Basket
+                            </Button>
+                        </Col>
+                    </Row>
+                </Col>
+            </Row>
+        </Container>
     )
 };
 

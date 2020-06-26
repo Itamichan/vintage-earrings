@@ -1,0 +1,12 @@
+#cancellation-page-container {
+  height: 80vh;
+  text-align: center;
+  #option-buttons {
+    padding-top: 2rem;
+    display: flex;
+    justify-content: center;
+    button {
+      margin-top: 1rem;
+    }
+  }
+}
