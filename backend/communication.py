@@ -25,7 +25,10 @@ def _send_email(message):
 
 
 def contact_support_email(from_email, text, name):
-    content = load_template('contact_email.html', {'text': text, 'name': name})
+    content = load_template('contact_email.html', {
+        'text': text,
+        'name': name
+    })
     message = Mail(
         from_email='support@vintage-earrings.store',
         to_emails='cristinagarbuz@gmail.com',
@@ -37,6 +40,21 @@ def contact_support_email(from_email, text, name):
     _send_email(message)
 
 
+def order_confirmation_email(to_email, text):
+    content = load_template('order_confirm_email.html', {
+        'text': text
+    })
+    message = Mail(
+        from_email='vintage-earrings@vintage-earrings.store',
+        to_emails=to_email,
+        subject='Order Confirmation',
+        html_content=content.decode('UTF-8'),
+    )
+
+    _send_email(message)
+
+
+# renders simple python template for email messages.
 def load_template(template, parameters):
     template_response = SimpleTemplateResponse(template, parameters)
     template_response.render()

@@ -496,11 +496,14 @@ class BasketPaymentVerifyView(View):
 
             # retrieve a stripe session
             session_response = stripe.checkout.Session.retrieve(stripe_id)
-            payment_intent = session_response.payment_intent
 
             # retrieve stripe PaymentIntent
+            payment_intent = session_response.payment_intent
             payment_intent_response = stripe.PaymentIntent.retrieve(payment_intent)
             status = payment_intent_response.status
+
+            # retrieve customer email
+            customer_email = session_response.customer_email
 
             if status != 'succeeded':
                 return JsonResponse402('There was an error processing your payment.').json_response()
@@ -521,9 +524,11 @@ class BasketPaymentVerifyView(View):
             exactly to which queue the message should go. The queue name needs to be specified in the routing_key.
             """
 
+            body = [basket_id, customer_email]
+
             channel.basic_publish(exchange='',
                                   routing_key='order',
-                                  body=basket_id,
+                                  body=json.dumps(body),
                                   properties=pika.BasicProperties(
                                       delivery_mode=2,  # make message persistent
                                   )

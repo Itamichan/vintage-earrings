@@ -1,14 +1,17 @@
+import json
+
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 import pika
 from basket.models import Basket, BasketItem
+from communication import order_confirmation_email
 from order.models import Order, OrderItem
 
 
 class Command(BaseCommand):
     help = 'Creates the Order and destroys the Basket'
 
-    def create_basket(self, basket_id):
+    def create_order(self, basket_id, customer_email):
         basket = Basket.objects.get(pk=basket_id)
 
         items_qs = BasketItem.objects.select_related('product').filter(basket=basket)
@@ -22,8 +25,14 @@ class Command(BaseCommand):
         # destroy the basket after the order is created
         basket.delete()
 
+        # sends the order confirmation email to the customer.
+        order_confirmation_email(customer_email, 'test text')
+
     def callback(self, ch, method, properties, body):
-        self.create_basket(body.decode('ascii'))
+
+        customer_info = json.loads(body)
+
+        self.create_order(customer_info['basket_id'], customer_info['customer_email'])
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
     def handle(self, *args, **options):
