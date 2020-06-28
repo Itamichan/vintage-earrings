@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Col, Container, Modal, ModalBody, Row} from 'reactstrap';
+import {Button, Col, Container, Modal, ModalBody, ModalHeader, Row} from 'reactstrap';
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
 import BasketItem from "./BasketItem";
@@ -10,7 +10,7 @@ import {checkoutBasket, openModal} from "../UserProfile/Login/redux/actions";
 
 const Basket = ({showItemsCount, showItemsTotal, basketItems, history, openLoginModal, checkoutBasket}) => {
 
-    const [showCheckoutOption, setShowCheckoutOption] = useState(true);
+    const [showCheckoutOption, setShowCheckoutOption] = useState(false);
 
     let itemsList = basketItems.map(item => {
         return (
@@ -33,7 +33,7 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history, openLogin
                                 {isBrowser &&
                                 <Col>
                                     <Button
-                                        onClick={() => history.push(`/checkout`)}
+                                        onClick={() => setShowCheckoutOption(true)}
                                         className={'action-button '}
                                     >
                                         Proceed to checkout
@@ -74,7 +74,7 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history, openLogin
                                 {isBrowser &&
                                 <Col>
                                     <Button
-                                        onClick={() => history.push(`/checkout`)}
+                                        onClick={() => setShowCheckoutOption(true)}
                                         className={'action-button '}
                                     >
                                         Proceed to checkout
@@ -83,7 +83,7 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history, openLogin
                                 {isMobile || isTablet ?
                                     <Col id={'checkout-button-mobile'}>
                                         <Button
-                                            onClick={() => history.push(`/checkout`)}
+                                            onClick={() => setShowCheckoutOption(true)}
                                             className={'action-button'}
                                         >
                                             Proceed to checkout
@@ -104,6 +104,11 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history, openLogin
             </Container>
             {showCheckoutOption &&
             <Modal isOpen={showCheckoutOption}>
+                <ModalHeader
+                    toggle={() => {
+                        setShowCheckoutOption(false)
+                    }}>
+                </ModalHeader>
                 <ModalBody id={'checkout-choice'}>
                     <div id={'login-button'}>
                         <Button className={'action-button'} onClick={() => {
@@ -122,9 +127,8 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history, openLogin
                                     setShowCheckoutOption(false)
                                 }}
                         >
-                            Skip this step
+                            Skip this step for now
                         </button>
-
                     </div>
                 </ModalBody>
             </Modal>
