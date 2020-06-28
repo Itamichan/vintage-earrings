@@ -22,3 +22,9 @@ export const closeModal = () => {
         type: "CLOSE_MODAL"
     }
 };
+
+export const checkoutBasket = () => {
+    return {
+        type: "CHECKOUT"
+    }
+};

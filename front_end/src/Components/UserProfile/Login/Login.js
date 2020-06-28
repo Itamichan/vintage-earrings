@@ -6,9 +6,9 @@ import {Button, Label, Modal, ModalBody, ModalHeader} from "reactstrap";
 import {notify} from 'react-notify-toast';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {AvField, AvForm} from 'availity-reactstrap-validation';
-import "./Login.scss";
+import {withRouter} from "react-router";
 
-const Login = ({loginUser, isModalOpen, closeModal}) => {
+const Login = ({loginUser, isModalOpen, closeModal, isCheckout, history}) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -54,6 +54,7 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                 'password': password
             });
             loginUser(data.token);
+            {isCheckout && history.push(`/checkout`);}
             formRef.current.reset()
         } catch (e) {
             console.log(e)
@@ -210,10 +211,11 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
     return {
         isUserLoggedIn: state.LoginReducer.loggedIn,
-        isModalOpen: state.LoginReducer.modalOpen
+        isModalOpen: state.LoginReducer.modalOpen,
+        isCheckout: state.LoginReducer.checkout
     }
 };
 
 //next line ensures that the properties from the 2 passed functions are passed to Login comp
-const DefaultApp = connect(mapStateToProps, mapDispatchToProps)(Login);
+const DefaultApp = withRouter(connect(mapStateToProps, mapDispatchToProps)(Login));
 export default DefaultApp;

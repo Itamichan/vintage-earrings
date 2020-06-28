@@ -1,11 +1,11 @@
-//a reducer takes a previous state, modifies it and return the new state
 
 import jwt_decode from "jwt-decode";
 
 const initialState = {
     loggedIn: false,
     modalOpen: false,
-    email: undefined
+    email: undefined,
+    checkout: false
 };
 
 const LoginReducer = (state, action) => {
@@ -41,6 +41,11 @@ const LoginReducer = (state, action) => {
             return {
                 ...state,
                 modalOpen: false
+            };
+        case "CHECKOUT":
+            return {
+                ...state,
+                checkout: true
             };
         default:
             return state
