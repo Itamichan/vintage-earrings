@@ -27,7 +27,7 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, sho
 
         toggleNavItem =
             <ButtonDropdown isOpen={isOpen} toggle={toggleUserMenu}>
-                <DropdownToggle nav caret className={"text-header-standard"} id={'user-menu'}>
+                <DropdownToggle nav caret className={"text-header-highlight"}>
                     {isBrowser ? (
                         `hello, ${capitalized_name}`
                     ) : (
@@ -45,7 +45,7 @@ const Navigation = ({isUserLoggedIn, openLoginModal, email, logout, history, sho
     } else {
         toggleNavItem =
             <NavItem className={'text-header-highlight'}>
-                <NavLink onClick={openLoginModal} className={"text-header-standard"}>Login</NavLink>
+                <NavLink onClick={openLoginModal} className={"text-header-highlight"}>Login</NavLink>
             </NavItem>
     }
 
