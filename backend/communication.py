@@ -1,6 +1,7 @@
 import os
 
 from django.conf import settings
+from django.template.response import SimpleTemplateResponse
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
@@ -24,12 +25,19 @@ def _send_email(message):
 
 
 def contact_support_email(from_email, text, name):
+    content = load_template('contact_email.html', {'text': text, 'name': name})
     message = Mail(
-        from_email='contact@japanwanderlust.com',
+        from_email='support@vintage-earrings.store',
         to_emails='cristinagarbuz@gmail.com',
-        subject='User contact form',
-        html_content=f' "{text}" from {name}',
+        subject='User message',
+        html_content=content.decode('UTF-8'),
     )
     message.reply_to = from_email
 
     _send_email(message)
+
+
+def load_template(template, parameters):
+    template_response = SimpleTemplateResponse(template, parameters)
+    template_response.render()
+    return template_response.content

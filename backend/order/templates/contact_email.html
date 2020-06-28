@@ -1,0 +1,13 @@
+{% extends 'base_email.html' %}
+
+{% block content %}
+    <div>
+        <b>Hey!</b>
+    </div>
+
+    <br>
+    <div> The following message was sent by <b>{{ name }}</b> :</div>
+    <br>
+    <div>{{ text }}</div>
+
+{% endblock %}
