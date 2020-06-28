@@ -1,6 +1,9 @@
+@import "../../global_scss/global_styles";
+
 #contact-page-section {
+  min-height: 70vh;
   #contact-page-container {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: $container-bg;
     padding: 3rem 1rem;
 
     #message {

@@ -52,7 +52,7 @@ const Footer = ({history}) => {
                                            target="_blank"
                                            className={'text-default footer-font'}
                                         >
-                                            <FontAwesomeIcon size={"lg"} icon={['fab', 'github']}/>
+                                            <FontAwesomeIcon size={"md"} icon={['fab', 'github']}/>
                                         </a>
                                     </li>
                                     <li>
@@ -61,7 +61,7 @@ const Footer = ({history}) => {
                                            target="_blank"
                                            className={'text-default footer-font'}
                                         >
-                                            <FontAwesomeIcon size={"lg"} icon={['fab', 'instagram']}/>
+                                            <FontAwesomeIcon size={"md"} icon={['fab', 'instagram']}/>
                                         </a>
                                     </li>
                                     <li>
@@ -70,7 +70,7 @@ const Footer = ({history}) => {
                                            target="_blank"
                                            className={'text-default footer-font'}
                                         >
-                                            <FontAwesomeIcon size={"lg"} icon={['fab', 'facebook']}/>
+                                            <FontAwesomeIcon size={"md"} icon={['fab', 'facebook']}/>
                                         </a>
                                     </li>
                                 </ul>

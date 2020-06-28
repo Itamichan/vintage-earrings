@@ -1,4 +1,6 @@
 #product-section {
+  height: 70vh;
+
   #product-container {
     .carousel-inner {
       text-align: center;
@@ -44,8 +46,6 @@
       display: flex;
       flex-flow: column wrap;
       justify-content: space-evenly;
-
-      padding-left: 2rem;
 
       #add-button {
         width: 100%;

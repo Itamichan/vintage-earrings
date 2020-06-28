@@ -45,7 +45,7 @@ const StartPage = ({history}) => {
                                 <div className={'hero-area'}>
                                     <div id={'img-container'}/>
                                     <div className={'img-header'}>
-                                        <div className={'text-header hero-header'}>
+                                        <div className={'text-header-important hero-header'}>
                                             Find your perfect pair...
                                         </div>
                                     </div>

@@ -1,6 +1,17 @@
+@import "../../global_scss/global_styles";
 
 .media-container {
+
   padding-bottom: 1.5rem;
+
+  //better user experience for desktop devices
+  @media (min-width: 1024px) {
+    padding: 1.5rem 8rem 1.5rem 1.5rem;
+
+    &:hover {
+      background-color: $container-bg;
+    }
+  }
 
   .item-price {
     text-align: right;
@@ -8,6 +19,10 @@
 
   .media-img {
     margin-right: 1.5rem;
+
+    &:hover {
+      cursor: pointer;
+    }
 
     //responsive product image
     @media (min-width: 320px) {

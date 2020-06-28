@@ -7,7 +7,7 @@ const CancellationPage = ({history}) => {
     return (
         <Container className={'start-point'} id={'cancellation-page-container'}>
             <Row>
-                <Col xs={12}>
+                <Col xs={12} className={'text-header-important'}>
                     Your checkout process is cancelled.
                 </Col>
             </Row>
