@@ -31,11 +31,11 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                 case "InvalidPassword":
                     notify.show('Invalid Password!', "error", 1700);
                     break;
-                case "InvalidEmailFormat":
+                case "InvalidEmail":
                     notify.show('Invalid Email Format!', "error", 1700);
                     break;
-                case "UsernameAlreadyTaken":
-                    notify.show('Please provide a different email', "error", 1700);
+                case "UnavailableUsername":
+                    notify.show('Please provide a different email', "error", 2500);
                     break;
                 default:
                     break;
