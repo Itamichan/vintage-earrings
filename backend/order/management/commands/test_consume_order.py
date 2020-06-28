@@ -22,6 +22,7 @@ class OrderCreationTest(TestCase):
         BasketItem.objects.create(basket=basket, product=product1, items_quantity=1)
         BasketItem.objects.create(basket=basket, product=product2, items_quantity=1)
 
+        # todo see what i wanted to do here
         # create instance of Command class
         create_basket_test = Command()
         create_basket_test.create_basket(basket.id)

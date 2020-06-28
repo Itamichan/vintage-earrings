@@ -40,9 +40,9 @@ def contact_support_email(from_email, text, name):
     _send_email(message)
 
 
-def order_confirmation_email(to_email, text):
+def order_confirmation_email(to_email, items_list):
     content = load_template('order_confirm_email.html', {
-        'text': text
+        'items_list': items_list
     })
     message = Mail(
         from_email='vintage-earrings@vintage-earrings.store',

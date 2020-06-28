@@ -78,7 +78,7 @@ class ProductsView(View):
 
         """
         try:
-            # todo create a test for the passed product_name
+
             product_name = request.GET.get('product_name', None)
 
             # get a query set with all the products and prefetch the productphoto_set related to the products

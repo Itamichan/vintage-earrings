@@ -1,13 +1,29 @@
 {% extends 'base_email.html' %}
 
 {% block content %}
-    <div>
-        <b>Hey!</b>
-    </div>
 
+    <div><b>Hey!</b></div>
     <br>
     <div>Your order was successfully created!</div>
     <br>
-    <div>{{ text }}</div>
+    <table style="width:100%">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+        {% for item in items_list %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.product.price }} €</td>
+                <td>{{ item.items_quantity }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <div>
+        <p>Best regards,</p>
+        <p><b>VintageEarrings</b></p>
+    </div>
 
 {% endblock %}

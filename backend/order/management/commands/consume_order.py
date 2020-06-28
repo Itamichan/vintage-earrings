@@ -25,14 +25,30 @@ class Command(BaseCommand):
         # destroy the basket after the order is created
         basket.delete()
 
+        orded_products_qs = OrderItem.objects.select_related('product').filter(order=order)
+
+        items_list = []
+
+        # adding to the product_list the dictionaries with the relevant product information.
+        for item in orded_products_qs:
+            items_list.append(
+                {
+                    'items_quantity': item.items_quantity,
+                    'product': {
+                        'name': item.product.name,
+                        'price': item.product.price,
+                    }
+                }
+            )
+
         # sends the order confirmation email to the customer.
-        order_confirmation_email(customer_email, 'test text')
+        order_confirmation_email(customer_email, items_list)
 
     def callback(self, ch, method, properties, body):
-
         customer_info = json.loads(body)
+        print('customer_info:', customer_info)
 
-        self.create_order(customer_info['basket_id'], customer_info['customer_email'])
+        self.create_order(customer_info[0], customer_info[1])
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
     def handle(self, *args, **options):
