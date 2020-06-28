@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {Button, Col, Container, Label, Row} from "reactstrap";
 import {AvField, AvForm} from "availity-reactstrap-validation";
 import axios from "axios";
@@ -8,10 +8,10 @@ import "./ContactPage.scss";
 const ContactPage = (props) => {
 
     const [sendingRequest, setSendingRequest] = useState(false);
-    //todo clean the dummy data
-    const [email, setEmail] = useState('cris@gmail.com');
-    const [name, setName] = useState('cris');
-    const [message, setMessage] = useState('garb');
+    const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
+    const [message, setMessage] = useState('');
+    const formRef = useRef();
 
     const contactSupport = async () => {
         try {
@@ -23,6 +23,8 @@ const ContactPage = (props) => {
                 }
             );
             notify.show('Thank you for your message!', "success", 1700);
+            formRef.current.reset()
+
         } catch (e) {
         } finally {
             setSendingRequest(false);
@@ -44,7 +46,7 @@ const ContactPage = (props) => {
                     <Col xs={12} md={{size: 6, offset: 3}}
                          id={'contact-body'}
                     >
-                        <AvForm onValidSubmit={() => contactSupport()}>
+                        <AvForm onValidSubmit={() => contactSupport()} ref={formRef}>
                             <Label for="email" className={"text-highlight"}>Email</Label>
                             <AvField type="email" name="email" id="email" value={email}
                                      errorMessage="Please provide an email."
