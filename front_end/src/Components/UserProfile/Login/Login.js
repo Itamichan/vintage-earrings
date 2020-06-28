@@ -24,8 +24,8 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                 'password': password,
                 'email': email
             });
-            notify.show('yay!!', "success", 1700);
             login();
+            formRef.current.reset()
         } catch (e) {
             switch (e.response.data.error) {
                 case "InvalidPassword":
@@ -53,7 +53,8 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                 'username': email,
                 'password': password
             });
-            loginUser(data.token)
+            loginUser(data.token);
+            formRef.current.reset()
         } catch (e) {
             console.log(e)
         } finally {
@@ -179,7 +180,6 @@ const Login = ({loginUser, isModalOpen, closeModal}) => {
                                 </span>
                                 <button
                                     onClick={() => {
-                                        formRef.current.reset();
                                         setRegisterUser(true)
 
                                     }}
