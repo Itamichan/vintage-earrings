@@ -1,10 +1,11 @@
 import json
+import time
 
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
 import pika
 from basket.models import Basket, BasketItem
-from communication import order_confirmation_email
+from communication import order_confirmation_email, shipping_confirmation_email, delivery_confirmation_email
 from order.models import Order, OrderItem
 
 
@@ -21,7 +22,6 @@ class Command(BaseCommand):
         for item in items_qs:
             OrderItem.objects.create(order=order, product=item.product, items_quantity=item.items_quantity)
 
-        print('message consumed')
         # destroy the basket after the order is created
         basket.delete()
 
@@ -44,9 +44,27 @@ class Command(BaseCommand):
         # sends the order confirmation email to the customer.
         order_confirmation_email(customer_email, items_list)
 
+        # mocks the time waiting until the order is shipped
+        time.sleep(10)
+        order_items_list = OrderItem.objects.select_related('order').filter(order=order)
+
+        for item in order_items_list:
+            item.order.status = 'SHIPPED'
+            item.save()
+
+        shipping_confirmation_email(customer_email)
+
+        # mocks the time waiting until the order is shipped
+        time.sleep(10)
+
+        for item in order_items_list:
+            item.order.status = 'DELIVERED'
+            item.save()
+
+        delivery_confirmation_email(customer_email)
+
     def callback(self, ch, method, properties, body):
         customer_info = json.loads(body)
-        print('customer_info:', customer_info)
 
         self.create_order(customer_info[0], customer_info[1])
         ch.basic_ack(delivery_tag=method.delivery_tag)

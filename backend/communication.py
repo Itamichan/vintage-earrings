@@ -45,9 +45,33 @@ def order_confirmation_email(to_email, items_list):
         'items_list': items_list
     })
     message = Mail(
-        from_email='vintage-earrings@vintage-earrings.store',
+        from_email='vintageEarrings@vintage-earrings.store',
         to_emails=to_email,
         subject='Order Confirmation',
+        html_content=content.decode('UTF-8'),
+    )
+
+    _send_email(message)
+
+
+def shipping_confirmation_email(to_email):
+    content = load_template('shipping_confirmation_email.html', {})
+    message = Mail(
+        from_email='vintageEarrings@vintage-earrings.store',
+        to_emails=to_email,
+        subject='Shipping Confirmation',
+        html_content=content.decode('UTF-8'),
+    )
+
+    _send_email(message)
+
+
+def delivery_confirmation_email(to_email):
+    content = load_template('delivery_confirmation_email.html', {})
+    message = Mail(
+        from_email='vintageEarrings@vintage-earrings.store',
+        to_emails=to_email,
+        subject='Delivery Confirmation',
         html_content=content.decode('UTF-8'),
     )
 
