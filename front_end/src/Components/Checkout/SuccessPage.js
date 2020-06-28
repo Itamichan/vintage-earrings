@@ -68,7 +68,7 @@ const SuccessPage = ({history}) => {
                 <div>
                     {paymentResponse === 'Your order is created.' ? (
                         <div>
-                            <div>
+                            <div className={'text-header-important'}>
                                 {paymentResponse}
                             </div>
                             <div>
@@ -81,7 +81,7 @@ const SuccessPage = ({history}) => {
                         </div>
                     ) : (
                         <div>
-                            <div>
+                            <div className={'text-header-important'}>
                                 {paymentResponse}
                                 <p>
                                     Please contact us if you have any questions.

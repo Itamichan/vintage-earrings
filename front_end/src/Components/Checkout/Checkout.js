@@ -11,8 +11,8 @@ const Checkout = ({history}) => {
 
     //todo clean the dummy data
     const [sendingRequest, setSendingRequest] = useState(false);
-    const [email, setEmail] = useState('cris@gmail.com');
-    const [confirmEmail, setConfirmEmail] = useState('cris@gmail.com');
+    const [email, setEmail] = useState('cristinagarbuz@gmail.com');
+    const [confirmEmail, setConfirmEmail] = useState('cristinagarbuz@gmail.com');
     const [firstName, setFirstName] = useState('cris');
     const [lastName, setLastName] = useState('garb');
     const [streetAddress, setStreetAddress] = useState('fff');
