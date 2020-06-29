@@ -34,9 +34,10 @@ class AddressCreationTest(TransactionTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(new_address.user, user)
 
-    def test_rise_error_for_existing_address(self):
+    def test_create_unique_address(self):
         """
-        tests that if the address already exists 200 is returned and the address is not added to the database.
+        tests that if the address already exists 200 status code is returned and the address is not added to
+        the database.
         """
         self.maxDiff = None
 
@@ -74,3 +75,32 @@ class AddressCreationTest(TransactionTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(address_count, 1)
 
+
+class AddressRetrieveTest(TransactionTestCase):
+    def test_retrieve_address(self):
+        """
+        tests that the address information is saved to the database.
+        """
+        self.maxDiff = None
+
+        user_email = 'cristina@gmail.com'
+        user = User.objects.create(username=user_email, email=user_email, password='password')
+        DeliveryAddress.objects.create(first_name='cristina', last_name='garbuz',
+                                       street='street', apt_nr=21, user=user,
+                                       zip_code=14, city='Stockholm', country='Sweden')
+
+        response = self.client.get(
+            path=f'/api/v1/user/{user.email}/address/')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertDictEqual(response.json(), {
+            'address': {'apt_nr': 21,
+                        'city': 'Stockholm',
+                        'country': 'Sweden',
+                        'first_name': 'cristina',
+                        'id': 1,
+                        'last_name': 'garbuz',
+                        'street': 'street',
+                        'user': 1,
+                        'zip_code': 14}
+        })

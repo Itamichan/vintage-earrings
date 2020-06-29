@@ -2,6 +2,7 @@ import json
 
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.forms import model_to_dict
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -133,5 +134,53 @@ class UserAddressView(View):
         except IntegrityError:
             return JsonResponse({}, status=200)
         except Exception as e:
-            raise e
-            # return JsonResponse500().json_response()
+            print(e)
+            return JsonResponse500().json_response()
+
+    def get(self, request, user_email):
+
+        """
+        @api {GET} api/v1/user/<user_email>/address/ Address Fetch
+        @apiVersion 1.0.0
+
+        @apiName    AddressFetch
+        @apiGroup   Users
+
+        @apiDescription  The endpoint is responsible for retrieving the user's address information.
+
+        @apiSuccessExample {json} Success-Response:
+        HTTP/1.1 200 OK
+        {
+            'address': {'apt_nr': 21,
+                        'city': 'Stockholm',
+                        'country': 'Sweden',
+                        'first_name': 'cristina',
+                        'id': 1,
+                        'last_name': 'garbuz',
+                        'street': 'street',
+                        'user': 1,
+                        'zip_code': 14}
+        }
+
+        @apiError (Bad Request 400)             {Object}        UserDoesNotExist        Please complete the fields for delivery address.
+        @apiError (InternalServerError 500)     {Object}        InternalServerError
+
+        """
+
+        try:
+            user = User.objects.get(email=user_email.lower())
+
+            delivery_address = DeliveryAddress.objects.filter(user=user).last()
+            address_dict = model_to_dict(delivery_address)
+
+            return JsonResponse({
+                'address': address_dict
+            }, status=200)
+
+        except User.DoesNotExist:
+            return JsonResponse400('UserDoesNotExist', 'Such a user does not exist').json_response()
+        except IntegrityError:
+            return JsonResponse({}, status=200)
+        except Exception as e:
+            print(e)
+            return JsonResponse500().json_response()
