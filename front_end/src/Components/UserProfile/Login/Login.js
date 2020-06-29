@@ -93,7 +93,7 @@ const Login = ({loginUser, isModalOpen, closeModal, isCheckout, history}) => {
     }
 
     return (
-        <Modal isOpen={isModalOpen}>
+        <Modal isOpen={isModalOpen} centered={true}>
             <ModalHeader
                 toggle={() => {
                     closeModal();

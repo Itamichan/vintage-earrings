@@ -36,17 +36,27 @@ const Checkout = ({userEmail}) => {
             try {
                 setSendingRequest(true);
 
-                await axios.post(`/api/v1/user/${userEmail}/address`, {
-                    'firstName': capitalizeWord(firstName),
-                    'lastName': capitalizeWord(lastName),
-                    'streetAddress': streetAddress,
-                    'aptNr': aptNr,
-                    'postalCode': postalCode,
+                await axios.post(`/api/v1/user/${userEmail}/address/`, {
+                    'first_name': capitalizeWord(firstName),
+                    'last_name': capitalizeWord(lastName),
+                    'street_address': streetAddress,
+                    'apt_nr': aptNr,
+                    'postal_code': postalCode,
                     'city': capitalizeWord(city),
                     'country': capitalizeWord(country)
                 });
 
-            } catch {
+            } catch (e) {
+                switch (e.response.data.error) {
+                    case "AddressNotProvided":
+                        notify.show('No address is provided!', "error", 1700);
+                        break;
+                    case "UserDoesNotExist":
+                        notify.show('Such user does not exist', "error", 1700);
+                        break;
+                    default:
+                        break;
+                }
             } finally {
                 setSendingRequest(false);
             }
@@ -58,19 +68,20 @@ const Checkout = ({userEmail}) => {
             try {
                 setLoading(true);
 
-                const {data} = await axios.get(`/api/v1/user/${userEmail}/address`, {
-                    // timeout: 750
-                });
+                const {data} = await axios.get(`/api/v1/user/${userEmail}/address`, {});
 
-                setEmail(userEmail);
-                setConfirmEmail(userEmail);
-                setFirstName(capitalizeWord(data.firstName));
-                setLastName(capitalizeWord(data.lastName));
-                setStreetAddress(data.streetAddress);
-                setAptNr(data.aptNr);
-                setPostalCode(data.postalCode);
-                setCity(capitalizeWord(data.city));
-                setCountry(capitalizeWord(data.country));
+                //checks that the values are assigned only if an address is returned by the api endpoint.
+                if (data) {
+                    setEmail(userEmail);
+                    setConfirmEmail(userEmail);
+                    setFirstName(capitalizeWord(data.first_name));
+                    setLastName(capitalizeWord(data.last_name));
+                    setStreetAddress(data.street_address);
+                    setAptNr(data.apt_nr);
+                    setPostalCode(data.postal_code);
+                    setCity(capitalizeWord(data.city));
+                    setCountry(capitalizeWord(data.country));
+                }
 
             } catch {
             } finally {

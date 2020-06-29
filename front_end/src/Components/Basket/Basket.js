@@ -8,7 +8,7 @@ import "./Basket.scss";
 import {isBrowser, isMobile, isTablet} from "react-device-detect";
 import {checkoutBasket, openModal} from "../UserProfile/Login/redux/actions";
 
-const Basket = ({showItemsCount, showItemsTotal, basketItems, history, openLoginModal, checkoutBasket}) => {
+const Basket = ({showItemsCount, showItemsTotal, basketItems, history, openLoginModal, checkoutBasket, isUserLoggedIn}) => {
 
     const [showCheckoutOption, setShowCheckoutOption] = useState(false);
 
@@ -23,6 +23,14 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history, openLogin
         )
     });
 
+    let checkoutStep = () => {
+        if (isUserLoggedIn) {
+            history.push(`/checkout`);
+        } else {
+            setShowCheckoutOption(true)
+        }
+    } ;
+
     return (
         <div>
             <Container id={'basket-container'} className={'start-point'}>
@@ -33,7 +41,7 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history, openLogin
                                 {isBrowser &&
                                 <Col>
                                     <Button
-                                        onClick={() => setShowCheckoutOption(true)}
+                                        onClick={checkoutStep}
                                         className={'action-button '}
                                     >
                                         Proceed to checkout
@@ -74,7 +82,7 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history, openLogin
                                 {isBrowser &&
                                 <Col>
                                     <Button
-                                        onClick={() => setShowCheckoutOption(true)}
+                                        onClick={checkoutStep}
                                         className={'action-button '}
                                     >
                                         Proceed to checkout
@@ -83,7 +91,7 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history, openLogin
                                 {isMobile || isTablet ?
                                     <Col id={'checkout-button-mobile'}>
                                         <Button
-                                            onClick={() => setShowCheckoutOption(true)}
+                                            onClick={checkoutStep}
                                             className={'action-button'}
                                         >
                                             Proceed to checkout
@@ -103,7 +111,7 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history, openLogin
                 )}
             </Container>
             {showCheckoutOption &&
-            <Modal isOpen={showCheckoutOption}>
+            <Modal isOpen={showCheckoutOption} centered={true}>
                 <ModalHeader
                     toggle={() => {
                         setShowCheckoutOption(false)
@@ -149,6 +157,7 @@ const mapDispatchToProps = (dispatch) => {
 //map the global state to properties that are passed into the comp
 const mapStateToProps = (state) => {
     return {
+        isUserLoggedIn: state.LoginReducer.loggedIn,
         basketItems: state.BasketReducer.basketItems
     }
 };
