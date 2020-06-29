@@ -6,8 +6,9 @@ import axios from "axios";
 import {notify} from "react-notify-toast";
 import {loadStripe} from '@stripe/stripe-js';
 import "./Checkout.scss";
+import {connect} from "react-redux";
 
-const Checkout = ({history}) => {
+const Checkout = ({history, userEmail}) => {
 
     //todo clean the dummy data
     const [sendingRequest, setSendingRequest] = useState(false);
@@ -23,20 +24,32 @@ const Checkout = ({history}) => {
 
     const stripePromise = loadStripe('pk_test_HOdcOxCrsy4Yyhic9468ZiDc00Ar5VIhOY');
 
-    //todo for later: code if I want to save the address info
+    const storeAddress = async () => {
+        if (userEmail) {
+            try {
+                setSendingRequest(true);
 
-    // //code inspired from https://flaviocopes.com/how-to-uppercase-first-letter-javascript/
-    // const capitalizeWord = (word) => {
-    //     return word.charAt(0).toUpperCase() + word.slice(1)
-    // };
-    // 'email': email,
-    //     'firstName': capitalizeWord(firstName),
-    //     'lastName': capitalizeWord(lastName),
-    //     'streetAddress': streetAddress,
-    //     'aptNr': aptNr,
-    //     'postalCode': postalCode,
-    //     'city': capitalizeWord(city),
-    //     'country': capitalizeWord(country)
+                //code inspired from https://flaviocopes.com/how-to-uppercase-first-letter-javascript/
+                const capitalizeWord = (word) => {
+                    return word.charAt(0).toUpperCase() + word.slice(1)
+                };
+
+                await axios.post(`/api/v1/user/${userEmail}/address`, {
+                    'firstName': capitalizeWord(firstName),
+                    'lastName': capitalizeWord(lastName),
+                    'streetAddress': streetAddress,
+                    'aptNr': aptNr,
+                    'postalCode': postalCode,
+                    'city': capitalizeWord(city),
+                    'country': capitalizeWord(country)
+                });
+
+            } catch {
+            } finally {
+                setSendingRequest(false);
+            }
+        }
+    };
 
     const checkout = async () => {
         try {
@@ -66,7 +79,7 @@ const Checkout = ({history}) => {
     };
 
     return (
-        <Container id={'address-container'}  className={'start-point'} >
+        <Container id={'address-container'} className={'start-point'}>
             <Row>
                 <Col id={'address-header'} className={'text-header-standard'}>
                     <div>
@@ -76,7 +89,10 @@ const Checkout = ({history}) => {
             </Row>
             <Row>
                 <Col xs={12} md={{offset: 2, size: 8}}>
-                    <AvForm onValidSubmit={() => checkout()}>
+                    <AvForm onValidSubmit={() => {
+                        storeAddress();
+                        checkout(userEmail)
+                    }}>
                         <Row>
                             <Col xs={12}>
                                 <Label for="email" className={"text-highlight"}>Email</Label>
@@ -245,4 +261,19 @@ const Checkout = ({history}) => {
     )
 };
 
-export default withRouter(Checkout);
+//dispatch will move the provided action dict (result of login(token))
+// to the global state and will run the reducer with the provided action
+const mapDispatchToProps = (dispatch) => {
+    return {}
+};
+
+//map the global state to properties that are passed into the comp
+const mapStateToProps = (state) => {
+    return {
+        userEmail: state.LoginReducer.email
+    }
+};
+
+//next line ensures that the properties from the 2 passed functions are passed to Login comp
+const DefaultApp = withRouter(connect(mapStateToProps, mapDispatchToProps)(Checkout));
+export default DefaultApp;
