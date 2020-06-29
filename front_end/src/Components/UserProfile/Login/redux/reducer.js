@@ -5,6 +5,7 @@ const initialState = {
     loggedIn: false,
     modalOpen: false,
     email: undefined,
+    id:undefined,
     checkout: false
 };
 
@@ -26,11 +27,13 @@ const LoginReducer = (state, action) => {
             localStorage.setItem("token", action.token);
             // extracting the user email from the jwt token
             const email = jwt_decode(action.token)["email"];
+            const id = jwt_decode(action.token)["id"];
             return {
                 ...state,
                 loggedIn: true,
                 modalOpen: false,
                 email: email,
+                id: id,
             };
         case "OPEN_MODAL":
             return {

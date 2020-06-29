@@ -66,11 +66,11 @@ class UserAddressView(View):
     def dispatch(self, request, *args, **kwargs):
         return super(UserAddressView, self).dispatch(request, *args, **kwargs)
 
-    def post(self, request, user_email):
+    def post(self, request, user_id):
 
         """
 
-        @api {POST} api/v1/user/<user_email>/address/ Address Creation
+        @api {POST} api/v1/user/<user_id>/address/ Address Creation
         @apiVersion 1.0.0
 
         @apiName    AddressCreation
@@ -122,7 +122,7 @@ class UserAddressView(View):
                                        'Please complete the fields for delivery address.').json_response()
 
             # Checks if such and address already exists in the database
-            user = User.objects.get(email=user_email.lower())
+            user = User.objects.get(pk=user_id)
 
             DeliveryAddress.objects.create(first_name=first_name, last_name=last_name, user=user,
                                            street=street_address, apt_nr=apt_nr, zip_code=postal_code,
@@ -137,10 +137,10 @@ class UserAddressView(View):
             print(e)
             return JsonResponse500().json_response()
 
-    def get(self, request, user_email):
+    def get(self, request, user_id):
 
         """
-        @api {GET} api/v1/user/<user_email>/address/ Address Fetch
+        @api {GET} api/v1/user/<user_id>/address/ Address Fetch
         @apiVersion 1.0.0
 
         @apiName    AddressFetch
@@ -168,7 +168,7 @@ class UserAddressView(View):
         """
 
         try:
-            user = User.objects.get(email=user_email.lower())
+            user = User.objects.get(pk=user_id)
 
             delivery_address = DeliveryAddress.objects.filter(user=user).last()
             address_dict = model_to_dict(delivery_address)

@@ -8,7 +8,7 @@ import {loadStripe} from '@stripe/stripe-js';
 import "./Checkout.scss";
 import {connect} from "react-redux";
 
-const Checkout = ({userEmail}) => {
+const Checkout = ({userId, userEmail}) => {
 
     //todo clean the dummy data
     const [sendingRequest, setSendingRequest] = useState(false);
@@ -32,11 +32,11 @@ const Checkout = ({userEmail}) => {
     };
 
     const storeAddress = async () => {
-        if (userEmail) {
+        if (userId) {
             try {
                 setSendingRequest(true);
 
-                await axios.post(`/api/v1/user/${userEmail}/address/`, {
+                await axios.post(`/api/v1/user/${userId}/address/`, {
                     'first_name': capitalizeWord(firstName),
                     'last_name': capitalizeWord(lastName),
                     'street_address': streetAddress,
@@ -64,11 +64,11 @@ const Checkout = ({userEmail}) => {
     };
 
     const retrieveAddress = async () => {
-        if (userEmail) {
+        if (userId) {
             try {
                 setLoading(true);
 
-                const {data} = await axios.get(`/api/v1/user/${userEmail}/address`, {});
+                const {data} = await axios.get(`/api/v1/user/${userId}/address`, {});
 
                 //checks that the values are assigned only if an address is returned by the api endpoint.
                 if (data) {
@@ -91,8 +91,8 @@ const Checkout = ({userEmail}) => {
     };
 
     useEffect(() => {
-        retrieveAddress(userEmail)
-    }, [userEmail]);
+        retrieveAddress(userId)
+    }, [userId]);
 
     const checkout = async () => {
         try {
@@ -123,7 +123,7 @@ const Checkout = ({userEmail}) => {
 
     return (
         <section id={'address-section'} className={'start-point'}>
-            {loading && userEmail ? (
+            {loading && userId ? (
                 <div id={'spinner'}>
                     <Spinner color="secondary"/>
                 </div>
@@ -323,6 +323,7 @@ const mapDispatchToProps = (dispatch) => {
 //map the global state to properties that are passed into the comp
 const mapStateToProps = (state) => {
     return {
+        userId: state.LoginReducer.id,
         userEmail: state.LoginReducer.email
     }
 };
