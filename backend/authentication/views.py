@@ -11,7 +11,7 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from errors import JsonResponse400, JsonResponse500, JsonResponse401
-from user.models import User
+from django.contrib.auth.models import User
 
 
 class RegistrationView(View):

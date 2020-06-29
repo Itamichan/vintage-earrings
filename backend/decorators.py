@@ -2,7 +2,7 @@ import json
 import os
 import jwt
 from django.conf import settings
-from user.models import User
+from django.contrib.auth.models import User
 
 from errors import JsonResponse400, JsonResponse500, JsonResponse401
 

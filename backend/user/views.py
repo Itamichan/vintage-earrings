@@ -1,6 +1,7 @@
 import json
 
 from django.contrib.auth.models import User
+from django.db import IntegrityError
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
@@ -88,7 +89,8 @@ class UserAddressView(View):
         HTTP/1.1 200 OK
         {}
 
-        @apiError (Bad Request 400)             {Object}        AddressNotProvided        Please complete the fields for delivery address.
+        @apiError (Bad Request 400)             {Object}        AddressNotProvided      Please complete the fields for delivery address.
+        @apiError (Bad Request 400)             {Object}        UserDoesNotExist        Please complete the fields for delivery address.
         @apiError (InternalServerError 500)     {Object}        InternalServerError
 
         """
@@ -115,21 +117,21 @@ class UserAddressView(View):
 
             # if no values are provided the Bad Request is risen.
             if len(provided_address) == 0:
-                return JsonResponse400('AddressNotProvided', 'Please complete the fields for delivery address.').json_response()
+                return JsonResponse400('AddressNotProvided',
+                                       'Please complete the fields for delivery address.').json_response()
 
             # Checks if such and address already exists in the database
-            user_id = User.objects.get(username=user_email.lower())
-            address_exists = DeliveryAddress.objects.get(first_name=first_name, last_name=last_name, user=user_id,
-                                                         street=street_address, apt_nr=apt_nr, zip_code=postal_code,
-                                                         city=city, country=country)
-            if address_exists:
-                return JsonResponse({}, status=200)
+            user = User.objects.get(email=user_email.lower())
 
-            DeliveryAddress.objects.create(first_name=first_name, last_name=last_name, user=user_id,
+            DeliveryAddress.objects.create(first_name=first_name, last_name=last_name, user=user,
                                            street=street_address, apt_nr=apt_nr, zip_code=postal_code,
                                            city=city, country=country)
             return JsonResponse({}, status=200)
 
+        except User.DoesNotExist:
+            return JsonResponse400('UserDoesNotExist', 'Such a user does not exist').json_response()
+        except IntegrityError:
+            return JsonResponse({}, status=200)
         except Exception as e:
-            print(e)
-            return JsonResponse500().json_response()
+            raise e
+            # return JsonResponse500().json_response()
