@@ -63,7 +63,7 @@ const Checkout = ({userEmail}) => {
         }
     };
 
-    const assignAddress = async () => {
+    const retrieveAddress = async () => {
         if (userEmail) {
             try {
                 setLoading(true);
@@ -74,13 +74,13 @@ const Checkout = ({userEmail}) => {
                 if (data) {
                     setEmail(userEmail);
                     setConfirmEmail(userEmail);
-                    setFirstName(capitalizeWord(data.first_name));
-                    setLastName(capitalizeWord(data.last_name));
-                    setStreetAddress(data.street_address);
-                    setAptNr(data.apt_nr);
-                    setPostalCode(data.postal_code);
-                    setCity(capitalizeWord(data.city));
-                    setCountry(capitalizeWord(data.country));
+                    setFirstName(capitalizeWord(data.address.first_name));
+                    setLastName(capitalizeWord(data.address.last_name));
+                    setStreetAddress(data.address.street);
+                    setAptNr(data.address.apt_nr);
+                    setPostalCode(data.address.zip_code);
+                    setCity(capitalizeWord(data.address.city));
+                    setCountry(capitalizeWord(data.address.country));
                 }
 
             } catch {
@@ -91,7 +91,7 @@ const Checkout = ({userEmail}) => {
     };
 
     useEffect(() => {
-        assignAddress(userEmail)
+        retrieveAddress(userEmail)
     }, [userEmail]);
 
     const checkout = async () => {
