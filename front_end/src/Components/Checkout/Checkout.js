@@ -87,6 +87,16 @@ const Checkout = ({userId, userEmail}) => {
             } finally {
                 setLoading(false);
             }
+        } else {
+            setEmail('');
+            setConfirmEmail('');
+            setFirstName('');
+            setLastName('');
+            setStreetAddress('');
+            setAptNr('');
+            setPostalCode('');
+            setCity('');
+            setCountry('')
         }
     };
 

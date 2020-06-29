@@ -22,6 +22,7 @@ const LoginReducer = (state, action) => {
                 ...state,
                 loggedIn: false,
                 email: undefined,
+                id:undefined
             };
         case "LOGIN":
             localStorage.setItem("token", action.token);
