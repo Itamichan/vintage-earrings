@@ -14,11 +14,10 @@ class AddressCreationTest(TransactionTestCase):
         """
         self.maxDiff = None
 
-        user_email = 'cristina@gmail.com'
-        user = User.objects.create(username=user_email, email=user_email, password='password')
+        user = User.objects.create(username='cristina@gmail.com', email='cristina@gmail.com', password='password')
 
         response = self.client.post(
-            path=f'/api/v1/user/{user.email}/address/',
+            path=f'/api/v1/user/{user.id}/address/',
             data=json.dumps({
                 "first_name": "first_name",
                 "last_name": "last_name",
@@ -42,8 +41,7 @@ class AddressCreationTest(TransactionTestCase):
         """
         self.maxDiff = None
 
-        user_email = 'cristina@gmail.com'
-        user = User.objects.create(username=user_email, email=user_email, password='password')
+        user = User.objects.create(username='cristina@gmail.com', email='cristina@gmail.com', password='password')
 
         self.client.post(
             path=f'/api/v1/user/{user.email}/address/',
@@ -59,7 +57,7 @@ class AddressCreationTest(TransactionTestCase):
             content_type="application/json")
 
         response = self.client.post(
-            path=f'/api/v1/user/{user.email}/address/',
+            path=f'/api/v1/user/{user.id}/address/',
             data=json.dumps({
                 "first_name": "first_name",
                 "last_name": "last_name",
@@ -86,12 +84,13 @@ class AddressRetrieveTest(TransactionTestCase):
 
         user_email = 'cristina@gmail.com'
         user = User.objects.create(username=user_email, email=user_email, password='password')
+
         DeliveryAddress.objects.create(first_name='cristina', last_name='garbuz',
                                        street='street', apt_nr=21, user=user,
                                        zip_code=14, city='Stockholm', country='Sweden')
 
         response = self.client.get(
-            path=f'/api/v1/user/{user.email}/address/')
+            path=f'/api/v1/user/{user.id}/address/')
 
         self.assertEqual(response.status_code, 200)
         self.assertDictEqual(response.json(), {
@@ -114,6 +113,7 @@ class AddressRetrieveTest(TransactionTestCase):
 
         user_email = 'cristina@gmail.com'
         user = User.objects.create(username=user_email, email=user_email, password='password')
+
         DeliveryAddress.objects.create(first_name='cristina', last_name='garbuz',
                                        street='street', apt_nr=21, user=user,
                                        zip_code=14, city='Stockholm', country='Sweden')
@@ -122,7 +122,7 @@ class AddressRetrieveTest(TransactionTestCase):
                                        zip_code=14, city='Stockholm', country='Sweden')
 
         response = self.client.get(
-            path=f'/api/v1/user/{user.email}/address/')
+            path=f'/api/v1/user/{user.id}/address/')
 
         self.assertEqual(response.status_code, 200)
         self.assertDictEqual(response.json(), {
