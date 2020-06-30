@@ -1,35 +1,32 @@
 
-web-shop with vintage earrings
-
 # VintageEarrings
 
-A live demo can be found [here](https://www.japanwanderlust.com/)
-
-![WebsiteLogo](https://japan-wanderlust.s3.eu-north-1.amazonaws.com/static/images/readme/logo-readme.png)
+A live demo can be found [here](https://vintage-earrings.herokuapp.com/)
 
 ## Introduction
 
-JapanWanderlust is a web page which makes possible for the users to get the best travel offers to Japan, based on attractions that they had selected as well as additional details (such as duration, price etc.)
+VintageEarrings is a web shop which offers to their clients the possibility to purchase vintage earrings. 
 
-The main purpose of the web page is to make possible to connect the Travel Agencies and the Potential Customers which usually prefers to plan a travel trip by themselves.
-By having the freedom to choose specific destinations as well as their budget limit and travel preferences the users will get a travel package offer which will match their wishes best. If the user decides that they are not interested in the offers they still can have all their attractions saved in a convenient "Trip". Which they can revisit and change as many times as they wish. 
+The main purpose of the web page is to offer the user an easy access to the liked products and pass through and easy and convenient payment processes. We keep the user updated at every step of their product's travel until it reaches them.
 
-JapanWanderlust's back-end is consumed as an API by the front-end. The API is documented with apidoc. Link to the documentation:
-[JapanWanderlust API](https://japan-wanderlust-api-doc.s3.eu-north-1.amazonaws.com/index.html)
+VintageEarrings's back-end is consumed as an API by the front-end. The API is documented with apidoc. Link to the documentation:
+[VintageEarrings API](https://vintage-earrings-api-doc.s3.eu-north-1.amazonaws.com/apidoc/index.html)
 
 ### Actions that can be taken on the web page
 * **Non registered user**:
-    * Browse through all different attractions which can be visited in Japan.
+    * Can see all the existing products.
+    * Can search through existing products by name.
+    * Can add product to the basket.
+    * Can purchase products.
 * **Registered user**:
-    * Create, Edit or Remove Trips.
-    * Add or remove different Attractions to their Trip.
-    * Get best matching offers from the Travel Agencies based on their choices.
+    * Can see all their shipping information.
+    * Can add or remove a shipping address.
 
 ## Table of Content
 
 1. [UX](#ux)
     * [Goals](#goals)
-        * [JapanWanderlust goal](#japanwanderlust-goal)
+        * [VintageEarrings goal](#vintageearrings-goal)
         * [Business goals](#business-goals)
         * [Customer goals](#customer-goals)
     * [User Stories](#user-stories)     
@@ -59,71 +56,62 @@ JapanWanderlust's back-end is consumed as an API by the front-end. The API is do
 ## UX
 
 ### Goals
-#### JapanWanderlust goal
+#### VintageEarrings goal
 
-The main goal of the JapanWanderlust is to allow the potential traveler to get in contact with the best suited Travel Agency in order to travel through Japan.
+The main goal of the JapanWanderlust is to sell wonderful, vintage earrings to people who have an interest in them.
 
 **Target audience is:**
 * People 18 years old and above.
-* People interested in Japan culture and scenery. 
-* People who want to have a tailor made trip.
-* Travel Agencies who want to reach the market of people who tend to plan their trips by themselves.
+* People interested in earrings, in special in vintage style earrings.
 
 #### Business goals
 
-* Create a platform that allows the potential customer to get in contact with the best suited Travel Agency.
+* Create a platform that allows the potential customer to find and buy the product they like.
+* Get users to register in order to increase the retention rate.
 * Have well structured database.
 * Have an attractive design of the web page.
 * Have user friendly experience on the page.
-* Collaborate with Travel Agencies which are willing to provide their travel packages information.
 
 
 #### Customer goals
 
 * **Users**:
-    * Get a tailored made traveling plan.
-    * Potentially get a travel package that will suit their needs the best.
-    * They want to find a large variety of travel destinations to Japan.
-    * Possibility to contact the Travel Agency if they are interested in the received offer.
-    
-* **Travel Agency**:
-    * Sell their Japan travel packages.
-    * Get information regarding users' travel preferences in order to update or create new travel packages.
+    * Find earrings that fit their style.
+    * Buy earrings through an easy payment flow.
+    * Save earrings in their favourite list.
+    * See previous purchases.
+    * Comment and rate bought products.
 
 Both business and customer goals are addressed through user stories.
 
 ### User Stories
 #### User category: _The User_
 
-* As a user, I want to see the available attractions in Japan so that I can choose which one I would like to save in my Trip.
-* As a user, I want to be able to save the attractions which I like so that I can have a comprehensive list of my desired destinations.
-* As a user, I want to update my profile so that my personal information is correct.
-* As a user, I want to be able to search an attraction base on a specific category, so that I can easier find the information in which I am interested.
-* As a user, I want to create a profile, so that I can save the destinations I like.
-* As a user, I want to be able to contact the Travel Agency, so that I can let the know that I am interested in their offer.
+* As a user, I want to see all the available vintage earrings so that I can choose the ones I like.
+* As a user, I want to see reviews of the products so that I know the opinion of people who already bought them.
+* As a user, I want to add items to the basket so that I can buy them.
+* As a user, I want to be able to contact customer support so that they can help me when something is not clear or went wrong.
+* As a user, I want to be able to filter the products so that I can reduce the number of suggested products to those in which I am most interested in.
+
+#### User category: _The Registered User_
+* As a user, I want to save the earrings in a Wish List so I can revisit them later.
+* As a user, I want to be able to change my Profile details so that my personal information is up to date.
+* As a user, I want to see my previous order so that I can buy them again if I liked them.
+* As a user, I want to rate the purchased items so that others are informed about the product based on my experience.
 
 #### User category: _The UX Designer_
 * As a UX designer, I want to track user behaviour so that I can improve the user experience.
     * As a UX designer, I want to track the user behaviour so that I can identify the possible user confusion.
     * As a UX designer, I want to find which parts are not accessed by the user so that I can suggest a better architecture of the page.    
-    
-#### User category: _The Travel Agency_
-* As a Travel Agency, I want to integrate my database with the web page, so that the user can get suggestions about our package deals.
-* As a Travel Agency, I want to know which attractions are popular, so that I can decide if I want to change our travel packages or optimise them.
-* As a Travel Agency, I want that the user receives our offers and contact information so that they contact us.
         
 #### User category: _The Business Owner_
 * As a business owner, I want that our web page looks attractive so that people are motivated to spend time on it.
-* As a business owner, I want to work with a lot of Travel Agencies, so that we get a high profit.
-* As a business owner, I want to have a comprehensive list of destinations, so that the user can find whatever they need.
-* As a business owner, I want to provide sufficient information about an attraction so that the user would have all the information that they need in order to decide if they would like to go or not.
+* As a business owner, I want that our customers have the means to contact us so that they can let us know if they need any help.
+* As a business owner, I want to provide sufficient information about a product so that the user has a sufficient understanding of the product.
+* As a business owner, I want to offer information about our business idea and values so that the users can identify their ideologies with ours.
 
 ### Minimum Viable Product
 Taking in consideration all the user stories, their importance and viability of their implementation at the moment certain value and complexity levels have been attributed to the user stories.
- 
-* Due to limited period of time the Travel Agency related user stories are not implemented in our MVP. 
-    * As consequence the offer email that the user gets from the Travel Agency is not based on a real database or matching mechanism.
-    * The offer email contains a placeholder message.
     
 [User Stories evaluation](readme-related-documents/user-stories.md)
 
