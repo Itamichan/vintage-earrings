@@ -123,6 +123,7 @@ Following colors have been used:
 * ![#682D8A](https://via.placeholder.com/15/682D8A/000000?text=+) `#682D8A`
 * ![#FAF6F5](https://via.placeholder.com/15/FAF6F5/000000?text=+) `#FAF6F5`
 
+The main colors are used in order to put the accent that the web site sells high quality, old styled earrings.
 
 The black color and it's lighter variations was used for background coloring.
 
@@ -210,19 +211,20 @@ Link to wireframes for desktop can be found [here](https://www.figma.com/file/57
     * [react-device-detect](https://www.npmjs.com/package/react-device-detect) - used for conditional rendering of content depending on which type of device the user has.
     * [reactstrap](https://reactstrap.github.io/) - used for layout and styling of different elements.
     * [react-fontawesome](https://github.com/FortAwesome/react-fontawesome) - used for icons.
-    * [Google Fonts](https://fonts.google.com/) - used for the Nightshade and Open Sans fonts.
+    * [Google Fonts](https://fonts.google.com/) - used for the Lobster Two and Source Sans Pro fonts.
     * [react-notify-toast](https://www.npmjs.com/package/react-notify-toast) - used to inform the user on success or failure of certain actions.
     * [jwt-decode](https://www.npmjs.com/package/jwt-decode) - used to decode the jwt token on the client's side.
     * [Availity reactstrap Validation](https://availity.github.io/availity-reactstrap-validation/) - used for form validation.
 
 * **Back-End**
-     * [flask](https://flask.palletsprojects.com/en/1.1.x/) - used for creation of the web framework
+     * [django](https://www.djangoproject.com/) - used for creation of the web framework.
      * [gunicorn](https://gunicorn.org/) - used for our workers for Heroku.
      * [pyJWT](https://pyjwt.readthedocs.io/en/latest/) - used for creation of Authentication Token on Login.
-     * [dataclasses](https://docs.python.org/3/library/dataclasses.html) - python classes to store states.
-     * [requests](https://requests.readthedocs.io/en/master/) - allows us to do HTTP requests in python.
-     * [SendGrid](https://app.sendgrid.com/) - we consumed the SendGrid API in order to send welcome and offer emails to the users.
      * [APIDOC](https://apidocjs.com/) - used to create API documentation for our back-end
+     * [dj-database-url](https://pypi.org/project/dj-database-url/) - used for the database url parsing.
+     * [stripe](https://stripe.com/) - used for the payment flow.
+     * [django-storages](https://django-storages.readthedocs.io/en/latest/#) and [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) - for storing django static files.
+     * [pika](https://pika.readthedocs.io/en/stable/) - python package that allowed to use [RabbitMQ](https://www.rabbitmq.com/)
      
 * **Database**
     * [psycopg2](https://pypi.org/project/psycopg2/) - python library for PostgreSQL.
@@ -231,9 +233,9 @@ Link to wireframes for desktop can be found [here](https://www.figma.com/file/57
 
 * [WebStorm](https://www.jetbrains.com/webstorm/) - used as local IDE for the front-end of this project.
 * [PyCharm](https://www.jetbrains.com/pycharm/) - used as local IDE for the back-end of this project.
-* [DataGrip](https://www.jetbrains.com/datagrip/) - used for local visualisation of our database.
 * [Heroku Postgres](https://elements.heroku.com/addons/heroku-postgresql) - used as our main database based on PostgreSQL.
 * [Heroku Papertrail](https://elements.heroku.com/addons/papertrail) - used for debugging and logging.
+* [Clous AMQP](https://elements.heroku.com/addons/cloudamqp) - used for handling of events.
 * [Git](https://git-scm.com/) - used for version control.
 * [Figma](https://www.figma.com/) - used for creation of wireframes.
 * [favicon.io](https://favicon.io/) - used for creation of the fav icon for the web page.
@@ -243,7 +245,6 @@ Link to wireframes for desktop can be found [here](https://www.figma.com/file/57
 * [PageSpeed insights](https://developers.google.com/speed/pagespeed/insights/) - used for testing the loading speed of the site.
 * [AWS](https://aws.amazon.com/s3/?nc=sn&loc=0) - used to store and retrieve project's data.
 * [Heroku](https://id.heroku.com/) - for hosting of our project.
-* [Travis](https://travis-ci.org/) - used for testing of our back-end code.
 * [Paletton](https://paletton.com/) - used for application's color combinations.
 
 ### React in detail
