@@ -184,3 +184,79 @@ class UserAddressView(View):
         except Exception as e:
             print(e)
             return JsonResponse500().json_response()
+
+
+class UserAddressesView(View):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserAddressesView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, user_id):
+
+        """
+        @api {GET} api/v1/user/<user_id>/addressess/ Get Addresses
+        @apiVersion 1.0.0
+
+        @apiName    GetAddresses
+        @apiGroup   Users
+
+        @apiDescription  The endpoint is responsible for retrieving all user's addresses.
+
+        @apiSuccess {Object[]}  addresses               List with the all addresses.
+        @apiSuccess {Integer}   address.id              Address's id.
+        @apiSuccess {String}    address.first_name      User's first name
+        @apiSuccess {Text}      address.last_name       User's last name
+        @apiSuccess {Integer}   address.street          User's street information
+        @apiSuccess {Integer}   address.apt_nr          User's apartment number.
+        @apiSuccess {Integer}   address.zip_code        Zip Code of the address where the user lives.
+        @apiSuccess {Integer}   address.city            City name of the address where the user lives.
+        @apiSuccess {Integer}   address.country         Country name of the address where the user lives.
+
+        @apiSuccessExample {json} Success-Response:
+        HTTP/1.1 200 OK
+        # todo put the correct example
+        {
+            'address': {'apt_nr': 21,
+                        'city': 'Stockholm',
+                        'country': 'Sweden',
+                        'first_name': 'cristina',
+                        'id': 1,
+                        'last_name': 'garbuz',
+                        'street': 'street',
+                        'user': 1,
+                        'zip_code': 14}
+        }
+
+        @apiError (Bad Request 400)             {Object}        UserDoesNotExist        Please complete the fields for delivery address.
+        @apiError (InternalServerError 500)     {Object}        InternalServerError
+
+        """
+
+        try:
+            user = User.objects.get(pk=user_id)
+
+            address_qs = DeliveryAddress.objects.filter(user=user)
+
+            address_list = []
+
+            # adding to the product_list the dictionaries with the relevant product information.
+            for product in address_qs:
+                address_list.append({
+                    'id': product.id,
+                    'name': product.name,
+                    'description': product.description,
+                    'price': product.price,
+                    'quantity': product.quantity,
+                    'photos': list(product.productphoto_set.all().values())
+                })
+
+            return JsonResponse({
+                "address_list": address_list
+            })
+
+        except User.DoesNotExist:
+            return JsonResponse400('UserDoesNotExist', 'Such a user does not exist').json_response()
+        except Exception as e:
+            print(e)
+            return JsonResponse500().json_response()
