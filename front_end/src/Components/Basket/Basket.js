@@ -102,8 +102,8 @@ const Basket = ({showItemsCount, showItemsTotal, basketItems, history, openLogin
                     </div>
                 ) : (
                     <Row>
-                        <Col xs={12}>
-                            <div>
+                        <Col xs={12} id={'empty-basket'}>
+                            <div className={'text-header-standard'}>
                                 You have no items in your basket
                             </div>
                         </Col>
