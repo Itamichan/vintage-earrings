@@ -1,0 +1,22 @@
+#address-section {
+  min-height: 70vh;
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 3rem 1rem;
+
+  #spinner {
+    text-align: center;
+    padding-top: 35vh;
+  }
+
+  #address-header {
+    padding-bottom: 1rem;
+    text-align: center;
+  }
+
+  #choose-address-button {
+    text-align: right;
+  }
+
+  #addresses-modal {
+  }
+}
