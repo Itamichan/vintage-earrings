@@ -7,7 +7,7 @@ A live demo can be found [here](https://vintage-earrings.herokuapp.com/)
 
 VintageEarrings is a web shop which offers to their clients the possibility to purchase vintage earrings. 
 
-The main purpose of the web page is to offer the user an easy access to the liked products and pass through and easy and convenient payment processes. We keep the user updated at every step of their product's travel until it reaches them.
+The main purpose of the web page is to offer the user an easy access to the liked products and pass through and easy and convenient payment processes. We keep the user updated at every step of their product's journey until it reaches them.
 
 VintageEarrings's back-end is consumed as an API by the front-end. The API is documented with apidoc. Link to the documentation:
 [VintageEarrings API](https://vintage-earrings-api-doc.s3.eu-north-1.amazonaws.com/apidoc/index.html)
