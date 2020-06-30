@@ -211,8 +211,6 @@ class TokenVerificationTest(TestCase):
             }),
             content_type="application/json")
 
-        print('verify_response:', verify_response)
-
         self.assertEqual(verify_response.status_code, 200)
 
     def test_expired_token(self):

@@ -69,7 +69,6 @@ const AddressForm = ({executingCheckout, checkout, userId, userEmail, hideAddres
                 const {data} = await axios.get(`/api/v1/user/${userId}/all_addresses/`, {});
                 setAddresses(data.address_list);
 
-                console.log('addresses_inside the function:', addresses)
             } catch {
             } finally {
             }

@@ -62,7 +62,6 @@ class RegistrationView(View):
             try:
                 validate_email(email)
             except ValidationError as ve:
-                print('error message:', ','.join(ve.messages))
                 return JsonResponse400('InvalidEmail', ','.join(ve.messages)).json_response()
 
             # create new user in the databse
