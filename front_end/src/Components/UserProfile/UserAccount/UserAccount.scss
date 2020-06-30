@@ -1,3 +1,23 @@
 #account-container {
-  color: black;
+  min-height: 70vh;
+
+  #address-container {
+    display: flex;
+    flex-flow: row wrap;
+
+    .address-instance {
+      flex-grow: 1;
+      padding: 1rem 1.5rem;
+      margin: 1rem;
+    }
+    #close-icon {
+      text-align: right;
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      &:hover {
+        cursor: pointer;
+        color: darkred;
+      }
+    }
+  }
 }

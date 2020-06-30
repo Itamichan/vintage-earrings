@@ -74,7 +74,7 @@ const AddressForm = ({executingCheckout, checkout, userId, userEmail}) => {
             } finally {
             }
         } else {
-            setStreetAddress([])
+            setAddresses([])
         }
     };
 
@@ -376,9 +376,7 @@ const AddressForm = ({executingCheckout, checkout, userId, userEmail}) => {
                     <div className={'text-header-standard'}>Choose an Address</div>
                 </ModalHeader>
                 <ModalBody id={'address-container'}>
-
                     {addressList}
-
                 </ModalBody>
             </Modal>}
         </section>)
