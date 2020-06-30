@@ -300,7 +300,7 @@ const AddressForm = ({executingCheckout, checkout, userId, userEmail, hideAddres
                                     <Col xs={6} lg={3}>
                                         <Label for="postalCode" className={"text-highlight"}>Postal Code</Label>
                                         <AvField type="number" id={'postalCode'} name={'postalCode'} value={postalCode}
-                                                 errorMessage="Please provide the email."
+                                                 errorMessage="Please provide a valid postal code."
                                                  disabled={sendingRequest}
                                                  validate={{
                                                      required: {value: true},
