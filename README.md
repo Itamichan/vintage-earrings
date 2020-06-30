@@ -274,14 +274,14 @@ Deployment information can be fond [here](readme-related-documents/deployment.md
 
 ### Content
 
-The attractions' information and most of the images were taken from [japan-guide](https://www.japan-guide.com/).
+The products' information and images were taken from [etsy](https://www.etsy.com/).
 
 ### Acknowledgements
 
 #### Pages used for Inspiration
 
-* [japan-guide](https://www.japan-guide.com/)
-* [japan-travel](https://www.japan.travel/en/)
+* [etsy](https://www.etsy.com/)
+* [amazon](https://www.amazon.com/)
 
 * Inspiration resources for writing this README file:
     * [AJGreaves](https://github.com/AJGreaves/familyhub)
