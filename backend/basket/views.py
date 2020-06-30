@@ -211,23 +211,6 @@ class BasketItemsView(View):
             basket_item.items_quantity = item_quantity
             basket_item.save()
 
-            # todo delete comment bellow
-
-            # # query set returns the item from the BasketWithItems joined with the Product table on product Foreign Key.
-            # item = BasketItem.objects.select_related('product').get(pk=new_item.id)
-            #
-            # return JsonResponse({
-            #     'id': item.id,
-            #     'items_quantity': item.items_quantity,
-            #     'product': {
-            #         'id': item.product.id,
-            #         'name': item.product.name,
-            #         'description': item.product.description,
-            #         'price': item.product.price,
-            #         'quantity': item.product.quantity,
-            #         'photos': list(item.product.productphoto_set.all().values())
-            #     }
-            # })
             return JsonResponse({})
         except Exception as e:
             print(e)

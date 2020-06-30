@@ -177,3 +177,26 @@ class GetAddressesTest(TransactionTestCase):
                               'street': 'street',
                               'zip_code': 14}]
         })
+
+
+class DeleteAddressesTest(TransactionTestCase):
+    def test_delete_address(self):
+        """
+        tests that the address is deleted from the database.
+        """
+        self.maxDiff = None
+
+        user_email = 'cristina@gmail.com'
+        user = User.objects.create(username=user_email, email=user_email, password='password')
+
+        address = DeliveryAddress.objects.create(first_name='cristina1', last_name='garbuz',
+                                                 street='street', apt_nr=21, user=user,
+                                                 zip_code=14, city='Stockholm', country='Sweden')
+
+        response = self.client.delete(
+            path=f'/api/v1/user/{user.id}/address/{address.id}/')
+
+        address_count = DeliveryAddress.objects.count()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(address_count, 0)

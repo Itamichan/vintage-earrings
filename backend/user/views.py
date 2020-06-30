@@ -243,7 +243,7 @@ class UserAllAddressesView(View):
             # adding to the product_list the dictionaries with the relevant product information.
             for address in address_qs:
                 address_list.append({
-                    'id':address.id,
+                    'id': address.id,
                     'first_name': address.first_name,
                     'last_name': address.last_name,
                     'street': address.street,
@@ -260,6 +260,50 @@ class UserAllAddressesView(View):
 
         except User.DoesNotExist:
             return JsonResponse400('UserDoesNotExist', 'Such a user does not exist').json_response()
+        except Exception as e:
+            print(e)
+            return JsonResponse500().json_response()
+
+
+class UserAddressRemoveView(View):
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(UserAddressRemoveView, self).dispatch(request, *args, **kwargs)
+
+    def delete(self, request, user_id, address_id):
+
+        """
+        @api {DELETE} api/v1/user/<user_id>/address/<address_id>/ Delete Addresses
+        @apiVersion 1.0.0
+
+        @apiName    DeleteAddresses
+        @apiGroup   Users
+
+        @apiDescription  The endpoint is responsible for removing an address from the database.
+
+        @apiSuccessExample {json} Success-Response:
+        HTTP/1.1 200 OK
+
+        { }
+
+        @apiError (Bad Request 400)             {Object}        UserDoesNotExist        Please complete the fields for delivery address.
+        @apiError (InternalServerError 500)     {Object}        InternalServerError
+
+        """
+
+        try:
+            user = User.objects.get(pk=user_id)
+            address = DeliveryAddress.objects.filter(user=user, pk=address_id)
+
+            address.delete()
+
+            return JsonResponse({})
+
+        except User.DoesNotExist:
+            return JsonResponse400('UserDoesNotExist', 'Such an user does not exist').json_response()
+        except DeliveryAddress.DoesNotExist:
+            return JsonResponse400('AddressDoesNotExist', 'Such an address does not exist').json_response()
         except Exception as e:
             print(e)
             return JsonResponse500().json_response()
