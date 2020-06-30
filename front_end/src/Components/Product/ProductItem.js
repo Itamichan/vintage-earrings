@@ -6,9 +6,10 @@ import Col from "reactstrap/es/Col";
 import './ProductItem.scss';
 import {addItem, updateItem} from "../Basket/basketOperations";
 import {connect} from "react-redux";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 
-const ProductItem = ({basketItems}) => {
+const ProductItem = ({basketItems, history}) => {
 
     const [activeIndex, setActiveIndex] = useState(0);
     const [animating, setAnimating] = useState(false);
@@ -74,6 +75,19 @@ const ProductItem = ({basketItems}) => {
     return (
         <section className={'start-point'} id={'product-section'}>
             <Container id={'product-container'}>
+                <Row>
+                    <Col
+                        className={'button-wrapper'}
+                        onClick={() => history.goBack()}
+                    >
+                        <span>
+                            <FontAwesomeIcon icon="chevron-left"/>
+                        </span>
+                        <Button className={'invisible-button back-button'}>
+                            Go back to the shop
+                        </Button>
+                    </Col>
+                </Row>
                 <Row>
                     <Col className={'item-img-carousel'} xs={12} md={8}>
                         <Carousel

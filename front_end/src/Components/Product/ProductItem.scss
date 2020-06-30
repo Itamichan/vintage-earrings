@@ -2,6 +2,17 @@
   height: 70vh;
 
   #product-container {
+    .button-wrapper {
+      padding: 0 0 1rem 1rem;
+
+      .back-button {
+        padding-top: 1rem;
+        &:hover {
+          background-color: transparent;
+        }
+      }
+    }
+
     .carousel-inner {
       text-align: center;
     }
