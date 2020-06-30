@@ -59,8 +59,11 @@ const UserAccount = ({isUserLoggedIn, userId}) => {
             </Row>
             <Row>
                 <Col>
-                    <div>
-                        Add new Address
+                    <div id={'add-address-container'} className={'material-frame text-highlight'}>
+                        <p>
+                            Add new Address
+                        </p>
+                        <FontAwesomeIcon size={"2x"} icon="plus"/>
                     </div>
                 </Col>
                 <Col xs={12} id={'address-container'}>

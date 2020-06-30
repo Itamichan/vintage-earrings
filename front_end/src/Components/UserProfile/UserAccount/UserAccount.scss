@@ -1,6 +1,22 @@
 #account-container {
   min-height: 70vh;
 
+  #add-address-container {
+    height: 15rem;
+    width: 15rem;
+    margin: 1rem;
+
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
+  }
+
   #address-container {
     display: flex;
     flex-flow: row wrap;
@@ -10,10 +26,12 @@
       padding: 1rem 1.5rem;
       margin: 1rem;
     }
+
     #close-icon {
       text-align: right;
       padding: 0.5rem;
       margin-bottom: 0.5rem;
+
       &:hover {
         cursor: pointer;
         color: darkred;
