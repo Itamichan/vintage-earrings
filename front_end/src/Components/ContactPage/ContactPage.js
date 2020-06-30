@@ -67,7 +67,7 @@ const ContactPage = (props) => {
                                      validate={{
                                          required: {value: true},
                                          pattern: {
-                                             value: '^[A-Za-z]+$',
+                                             value: '^[A-Za-z ]+$',
                                              errorMessage: "Only letter characters are allowed."
                                          },
                                          maxLength: {
