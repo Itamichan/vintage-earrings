@@ -12,7 +12,7 @@ This web page was locally developed in WebStorm and PyCharm. It was pushed to th
 
 ### Version control on GitHub
 
-In order to connect the local IDE to GitHub I used the command `git remote add origin` and added the link to the remote repository: `https://github.com/Itamichan/Japan-Wanderlust.git`
+In order to connect the local IDE to GitHub I used the command `git remote add origin` and added the link to the remote repository: `https://github.com/Itamichan/vintage-earrings.git`
 
 My main local branch is `master` which I deployed as `origin/master` to GitHub.
 
@@ -28,7 +28,7 @@ This project is stored on AWS. If you would like to also deploy your project to 
 
 1. Go to [AWS](https://aws.amazon.com/) and create there an account. Choose Amazon Free Teer option in order to benefit the free version.
 2. Go to "Services" and search for "S3".
-3. Access "S3" and create a bucket there with "Create bucket" button. You can call it `japan-wanderlust`.
+3. Access "S3" and create a bucket there with "Create bucket" button. You can call it `vintage-earrings`.
 4. Under "Permissions" ensure that you set the access to public in order to be able to access the bucket's content.
 5. Now you can add all your files related to the project into the bucket. You can do this by clicking "Upload" button. **Or** you can upload all the files in an automatic way by using python scripts.
     * I chose to upload them automatically with the help of the scripts written by [sheepsy90](https://github.com/sheepsy90). Since the scripts are not written by me I will not go into describing them. For your general knowledge the used python files are:
@@ -43,37 +43,43 @@ This project is stored on AWS. If you would like to also deploy your project to 
 
 In order to serve our project which is saved on AWS we need a web server. In our case we chose to host on Heroku.
 We also use the Heroku Postgres Database for storing of our tables.
-To deploy JapanWanderlust to Heroku, take the following steps:
+To deploy VintageEarrings to Heroku, take the following steps:
 
-1. Create a `requirements.txt` file and add inside `requests flask gunicorn` for the python dependencies.
-2. Create `run.py` file that will contain all our end points. It will handle our request deliver of index page.
-3. Create a `Procfile` file and add inside `web: gunicorn -w 2 --pythonpath src src.run`. This file tells Heroku which processes need to be available. In our example we need a web server process.
-4. Create a new app on the [Heroku website](https://dashboard.heroku.com/apps) by clicking the "New" button in your dashboard. Give it a name and set the region to Europe.
-5. Select "Deploy" > "Deployment method" and select GitHub.
-6. Confirm the linking of the Heroku app to the correct GitHub repository.
-7. Select "Settings" > "Reveal Config Vars".
-8. Set the following config vars:
+1. Create a `requirements.txt` file and add inside `dj-database-url==0.5.0 Django==3.0.7 django-extensions==2.2.9 gunicorn==20.0.4 PyJWT==1.7.1 psycopg2-binary==2.8.5 stripe boto3 django-storages pika sendgrid` for the python dependencies.
+2. Create a `Procfile` file and add inside 
+* `web: gunicorn -w 2 --pythonpath backend vintage_earrings.wsgi`
+* `consumer: cd backend && python3 manage.py consume_order`. 
+This file tells Heroku which processes need to be available. In our example we need a web server process.
+3. Create a new app on the [Heroku website](https://dashboard.heroku.com/apps) by clicking the "New" button in your dashboard. Give it a name and set the region to Europe.
+4. Select "Deploy" > "Deployment method" and select GitHub.
+5. Confirm the linking of the Heroku app to the correct GitHub repository.
+6. Select "Settings" > "Reveal Config Vars".
+7. Set the following config vars:
 
 |  **Key** | **Value**  |
 |---|---|
-| AWS_INDEX_URL | here you put the link to your index.html file from AWS  | 
+| VINTAGE_EARRINGS_INDEX_URL | here you put the link to your index.html file from AWS  | 
 | DATABASE_URL  | provided by Heroku Postgres | 
-| DB_HOST | provided by Heroku Postgres |
-| DB_NAME | provided by Heroku Postgres |
-| DB_PASSWORD | provided by Heroku Postgres |
-| DB_USER | provided by Heroku Postgres |
+| AWS_ACCESS_KEY_ID | which you get from AWS on bucket creation|
+| AWS_SECRET_ACCESS_KEY | which you get from AWS on bucket creation |
+| CLOUDAMQP_APIKEY | provided by Heroku CLOUDAMQP |
+| CLOUDAMQP_URL | provided by Heroku CLOUDAMQP |
+| DISABLE_COLLECTSTATIC | 1 |
+| ENVIRONMENT | producion |
+| HOST | your app's url hosted on Heroku |
 | PAPERTRAIL_API_TOKEN | provided by Heroku Papertrail on creation |
 | SECRET_KEY | is your random secret key which you are using when you encrypt the passwords provided by the users on registration |
 | SENDGRID_API_KEY | provided by SendGrid once on creation of your API Key |
+| STRIPE_API_KEY | provided by Stripe |
         
-* The link to your index-html page you can find on opening the index.html file in your bucket (japan-wanderlust).
+* The link to your index-html page you can find on opening the index.html file in your bucket (vintage-earrings).
 * All the values for the dabase are found under Heroku Account > Resources > Heroku Postgres > Settings > Database Credentials.
 
-9. Enable the web worker on Heroku.
-    * Go to "Resources" > under Free Dynos choose to edit your dyno - turn it on and confirm it.
-10. In the heroku dashboard, click "Deploy" > "Manual Deployment" and make sure the master branch is selected, then click "Deploy Branch".
-11. The site is now successfully deployed.
-12. To find the link to your web page go to "Settings" > "Domains".
+8. Enable the web workers on Heroku.
+    * Go to "Resources" > under Free Dynos choose to edit your dynos - turn it on and confirm it.
+9. In the heroku dashboard, click "Deploy" > "Manual Deployment" and make sure the master branch is selected, then click "Deploy Branch".
+10. The site is now successfully deployed.
+11. To find the link to your web page go to "Settings" > "Domains".
 
 ### How to run this project locally
 
@@ -98,12 +104,12 @@ Optionally:
 
 **Clone this project from GitHub:**
 
-* Go to [Japan-Wanderlust](https://github.com/Itamichan/Japan-Wanderlust) GitHub repository.
+* Go to [vintage-earrings](https://github.com/Itamichan/vintage-earrings) GitHub repository.
 * Click on "Clone or download" green button.
 * Copy the URL to the repository.
 * Open the terminal in your local IDE.
 * Choose the working directory where you would like to have the cloned repository.
-* Type git clone, and add the URL you copied from Github: `git clone https://github.com/Itamichan/Japan-Wanderlust.git`
+* Type git clone, and add the URL you copied from Github: `git clone https://github.com/Itamichan/vintage-earrings.git`
 * Press Enter and your local clone will be created.
     * If you do not want to deploy the project to AWS and Heroku remove all the related files to this process.
 * Run `npm install` and `npm run` in order to run the project.
