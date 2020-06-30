@@ -8,6 +8,12 @@
       }
     }
 
+    .cart-plus {
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+
     .card-img {
       height: 8rem;
       //responsive product image
