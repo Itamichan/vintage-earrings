@@ -6,7 +6,6 @@ import {notify} from "react-notify-toast";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import "./AddressForm.scss";
-import ProductCard from "../Product/ProductCard";
 
 const AddressForm = ({executingCheckout, checkout, userId, userEmail}) => {
 //todo clean the dummy data
@@ -67,24 +66,44 @@ const AddressForm = ({executingCheckout, checkout, userId, userEmail}) => {
     const loadAddresses = async () => {
         if (userId) {
             try {
-                const {data} = await axios.get(`/api/v1/user/${userId}/addresses/`, {});
+                const {data} = await axios.get(`/api/v1/user/${userId}/all_addresses/`, {});
+                setAddresses(data.address_list);
 
-                setAddresses(data.address_list)
-
+                console.log('addresses_inside the function:', addresses)
             } catch {
             } finally {
-
             }
+        } else {
+            setStreetAddress([])
         }
     };
 
+    //check one time for the existing addressess after the rendering of the page.
+
     let addressList = addresses.map(address => {
         return (
-            <Col xs={"6"} md={"4"} xl={"3"} key={address.id}>
-                <AddressCard
-                    address={address}
-                />
-            </Col>
+            <div key={address.id}
+                 className={'material-frame address-instance'}
+            >
+                <div onClick={() => {
+                    setFirstName(address.first_name);
+                    setLastName(address.last_name);
+                    setStreetAddress(address.street);
+                    setAptNr(address.apt_nr);
+                    setPostalCode(address.zip_code);
+                    setCity(address.city);
+                    setCountry(address.country);
+
+                    setShowAddresses(false)
+                }}>
+                    <div>{` ${address.first_name} ${address.last_name}`}</div>
+                    <div>{address.street}</div>
+                    <div>{address.apt_nr}</div>
+                    <div>{address.zip_code}</div>
+                    <div>{address.city}</div>
+                    <div>{address.country}</div>
+                </div>
+            </div>
         )
     });
 
@@ -126,7 +145,8 @@ const AddressForm = ({executingCheckout, checkout, userId, userEmail}) => {
     };
 
     useEffect(() => {
-        retrieveLatestAddress(userId)
+        retrieveLatestAddress();
+        loadAddresses()
     }, [userId]);
 
 
@@ -138,15 +158,13 @@ const AddressForm = ({executingCheckout, checkout, userId, userEmail}) => {
                     </div>
                 ) :
                 (<Container>
-                    {addressList.length > 0 &&
-
+                    {(addresses.length > 0 && userId) &&
                     <Row>
                         <Col id={'choose-address-button'}>
                             <Button
                                 className={'action-button'}
                                 onClick={() => {
                                     setShowAddresses(true);
-                                    loadAddresses()
                                 }}
                             >
                                 Change Address
@@ -357,7 +375,9 @@ const AddressForm = ({executingCheckout, checkout, userId, userEmail}) => {
                     }}>
                     <div className={'text-header-standard'}>Choose an Address</div>
                 </ModalHeader>
-                <ModalBody id={'checkout-choice'}>
+                <ModalBody id={'address-container'}>
+
+                    {addressList}
 
                 </ModalBody>
             </Modal>}
