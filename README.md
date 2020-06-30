@@ -88,6 +88,7 @@ Both business and customer goals are addressed through user stories.
 #### User category: _The User_
 
 * As a user, I want to see all the available vintage earrings so that I can choose the ones I like.
+* As a user, I want to buy  the product that I added to the basket.
 * As a user, I want to see reviews of the products so that I know the opinion of people who already bought them.
 * As a user, I want to add items to the basket so that I can buy them.
 * As a user, I want to be able to contact customer support so that they can help me when something is not clear or went wrong.
@@ -187,7 +188,7 @@ Link to wireframes for desktop can be found [here](https://www.figma.com/file/57
 
 * **Timeouts** - for a robust user experience we should ad timeouts to all axios requests to avoid long page loads.
 * **Confirmation window** - when the user decides to delete an address.
-* **Improve page's loading speed**
+* **Improve page's loading speed - biggest problem being the images size for the mobile use.**
   
 ## Technologies Used
 
@@ -255,9 +256,9 @@ This project's front-end was entirely built in React, which as a result has a di
 * The project is divided in components.
     * As a rule each component directory will contain a JS file and a scss file which is related to it.
     * The most important components present in the project are:
-        * AttractionsContainer - which includes the most code related to the attractions and their filters.
-        * Navigation - which includes our navbar but also all the personal pages related to the user.
-        * TripBanner - is responsible for all the interaction of the user with the chosen Trip.
+        * Checkout - which is responsible for calling the stripe and rendering  the success or cancellation page.
+        * Basket - which represents the added products and where the user can update the number of the products or delete it entirely.
+        * ProductContainer - which represents all existing products and gives the possibility to search through them.
 * The final index.html is placed in the public folder and has only one root div. This div renders the App.js which represents our main JavaScript file.
 * The project uses "real" HTML in an limited amount. The most HTML alike code is written with JSX. 
 

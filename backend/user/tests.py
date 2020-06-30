@@ -1,7 +1,6 @@
 import json
-from django.contrib.auth.models import User
-from django.forms import model_to_dict
 
+from django.contrib.auth.models import User
 from django.test import TransactionTestCase
 
 from user.models import DeliveryAddress

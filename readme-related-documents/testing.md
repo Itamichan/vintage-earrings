@@ -27,43 +27,38 @@ Was used:
 * To assess the flow and intuitiveness of the content placement.
 * To see web page's performance in different browsers, such as Chrome, Firefox and Safari.
 
-Identified bugs:
-* The pagination component was returning the nr of pages rounded down which as a result made several attraction cards to not be shown - fixed.
-* The "Filter Menu" was moving to the right is the Attractions were "loading" - fixed.
+Some of the identified bugs:
+* If user logs out while being at the checkout step they still can see the private address information - fixed.
 * No timeouts are set during axios requests which makes impossible for the user to reach the point where they are informed that something went wrong - to be fixed in the next sprint.
+* The initial position of the Footer was wrong in relation to other components - fixed.
 
 ## User Stories
 
-As a test case we choose the user story which requires one of the most steps in order to be fulfilled.
+As a test case we choose the user story in which the user tries ti buy a product.
 
-* As a user, I want to see the available attractions in Japan so that I can choose which one I would like to save in my Trip.
+* As a user, I want to buy  the product that I added to the basket.
 * Taken steps:
-    * On the home page we can see all the available attractions.
-    * I try to save an attraction.
-    * Modal window says that I need to login or register.
-    * I create an account.
-    * I receive an welcome email.
-    * I am introducing my login credentials in the login form.
-    * I try to save an attraction.
-    * I am suggested to create a Trip since I do not have any.
-    * I create a Trip.
-    * I choose the Trip name from the suggested options.
-    * I see on the bottom of the page my current chose Trip.
-    * I try to save an attraction.
-    * I succeed!
+    * On the home page I click the "shop" button.
+    * I see different products and add several of the to my basket.
+    * I click on my basket to see the added products.
+    * I am happy with what I have in the basket and i click "Proceed to checkout".
+    * I am asked if I want to login or continue to the payment, I choose the latest.
+    * I am asked to provide the delivery address. After completion I click "Proceed to Payment".
+    * I am redirected to the payment page where I introduce my card information. I click "Pay".
+    * I am redirected to the success page.
+    * Yay!
 
 ## PageSpeed Insights
 
 **Identified Loading speed of the web page:**
-* On mobile - 72
-* On desktop - 92
+* On mobile - 31
+* On desktop - 85
 
 **Opportunities for improvement:**
-* Properly size images - considering that we will never need the images in big resolution we could reduce their size significantly - would save 11.19s.
-    * To be fixed in the next sprint.
+* Reduce initial server response time - would save 0.84s. - to be fixed in the next sprint.
+* Serve static assets with an efficient cache policy  -  to be fixed in the next sprint.
+* In case of the low speed on mobile, in the future we will implement react code splitting in order to load only the necessary data at a time. - to be fixed in the next sprint.
     
-## Travis Testing
+## Django Testing
 
-In our back-end we use travis to test our functions that run database queries. 
-These tests ensure that the code which doesn't pass the tests will not be pushed to GitHUb and as a result it will not deployed to Heroku.
-This kind of testing protects the live web page from potential bugs.
+In our back-end we use django test to test our views. Every application has at least a test in the corresponding test folder.

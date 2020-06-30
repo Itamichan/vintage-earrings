@@ -7,6 +7,9 @@
 * As a user, I want to see all the available vintage earrings so that I can choose the ones I like.
     * Complexity - 5
     * Value - 5
+* As a user, I want to buy  the product that I added to the basket.
+    * Complexity - 5
+    * Value - 5
 * As a user, I want to see reviews of the products so that I know the opinion of people who already bought them.
     * Complexity - 4
     * Value - 5
