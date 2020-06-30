@@ -119,7 +119,7 @@ const StartPage = ({history}) => {
                         <Col className={'text-default'} id={'about-us-text'}>
                             <div>
                                 <p>
-                                    VintageEarrings is a web shop is for those of you who are logging for the style of
+                                    VintageEarrings is a web shop is for those of you who are longing for the style of
                                     the past days.
                                     We try to find the most unique and special patterns and make them available to you
                                     at a

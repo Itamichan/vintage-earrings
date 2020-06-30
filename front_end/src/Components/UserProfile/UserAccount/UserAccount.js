@@ -7,7 +7,7 @@ import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import AddressForm from "../../AddressForm/AddressForm";
 
-const UserAccount = ({isUserLoggedIn, userId}) => {
+const UserAccount = ({isUserLoggedIn, userId, history}) => {
 
     const [addresses, setAddresses] = useState([]);
     const [showAddressForm, setShowAddressForm] = useState(false);
@@ -50,7 +50,7 @@ const UserAccount = ({isUserLoggedIn, userId}) => {
 
     //renders component only for logged in users
     if (!isUserLoggedIn) {
-        return null
+        history.push('/')
     }
     return (
         <div>

@@ -1,5 +1,4 @@
-import React, {useEffect, useState} from 'react';
-import "./Layout.scss";
+import React, {useEffect} from 'react';
 import Navigation from "../Navigation/Navigation";
 import Login from "../UserProfile/Login/Login";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
@@ -7,7 +6,6 @@ import axios from "axios";
 import {login, logout} from "../UserProfile/Login/redux/actions";
 import {connect} from "react-redux";
 import Notifications from 'react-notify-toast';
-import Spinner from "reactstrap/es/Spinner";
 import UserAccount from "../UserProfile/UserAccount/UserAccount";
 import StartPage from "../StartPage/StartPage";
 import ProductsContainer from "../Product/ProductsContainer";
