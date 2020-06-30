@@ -34,11 +34,6 @@ const ProductsContainer = ({basketItems}) => {
     };
 
 
-    //load Products one time after the first rendering
-    useEffect(() => {
-        loadProducts()
-    }, []);
-
     useEffect(() => {
         loadProducts()
     }, [productName]);
