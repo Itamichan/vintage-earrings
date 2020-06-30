@@ -88,8 +88,7 @@ class BasketItemsView(View):
         @apiSuccess {Integer}   photo.id                Photo's id.
         @apiSuccess {URL}       photo.photo_url         Photo's url.
 
-         @apiSuccessExample {json} Success-Response:
-        # todo add proper url examples
+        @apiSuccessExample {json} Success-Response:
         HTTP/1.1 200 OK
 
             {
@@ -106,7 +105,7 @@ class BasketItemsView(View):
                     [
                         {
                             'id': 1,
-                            'photo_url': 'photo a',
+                            'photo_url': 'https://vintage-earrings.s3.eu-north-1.amazonaws.com/static/media/earrings/1.1.jpg',
                             'product_id': 1
                         }
                     ]
@@ -241,11 +240,48 @@ class BasketItemsView(View):
         @apiSuccess {URL}       photo.photo_url         Photo's url.
 
          @apiSuccessExample {json} Success-Response:
-        # todo add proper url examples and JsonResponse dict
+
         HTTP/1.1 200 OK
 
             {
-             items: []
+             'items': [
+                {
+                    'id': 1,
+                    'items_quantity': 1,
+                    'product': {
+                        'description': 'product1.description',
+                        'id': 'product1.id',
+                        'name': 'product1.name',
+                        'photos': [
+                            {
+                                'id': photo1.id,
+                                'photo_url': 'https://vintage-earrings.s3.eu-north-1.amazonaws.com/static/media/earrings/1.1.jpg',
+                                'product_id': product1.id
+                            }
+                        ],
+                        'price': 'product1.price',
+                        'quantity': 'product1.quantity'
+                    }
+                },
+                {
+                    'id': 2,
+                    'items_quantity': 1,
+                    'product': {
+                        'description': 'product2.description',
+                        'id': 'product2.id',
+                        'name': 'product2.name',
+                        'photos': [
+                            {
+                                'id': 'photo2.id',
+                                'photo_url': 'https://vintage-earrings.s3.eu-north-1.amazonaws.com/static/media/earrings/1.1.jpg',
+                                'product_id': 'product2.id'
+                            }
+                        ],
+                        'price': 'product2.price',
+                        'quantity': 'product2.quantity'
+                    }
+                }
+            ]
             }
 
         @apiError (Bad Request 400)         {Object}    InvalidBasketId         Please provide a valid basket id.
@@ -344,7 +380,7 @@ class BasketCheckoutView(View):
         return super(BasketCheckoutView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request, basket_id):
-        # todo the proper documentation
+
         """
 
         @api {POST} /api/v1/baskets/<basket_id>/checkout Checkout Basket
@@ -410,7 +446,6 @@ class BasketCheckoutView(View):
                     )
 
                 # stripe payment
-
                 stripe.api_key = settings.STRIPE_API_KEY
 
                 stripe_response = stripe.checkout.Session.create(
@@ -444,7 +479,7 @@ class BasketPaymentVerifyView(View):
         return super(BasketPaymentVerifyView, self).dispatch(request, *args, **kwargs)
 
     def get(self, request, basket_id):
-        # todo the proper documentation
+
         """
         @api {GET} /api/v1/baskets/${basketId}/payment/verify Verify Payment
         @apiVersion 1.0.0

@@ -19,7 +19,6 @@ class UserContactView(View):
         return super(UserContactView, self).dispatch(request, *args, **kwargs)
 
     def post(self, request):
-        # todo documentation
         """
 
         @api {POST} api/v1/user/contact User Communication
@@ -30,11 +29,13 @@ class UserContactView(View):
 
         @apiDescription  The endpoint is responsible for receiving the emails sent by the users sent by the contact form.
 
-        @apiParam   {String{8..}}                password       The password provided by the user. Must be at least 8 characters long.
-        @apiParam   {String}                     email          The provided email by the user. Used as username.
+        @apiParam   {String}                    email       The email provided by  the user.
+        @apiParam   {String}                    name        The name provided by  the user.
+        @apiParam   {String}                    message     The message written by  the user.
+
         @apiSuccessExample {json} Success-Response:
         HTTP/1.1 200 OK
-        {}
+        { }
 
         @apiError (Bad Request 400)             {Object}        InvalidPassword             The password should have at least 8 characters and can contain any char except white space.
         @apiError (Bad Request 400)             {Object}        UnavailableUsername         The email already exists in the database.
@@ -215,17 +216,30 @@ class UserAllAddressesView(View):
 
         @apiSuccessExample {json} Success-Response:
         HTTP/1.1 200 OK
-        # todo put the correct example
+
         {
-            'address': {'apt_nr': 21,
-                        'city': 'Stockholm',
-                        'country': 'Sweden',
-                        'first_name': 'cristina',
-                        'id': 1,
-                        'last_name': 'garbuz',
-                        'street': 'street',
-                        'user': 1,
-                        'zip_code': 14}
+             'address_list': [
+                {
+                'apt_nr': 21,
+                'city': 'Stockholm',
+                'country': 'Sweden',
+                'first_name': 'cristina1',
+                'id': 1,
+                'last_name': 'garbuz',
+                'street': 'street',
+                'zip_code': 14
+                },
+                {
+                'apt_nr': 21,
+                 'city': 'Stockholm',
+                 'country': 'Sweden',
+                 'first_name': 'cristina2',
+                 'id': 2,
+                 'last_name': 'garbuz',
+                 'street': 'street',
+                 'zip_code': 14
+                 }
+            ]
         }
 
         @apiError (Bad Request 400)             {Object}        UserDoesNotExist        Please complete the fields for delivery address.

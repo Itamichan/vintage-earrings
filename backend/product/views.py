@@ -39,7 +39,7 @@ class ProductsView(View):
         @apiSuccess {URL}       photo.photo_url         Photo's url.
 
         @apiSuccessExample {json} Success-Response:
-        # todo add proper url examples
+
         HTTP/1.1 200 OK
         {
             'products': [
@@ -52,7 +52,7 @@ class ProductsView(View):
                     'photos': [
                         {
                             'id': 1,
-                            'photo_url': 'photo a',
+                            'photo_url': 'https://vintage-earrings.s3.eu-north-1.amazonaws.com/static/media/earrings/1.1.jpg',
                             'product_id': 1
                         }
                     ]
@@ -66,7 +66,7 @@ class ProductsView(View):
                     'photos': [
                         {
                             'id': 2,
-                            'photo_url': 'photo b',
+                            'photo_url': 'https://vintage-earrings.s3.eu-north-1.amazonaws.com/static/media/earrings/1.1.jpg',
                             'product_id': 2
                         }
                     ]
@@ -137,7 +137,7 @@ class LatestProductsView(View):
         @apiSuccess {URL}       photo.photo_url         Photo's url.
 
         @apiSuccessExample {json} Success-Response:
-        # todo add proper url examples
+
         HTTP/1.1 200 OK
         {
             'products': [
@@ -150,7 +150,7 @@ class LatestProductsView(View):
                     'photos': [
                         {
                             'id': 1,
-                            'photo_url': 'photo a',
+                            'photo_url': 'https://vintage-earrings.s3.eu-north-1.amazonaws.com/static/media/earrings/1.1.jpg',
                             'product_id': 1
                         }
                     ]
@@ -164,7 +164,7 @@ class LatestProductsView(View):
                     'photos': [
                         {
                             'id': 2,
-                            'photo_url': 'photo b',
+                            'photo_url': 'https://vintage-earrings.s3.eu-north-1.amazonaws.com/static/media/earrings/1.1.jpg',
                             'product_id': 2
                         }
                     ]
