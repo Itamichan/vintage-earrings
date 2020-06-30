@@ -26,10 +26,7 @@ const ProductCard = ({product, onShoppingCartClick, history}) => {
                     <CardTitle
                         className={"text-header-standard"}
                         onClick={() => history.push({
-                            pathname: `/products/product/${product.id}`,
-                            state: {
-                                product: product
-                            }
+                            pathname: `/products/product/${product.id}`
                         })}
                     >
                         {product.name}

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useLocation, useParams, withRouter} from "react-router";
 import {Button, Carousel, CarouselControl, CarouselIndicators, CarouselItem, Container} from 'reactstrap';
 import Row from "reactstrap/es/Row";
@@ -7,18 +7,33 @@ import './ProductItem.scss';
 import {addItem, updateItem} from "../Basket/basketOperations";
 import {connect} from "react-redux";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import axios from "axios";
 
 
 const ProductItem = ({basketItems, history}) => {
 
     const [activeIndex, setActiveIndex] = useState(0);
     const [animating, setAnimating] = useState(false);
-
-    //Accesses parameters passed to the component
-    let location = useLocation();
-    const product = location.state.product;
+    const [product, setProduct] = useState(undefined);
 
     const productId = useParams().productId;
+
+    useEffect(() => {
+        loadProduct()
+    }, []);
+
+    const loadProduct = async () => {
+        try {
+            const {data} = await axios.get('/api/v1/products/', {
+                params: {
+                    product_id: productId
+                }
+            });
+            setProduct(data.products[0])
+        } catch (e) {
+            console.log(e)
+        }
+    };
 
     //responsible for adding a new item to the basket or updating the quantity of an existing item.
     let manageItem = (productId) => {
@@ -51,6 +66,10 @@ const ProductItem = ({basketItems, history}) => {
         if (animating) return;
         setActiveIndex(newIndex);
     };
+
+    if (!product) {
+        return <div className={'start-point'} id={'load-screen'}> Loading</div>
+    }
 
     const photoList = product.photos.map(img => {
         return {
