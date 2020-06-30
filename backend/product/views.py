@@ -86,11 +86,10 @@ class ProductsView(View):
             product_qs = Product.objects.prefetch_related('productphoto_set').all()
 
             if product_name is not None:
-                product_qs = product_qs.filter(name__contains=product_name)
+                product_qs = product_qs.filter(name__icontains=product_name.lower())
 
             if product_id is not None:
                 product_qs = product_qs.filter(pk=product_id)
-
 
             product_list = []
 
