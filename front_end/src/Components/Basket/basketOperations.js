@@ -20,7 +20,8 @@ export const addItem = async (productId) => {
         'product_id': productId
     });
     //adds item to the basketItems in the BasketReducer.
-    store.dispatch(addToBasket(data))
+    store.dispatch(addToBasket(data));
+    notify.show('Product added!', "success", 1700);
 };
 
 export const updateItem = async (itemId, itemQuantity) => {
@@ -33,7 +34,7 @@ export const updateItem = async (itemId, itemQuantity) => {
             });
 
             //updates the quantity of the item in the BasketReducer
-            store.dispatch(updateBasket(itemId, itemQuantity))
+            store.dispatch(updateBasket(itemId, itemQuantity));
         } else {
             notify.show('You can have maximum 10 items of the same product', "error", 2000);
         }
