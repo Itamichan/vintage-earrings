@@ -119,13 +119,12 @@ Taking in consideration all the user stories, their importance and viability of 
 #### Colors
 
 Following colors have been used:
-* ![#dc3545](https://via.placeholder.com/15/dc3545/000000?text=+) `#dc3545`
-* ![#c53242](https://via.placeholder.com/15/c53242/000000?text=+) `#c53242`
-* ![#272727](https://via.placeholder.com/15/272727/000000?text=+) `#272727`
-* ![#908C8C](https://via.placeholder.com/15/908C8C/000000?text=+) `#908C8C`
+* ![#e0c53f](https://via.placeholder.com/15/e0c53f/000000?text=+) `#e0c53f`
+* ![#682D8A](https://via.placeholder.com/15/682D8A/000000?text=+) `#682D8A`
+* ![#FAF6F5](https://via.placeholder.com/15/FAF6F5/000000?text=+) `#FAF6F5`
 
 
-The black color and it's lighter variations was used for background coloring and creation of a contrast between the bright red and the calm black.
+The black color and it's lighter variations was used for background coloring.
 
 #### Font
 
@@ -161,41 +160,33 @@ Link to wireframes for desktop can be found [here](https://www.figma.com/file/57
 #### Elements present on every page
 
 * **Navigation bar** - Has a `fixed` position in order to ensure that the user can access it at any time.
-    * **JapanWanderlust** logo in the left corner which serves as a link to go back to the landing page.
+    * **VintageEarrings** logo in the left corner which serves as a link to go back to the landing page.
     * Links that can be accessed are placed on the right side.
 
 * **Footer**
-    * Provides the links which makes possible to contact JapanWanderlust as well as to see their Github account or LinkedIn.
+    * Provides the links which offer extra access to VintageEarrings's content as well as links to Social Media.
 
 #### Home page
 
-* **Attractions** - presents all available destinations in Japan. On the right side we have a "Filter menu" (which toggles on mobile) which allows to any user to filter the results based on:
-    * City
-    * Category - which includes: Shrine, Onsen, Temple, Park etc.
-    * Price - where the user can indicate a price limit as access fee to different attractions.
+* **Hero Banner** - sets the mood towards an exquisite web page and attracts user's attention to go directly to the shop.
+
+* **Latest Additions** - presents the latest products added to the shop. Serves as a first glimpse into what the shop can offer.
     
-* **User Trip Banner** - if the user is logged in they see the banner which allows to the user to start working on their "Trip".
-    * Dynamically shows the number of existing attraction in the trip.
-    * Provides the main details regarding their Trip.
-    * Allows to edit the Trip.
-    * User can click "Get an offer now!" button and they will receive an email with Travel Package suggestion.
-    
-* **User Trips** - every signed in user can see all their existing trips in one place. They can choose to add new trips there or delete existing.
-    * On selection of a trip the user will see the detailed information of the trip which they can choose to edit.
-    * In their trip they can see all the attractions they added. The can choose to see more information about the attraction or remove it.
+* **About VintageEarrings** - informs the user what is the web page about. The aim is to create a connection between VintageEarrings as a company and the potential customer..
 
 ### Features left to implement
 
-* **Travel Agency** - all the user stories related to the Travel Agencies would need to be implemented in future sprints.
-* **Email Offers** - after implementing the Travel Agency user stories we would be able to send real best matching travel suggestions to the users.
-* **Toggle TripBanner** - considering that it takes a lot of visual space it will be a good user experience to be able to minimise it if the user doesn't need it at the moment.
+* **Product Review** - The possibility for the register user to review and rate the products that they had purchased.
+* **User Reviews History** - The possibility for the user to see in one place all the reviews and ratings they had ever made.
+* **Orders History** - The possibility to see the previous bought products in order to have an easy way to find them again if the user wants to buy them again.
+* **User Account Personal Information** - The possibility for the logged user to see their personal information and update it if needed.
+* **Product Filters** - The possibility to filter the products based on different characteristics, such as color, shape, year etc.
 
 ### Features left to implement after testing
 
 * **Timeouts** - for a robust user experience we should ad timeouts to all axios requests to avoid long page loads.
-* **Confirmation window** - when the user decides to delete a Trip or Attraction.
-* **Heart icon on InfoCard** - currently the logged in user can not add an attraction to their trip from the InfoCard.
-* **Improve page's loading speed** - currently the speed on the mobile is ranked at 72.
+* **Confirmation window** - when the user decides to delete an address.
+* **Improve page's loading speed**
   
 ## Technologies Used
 
