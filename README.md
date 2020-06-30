@@ -189,6 +189,7 @@ Link to wireframes for desktop can be found [here](https://www.figma.com/file/57
 * **Timeouts** - for a robust user experience we should ad timeouts to all axios requests to avoid long page loads.
 * **Confirmation window** - when the user decides to delete an address.
 * **Improve page's loading speed - biggest problem being the images size for the mobile use.**
+* **Bind the basket to the user** - due to lack of time, at the moment the basket does not make difference between the logged and non logged user.
   
 ## Technologies Used
 
