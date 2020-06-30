@@ -95,14 +95,14 @@ const ProductItem = ({basketItems}) => {
                     <Col id={'product-main-info'} xs={12} md={4}>
                         <Row>
                             <Col xs={12}>
-                                <div>
+                                <div className={'text-header-standard'}>
                                     {product.name}
                                 </div>
                             </Col>
                         </Row>
                         <Row>
                             <Col xs={12}>
-                                <div>
+                                <div className={'text-highlight'}>
                                     {`${product.price} €`}
                                 </div>
                             </Col>
