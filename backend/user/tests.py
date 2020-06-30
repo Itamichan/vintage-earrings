@@ -136,3 +136,42 @@ class AddressRetrieveTest(TransactionTestCase):
                         'user': 1,
                         'zip_code': 14}
         })
+
+
+class GetAddressesTest(TransactionTestCase):
+    def test_retrieve_all_user_addresses(self):
+        """
+        tests that the address information is retrieved from the database.
+        """
+        self.maxDiff = None
+
+        user_email = 'cristina@gmail.com'
+        user = User.objects.create(username=user_email, email=user_email, password='password')
+
+        DeliveryAddress.objects.create(first_name='cristina1', last_name='garbuz',
+                                       street='street', apt_nr=21, user=user,
+                                       zip_code=14, city='Stockholm', country='Sweden')
+        DeliveryAddress.objects.create(first_name='cristina2', last_name='garbuz',
+                                       street='street', apt_nr=21, user=user,
+                                       zip_code=14, city='Stockholm', country='Sweden')
+
+        response = self.client.get(
+            path=f'/api/v1/user/{user.id}/all_addresses/')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertDictEqual(response.json(), {
+            'address_list': [{'apt_nr': 21,
+                              'city': 'Stockholm',
+                              'country': 'Sweden',
+                              'first_name': 'cristina1',
+                              'last_name': 'garbuz',
+                              'street': 'street',
+                              'zip_code': 14},
+                             {'apt_nr': 21,
+                              'city': 'Stockholm',
+                              'country': 'Sweden',
+                              'first_name': 'cristina2',
+                              'last_name': 'garbuz',
+                              'street': 'street',
+                              'zip_code': 14}]
+        })
