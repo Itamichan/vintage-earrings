@@ -16,7 +16,21 @@
   #choose-address-button {
     text-align: right;
   }
+}
 
-  #addresses-modal {
+#addresses-modal {
+  #address-container {
+    display: flex;
+    flex-flow: row wrap;
+    .address-instance {
+      flex-grow: 1;
+      padding: 1rem;
+      margin: 1rem;
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+      }
+    }
   }
 }
+
