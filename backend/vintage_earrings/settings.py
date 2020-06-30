@@ -32,6 +32,16 @@ HOST = os.environ.get('HOST', 'http://localhost:3000')
 
 STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY')
 
+SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
+
+# RabbitMQ URL
+
+CLOUDAMQP_URL = os.environ.get("CLOUDAMQP_URL")
+
+# VINTAGE_EARRINGS_INDEX_URL
+
+VINTAGE_EARRINGS_INDEX_URL = os.environ.get('VINTAGE_EARRINGS_INDEX_URL', 'http://localhost:3000')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -195,19 +205,3 @@ try:
     from .developer_settings import *
 except:
     pass
-
-# RabbitMQ URL
-
-CLOUDAMQP_URL = os.environ.get("CLOUDAMQP_URL",
-                               "amqp://admin:letdown-caged-spearfish-acrid-tweezers-when-rotting-below@localhost:5672/%2f")
-
-# VINTAGE_EARRINGS_INDEX_URL
-
-VINTAGE_EARRINGS_INDEX_URL = os.environ.get('VINTAGE_EARRINGS_INDEX_URL', 'http://localhost:3000')
-
-
-SENDGRID_API_KEY = SENDGRID_API_KEY_LOCAL
-
-if ENVIRONMENT != 'dev':
-    SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
-
