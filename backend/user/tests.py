@@ -164,6 +164,7 @@ class GetAddressesTest(TransactionTestCase):
                               'city': 'Stockholm',
                               'country': 'Sweden',
                               'first_name': 'cristina1',
+                              'id': 1,
                               'last_name': 'garbuz',
                               'street': 'street',
                               'zip_code': 14},
@@ -171,6 +172,7 @@ class GetAddressesTest(TransactionTestCase):
                               'city': 'Stockholm',
                               'country': 'Sweden',
                               'first_name': 'cristina2',
+                              'id': 2,
                               'last_name': 'garbuz',
                               'street': 'street',
                               'zip_code': 14}]

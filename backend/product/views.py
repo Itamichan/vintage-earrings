@@ -29,12 +29,12 @@ class ProductsView(View):
 
 
         @apiSuccess {Object[]}  products                List with products.
-        @apiSuccess {Integer}   products.id             Product's id.
-        @apiSuccess {String}    products.name           Product's name.
-        @apiSuccess {Text}      products.description    Product's description.
-        @apiSuccess {Integer}   products.price          Product's price per item.
-        @apiSuccess {Integer}   products.quantity       Total available products.
-        @apiSuccess {Object[]}  products.photo          Product's photo dictionary.
+        @apiSuccess {Integer}   product.id              Product's id.
+        @apiSuccess {String}    product.name            Product's name.
+        @apiSuccess {Text}      product.description     Product's description.
+        @apiSuccess {Integer}   product.price           Product's price per item.
+        @apiSuccess {Integer}   product.quantity        Total available products.
+        @apiSuccess {Object[]}  product.photo           Product's photo dictionary.
         @apiSuccess {Integer}   photo.id                Photo's id.
         @apiSuccess {URL}       photo.photo_url         Photo's url.
 
