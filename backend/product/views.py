@@ -80,13 +80,17 @@ class ProductsView(View):
         try:
 
             product_name = request.GET.get('product_name', None)
+            product_id = request.GET.get('product_id', None)
 
             # get a query set with all the products and prefetch the productphoto_set related to the products
+            product_qs = Product.objects.prefetch_related('productphoto_set').all()
 
             if product_name is not None:
-                product_qs = Product.objects.prefetch_related('productphoto_set').filter(name__contains=product_name)
-            else:
-                product_qs = Product.objects.prefetch_related('productphoto_set').all()
+                product_qs = product_qs.filter(name__contains=product_name)
+
+            if product_id is not None:
+                product_qs = product_qs.filter(pk=product_id)
+
 
             product_list = []
 
