@@ -62,3 +62,21 @@
     }
   }
 }
+
+.delete-confirmation-container {
+  min-height: 10rem;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+
+  .modal-question{
+    text-align: center;
+    padding-bottom: 2rem;
+  }
+
+  .buttons-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+  }
+}
