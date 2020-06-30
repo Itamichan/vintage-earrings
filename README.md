@@ -227,6 +227,7 @@ Link to wireframes for desktop can be found [here](https://www.figma.com/file/57
      * [stripe](https://stripe.com/) - used for the payment flow.
      * [django-storages](https://django-storages.readthedocs.io/en/latest/#) and [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) - for storing django static files.
      * [pika](https://pika.readthedocs.io/en/stable/) - python package that allowed to use [RabbitMQ](https://www.rabbitmq.com/)
+     * [sendgrid](https://sendgrid.com/) - used for sending emails to the user.
      
 * **Database**
     * [psycopg2](https://pypi.org/project/psycopg2/) - python library for PostgreSQL.
