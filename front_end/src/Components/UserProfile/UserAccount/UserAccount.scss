@@ -1,3 +1,5 @@
+@import "../../../global_scss/global_styles";
+
 #account-container {
   min-height: 70vh;
 
@@ -37,5 +39,12 @@
         color: darkred;
       }
     }
+  }
+}
+
+#addresses-create-modal {
+  .modal-body {
+    padding: 0;
+
   }
 }

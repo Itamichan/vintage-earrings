@@ -1,13 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {Button, Col, Container, Label, Row, Spinner} from "reactstrap";
-import {AvField, AvForm} from "availity-reactstrap-validation";
+import React, {useState} from 'react';
 import {withRouter} from "react-router";
 import axios from "axios";
 import {notify} from "react-notify-toast";
 import {loadStripe} from '@stripe/stripe-js';
-import "./Checkout.scss";
 import {connect} from "react-redux";
 import AddressForm from "../AddressForm/AddressForm";
+import "./Checkout.scss";
 
 const Checkout = ({userId, userEmail}) => {
 
@@ -44,7 +42,7 @@ const Checkout = ({userId, userEmail}) => {
     };
 
     return (
-        <section id={'checkout-section'}>
+        <section id={'checkout-section'}  className={'start-point'}>
             <AddressForm
                 checkout={(email) => checkout(email)}
                 executingCheckout={executingCheckout}

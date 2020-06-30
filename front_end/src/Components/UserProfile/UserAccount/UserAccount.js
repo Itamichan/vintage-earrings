@@ -2,13 +2,15 @@ import React, {useEffect, useState} from 'react';
 import "./UserAccount.scss";
 import {connect} from "react-redux";
 import {withRouter} from "react-router";
-import {Col, Container, Row} from "reactstrap";
+import {Col, Container, Modal, ModalBody, ModalHeader, Row} from "reactstrap";
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import AddressForm from "../../AddressForm/AddressForm";
 
 const UserAccount = ({isUserLoggedIn, userId}) => {
 
     const [addresses, setAddresses] = useState([]);
+    const [showAddressForm, setShowAddressForm] = useState(false);
 
     const loadAddresses = async () => {
         if (userId) {
@@ -51,26 +53,50 @@ const UserAccount = ({isUserLoggedIn, userId}) => {
         return null
     }
     return (
-        <Container id={'account-container'} className={"start-point"}>
-            <Row>
-                <Col className={'text-header-standard'}>
-                    <div> Your Addresses</div>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <div id={'add-address-container'} className={'material-frame text-highlight'}>
-                        <p>
-                            Add new Address
-                        </p>
-                        <FontAwesomeIcon size={"2x"} icon="plus"/>
-                    </div>
-                </Col>
-                <Col xs={12} id={'address-container'}>
-                    {addressList}
-                </Col>
-            </Row>
-        </Container>
+        <div>
+            <Container id={'account-container'} className={"start-point"}>
+                <Row>
+                    <Col className={'text-header-standard'}>
+                        <div> Your Addresses</div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <div id={'add-address-container'} className={'material-frame text-highlight'}
+                             onClick={() => setShowAddressForm(true)}
+                        >
+                            <p>
+                                Add new Address
+                            </p>
+                            <FontAwesomeIcon size={"2x"} icon="plus"/>
+                        </div>
+                    </Col>
+                    <Col xs={12} id={'address-container'}>
+                        {addressList}
+                    </Col>
+                </Row>
+            </Container>
+            {showAddressForm &&
+            <Modal isOpen={showAddressForm}
+                   centered={true}
+                   size={'lg'}
+                   id={'addresses-create-modal'}
+            >
+                <ModalHeader
+                    toggle={() => {
+                        setShowAddressForm(false)
+                    }}>
+                    <div className={'text-header-standard'}>Choose an Address</div>
+                </ModalHeader>
+                <ModalBody id={'address-container'}>
+                    <AddressForm
+                        hideAddressForm={() => setShowAddressForm(false)}
+                        updateShownAddresses={() => loadAddresses()}
+                    />
+                </ModalBody>
+            </Modal>
+            }
+        </div>
     )
 };
 

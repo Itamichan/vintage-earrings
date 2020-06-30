@@ -7,8 +7,8 @@ import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import "./AddressForm.scss";
 
-const AddressForm = ({executingCheckout, checkout, userId, userEmail}) => {
-//todo clean the dummy data
+const AddressForm = ({executingCheckout, checkout, userId, userEmail, hideAddressForm, updateShownAddresses}) => {
+
     const [email, setEmail] = useState('');
     const [confirmEmail, setConfirmEmail] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -145,20 +145,25 @@ const AddressForm = ({executingCheckout, checkout, userId, userEmail}) => {
     };
 
     useEffect(() => {
-        retrieveLatestAddress();
-        loadAddresses()
+        if (checkout) {
+            retrieveLatestAddress();
+            loadAddresses()
+        }
+        if (!checkout) {
+            setLoading(false)
+        }
     }, [userId]);
 
 
     return (
-        <section id={'address-section'} className={'start-point'}>
+        <section id={'address-section'}>
             {loading && userId ? (
                     <div id={'spinner'}>
                         <Spinner color="secondary"/>
                     </div>
                 ) :
                 (<Container>
-                    {(addresses.length > 0 && userId) &&
+                    {(addresses.length > 0 && userId && checkout) &&
                     <Row>
                         <Col id={'choose-address-button'}>
                             <Button
@@ -185,6 +190,10 @@ const AddressForm = ({executingCheckout, checkout, userId, userEmail}) => {
                                 storeAddress();
                                 if (checkout) {
                                     checkout(email)
+                                }
+                                if(!checkout) {
+                                    updateShownAddresses();
+                                    hideAddressForm();
                                 }
                             }}>
                                 <Row>
